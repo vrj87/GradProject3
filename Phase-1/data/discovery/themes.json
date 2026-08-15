@@ -1,7 +1,7 @@
 [
   {
-    "id": "fit-and-size-uncertainty",
-    "label": "FitAndSizeUncertainty",
+    "id": "fit-size-anxiety",
+    "label": "FitSizeAnxiety",
     "summary": "Customers are uncertain about the fit and size of products, leading to difficulties with purchasing decisions.",
     "researchQuestionIds": [
       2,
@@ -42,19 +42,26 @@
       }
     ],
     "estimatedFrequency": 0.379,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
+    "impactOnW2P": "high",
+    "nonMonetaryFeasibility": "high",
     "confidence": "medium",
-    "actionableInsight": "Provide more detailed size and fit information, including measurements and customer reviews, to help customers make informed purchasing decisions."
+    "actionableInsight": "Provide more detailed size and fit information, including measurements and customer reviews, to help customers make informed purchasing decisions.",
+    "mergedFrom": [
+      "fit-and-size-uncertainty",
+      "size-fit-uncertainty"
+    ]
   },
   {
-    "id": "price-and-value-uncertainty",
-    "label": "PriceAndValueUncertainty",
-    "summary": "Users are uncertain about the price and value of the products they wish to purchase.",
+    "id": "sale-waitlist",
+    "label": "WishlistAsSaleWaitlist",
+    "summary": "Users are waiting for a sale or discount before making a purchase, using the wishlist as a means to save items for later.",
     "researchQuestionIds": [
       2,
       4,
-      7
+      7,
+      10,
+      1,
+      8
     ],
     "barrierType": "price",
     "metricNode": "decide",
@@ -80,22 +87,35 @@
         "reviewId": "appstore-us-2-14062730333",
         "source": "app_store",
         "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
+      },
+      {
+        "text": "My Myntra wishlist is basically my EOSS shopping list. I save everything now and wait for the sale to actually buy.",
+        "reviewId": "fix-sale-01",
+        "source": "reddit",
+        "url": "https://www.reddit.com/r/myntra/comments/fixture-sale-01"
       }
     ],
     "estimatedFrequency": 0.212,
     "impactOnW2P": "medium",
     "nonMonetaryFeasibility": "medium",
     "confidence": "medium",
-    "actionableInsight": "Offer transparent pricing, including all extra charges, to build trust with customers."
+    "actionableInsight": "Segment sale-waiters separately; do not use discounts as the intervention — quantify how often price timing exceeds 30 days.",
+    "mergedFrom": [
+      "price-and-value-uncertainty",
+      "sale-waiting",
+      "price-timing"
+    ]
   },
   {
-    "id": "return-and-exchange-uncertainty",
-    "label": "ReturnAndExchangeUncertainty",
-    "summary": "Users are uncertain about the return and exchange process for products they wish to purchase.",
+    "id": "return-fear",
+    "label": "ReturnFearDelay",
+    "summary": "Customers are experiencing difficulties with returning and refunding products, including canceled returns and unresponsive customer support.",
     "researchQuestionIds": [
       2,
       6,
-      7
+      7,
+      4,
+      3
     ],
     "barrierType": "other",
     "metricNode": "resolve",
@@ -105,13 +125,13 @@
     ],
     "quotes": [
       {
-        "text": "Amazing!!!! Greatest part is that it has the smoothest return/exchange system no hassle.",
+        "text": "AS. Amazing!!!! Greatest part is that it has the smoothest return/exchange system no hassle.",
         "reviewId": "appstore-in-3-14422301795",
         "source": "app_store",
         "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
       },
       {
-        "text": "Wrong Products, Denied Returns, Poor Support. I had a very disappointing experience w",
+        "text": "Wrong Products, Denied Returns, Poor Support. I had a very disappointing experience with Myntra customer support. They were unable to properly investigate or resolve my issue. I have faced problems with two different orders from the seller Livewear, where the wrong products were ",
         "reviewId": "appstore-us-1-14358255468",
         "source": "app_store",
         "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
@@ -121,13 +141,23 @@
         "reviewId": "appstore-us-1-14329308513",
         "source": "app_store",
         "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
+      },
+      {
+        "text": "return keeps getting canceled due to \"internal matters.\" tried calling the customer care, and yo",
+        "reviewId": "playstore-4123eccb-08bb-4b57-a2a7-b996ed942d1f",
+        "source": "play_store",
+        "url": "https://play.google.com/store/apps/details?id=com.myntra.android&reviewId=4123eccb-08bb-4b57-a2a7-b996ed942d1f&hl=en_IN"
       }
     ],
-    "estimatedFrequency": 0.076,
+    "estimatedFrequency": 0.455,
     "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
+    "nonMonetaryFeasibility": "high",
     "confidence": "medium",
-    "actionableInsight": "Streamline the return and exchange process to reduce uncertainty and increase customer satisfaction."
+    "actionableInsight": "Streamline the return and refund process, including providing clear instructions and responsive customer support, to reduce customer frustration and improve overall satisfaction.",
+    "mergedFrom": [
+      "return-and-exchange-uncertainty",
+      "return-and-refund-issues"
+    ]
   },
   {
     "id": "poor-customer-support",
@@ -170,131 +200,14 @@
     "actionableInsight": "Improve customer support by providing more helpful representatives, reducing wait times, and implementing a more efficient issue resolution process."
   },
   {
-    "id": "return-and-refund-issues",
-    "label": "ReturnAndRefundIssues",
-    "summary": "Customers are experiencing difficulties with returning and refunding products, including canceled returns and unresponsive customer support.",
-    "researchQuestionIds": [
-      2,
-      4
-    ],
-    "barrierType": "other",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S2",
-      "S3"
-    ],
-    "quotes": [
-      {
-        "text": "return keeps getting canceled due to \"internal matters.\" tried calling the customer care, and yo",
-        "reviewId": "playstore-4123eccb-08bb-4b57-a2a7-b996ed942d1f",
-        "source": "play_store",
-        "url": "https://play.google.com/store/apps/details?id=com.myntra.android&reviewId=4123eccb-08bb-4b57-a2a7-b996ed942d1f&hl=en_IN"
-      },
-      {
-        "text": "I tried to return item on the same day it got delivered. The delivery person never arrived. The",
-        "reviewId": "appstore-gb-3-12815251591",
-        "source": "app_store",
-        "url": "https://apps.apple.com/gb/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "providing wrong products after that they are not preparing any return...even though they have return policy",
-        "reviewId": "playstore-acdb5e54-c751-488a-9cca-9740b7146ef7",
-        "source": "play_store",
-        "url": "https://play.google.com/store/apps/details?id=com.myntra.android&reviewId=acdb5e54-c751-488a-9cca-9740b7146ef7&hl=en_IN"
-      }
-    ],
-    "estimatedFrequency": 0.061,
-    "impactOnW2P": "low",
-    "nonMonetaryFeasibility": "medium",
-    "confidence": "medium",
-    "actionableInsight": "Streamline the return and refund process, including providing clear instructions and responsive customer support, to reduce customer frustration and improve overall satisfaction."
-  },
-  {
-    "id": "size-fit-uncertainty",
-    "label": "SizeFitUncertainty",
-    "summary": "Users are uncertain about the size and fit of the product, leading to hesitation in making a purchase.",
+    "id": "styling-occasion",
+    "label": "StylingOccasionMismatch",
+    "summary": "Users are uncertain about the fit and style of the product and seek external validation or try-on hauls before making a purchase.",
     "researchQuestionIds": [
       3,
-      7
-    ],
-    "barrierType": "fit",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S2",
-      "S4"
-    ],
-    "quotes": [
-      {
-        "text": "Loved this kurta set enough to wishlist it, but I still cannot tell if the size will fit me. The size chart and reviews contradict each other.",
-        "reviewId": "fix-fit-01",
-        "source": "fixture",
-        "url": "https://example.com/fixture/fit-01"
-      },
-      {
-        "text": "I keep opening the size chart for the same dress on my wishlist. Reviews say it runs small and I am scared to order the wrong size.",
-        "reviewId": "fix-fit-02",
-        "source": "reddit",
-        "url": "https://www.reddit.com/r/myntra/comments/fixture-fit-02"
-      },
-      {
-        "text": "The sneakers look perfect but brand sizing is all over the place. Wishlisted two sizes because I do not know which will fit.",
-        "reviewId": "fix-fit-03",
-        "source": "app_store",
-        "url": null
-      }
-    ],
-    "estimatedFrequency": 0.379,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "high",
-    "confidence": "medium",
-    "actionableInsight": "Provide detailed size charts, consider offering free returns or exchanges to alleviate size and fit concerns."
-  },
-  {
-    "id": "sale-waiting",
-    "label": "SaleWaiting",
-    "summary": "Users are waiting for a sale or discount before making a purchase, using the wishlist as a means to save items for later.",
-    "researchQuestionIds": [
-      4,
+      7,
+      6,
       10
-    ],
-    "barrierType": "price",
-    "metricNode": "decide",
-    "segmentHints": [
-      "S3"
-    ],
-    "quotes": [
-      {
-        "text": "My Myntra wishlist is basically my EOSS shopping list. I save everything now and wait for the sale to actually buy.",
-        "reviewId": "fix-sale-01",
-        "source": "reddit",
-        "url": "https://www.reddit.com/r/myntra/comments/fixture-sale-01"
-      },
-      {
-        "text": "I will buy this jacket from my wishlist during BFF. No point paying full price when the sale is around the corner.",
-        "reviewId": "fix-sale-02",
-        "source": "youtube",
-        "url": "https://youtube.com/watch?v=fixture-sale"
-      },
-      {
-        "text": "Saved twenty items for the next End of Season Sale. That is what the wishlist is for.",
-        "reviewId": "fix-sale-03",
-        "source": "fixture",
-        "url": null
-      }
-    ],
-    "estimatedFrequency": 0.121,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "confidence": "medium",
-    "actionableInsight": "Consider offering personalized promotions or early access to sales for wishlist items to encourage purchases."
-  },
-  {
-    "id": "style-occasion-uncertainty",
-    "label": "StyleOccasionUncertainty",
-    "summary": "Users are uncertain about the style or occasion for which the product is suitable, leading to hesitation in making a purchase.",
-    "researchQuestionIds": [
-      3,
-      7
     ],
     "barrierType": "style",
     "metricNode": "resolve",
@@ -312,29 +225,40 @@
       {
         "text": "Need styling help. The festive set is pretty but I cannot figure out what to pair it with, so I just keep it saved.",
         "reviewId": "fix-style-02",
-        "source": "reddit",
-        "url": null
+        "source": "reddit"
       },
       {
         "text": "Wishlisted a formal shirt for a first day at work and still unsure if the occasion fit is right.",
         "reviewId": "fix-style-03",
         "source": "myntra_review",
         "url": null
+      },
+      {
+        "text": "I always check YouTube try-on hauls before buying anything I wishlisted on Myntra. In-app reviews feel too generic.",
+        "reviewId": "fix-trust-01",
+        "source": "youtube",
+        "url": "https://youtube.com/watch?v=fixture-trust"
       }
     ],
-    "estimatedFrequency": 0.091,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "confidence": "medium",
-    "actionableInsight": "Provide styling advice, occasion-based recommendations, or user-generated content to help users visualize the product in different contexts."
+    "estimatedFrequency": 0.136,
+    "impactOnW2P": "high",
+    "nonMonetaryFeasibility": "high",
+    "confidence": "high",
+    "actionableInsight": "Provide styling advice, occasion-based recommendations, or user-generated content to help users visualize the product in different contexts.",
+    "mergedFrom": [
+      "style-occasion-uncertainty",
+      "fit-style-uncertainty"
+    ]
   },
   {
-    "id": "compare-and-decide",
-    "label": "CompareAndDecide",
+    "id": "comparison-paralysis",
+    "label": "ComparisonParalysis",
     "summary": "Users are having difficulty comparing similar products and making a decision, leading to hesitation in making a purchase.",
     "researchQuestionIds": [
       5,
-      9
+      9,
+      2,
+      10
     ],
     "barrierType": "compare",
     "metricNode": "decide",
@@ -360,13 +284,22 @@
         "reviewId": "fix-compare-03",
         "source": "quora",
         "url": "https://www.quora.com/fixture-compare"
+      },
+      {
+        "text": "Best shipping app. Shopping app like no other. Absolutely seamless intuitive not just for shopping but also for reviews, returns and similar options. Highly recommended!",
+        "reviewId": "appstore-in-1-14425636994",
+        "source": "app_store",
+        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
       }
     ],
-    "estimatedFrequency": 0.076,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
+    "estimatedFrequency": 0.136,
+    "impactOnW2P": "high",
+    "nonMonetaryFeasibility": "high",
     "confidence": "medium",
-    "actionableInsight": "Improve compare features, provide more detailed product information, and consider offering personalized recommendations to help users make a decision."
+    "actionableInsight": "Improve compare features, provide more detailed product information, and consider offering personalized recommendations to help users make a decision.",
+    "mergedFrom": [
+      "compare-and-decide"
+    ]
   },
   {
     "id": "social-validation",
@@ -415,47 +348,6 @@
     "actionableInsight": "Integrate social proof and user-generated content into the product page to increase confidence in purchasing decisions."
   },
   {
-    "id": "fit-style-uncertainty",
-    "label": "FitStyleUncertainty",
-    "summary": "Users are uncertain about the fit and style of the product and seek external validation or try-on hauls before making a purchase.",
-    "researchQuestionIds": [
-      3,
-      6,
-      7
-    ],
-    "barrierType": "style",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S2",
-      "S4"
-    ],
-    "quotes": [
-      {
-        "text": "I always check YouTube try-on hauls before buying anything I wishlisted on Myntra. In-app reviews feel too generic.",
-        "reviewId": "fix-trust-01",
-        "source": "youtube",
-        "url": "https://youtube.com/watch?v=fixture-trust"
-      },
-      {
-        "text": "Checked Instagram try on videos for the same dress I saved. Still not confident from the product page reviews.",
-        "reviewId": "fix-trust-02",
-        "source": "reddit",
-        "url": null
-      },
-      {
-        "text": "I leave the app and search reviews on YouTube every time I am close to buying from my wishlist.",
-        "reviewId": "fix-trust-03",
-        "source": "app_store",
-        "url": null
-      }
-    ],
-    "estimatedFrequency": 0.136,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "high",
-    "confidence": "high",
-    "actionableInsight": "Integrate fit and style guides, and user-generated content to increase confidence in purchasing decisions."
-  },
-  {
     "id": "wishlist-decay",
     "label": "WishlistDecay",
     "summary": "Users forget about their wishlist items over time and need reminders or notifications to reconsider their purchases.",
@@ -494,46 +386,6 @@
     "nonMonetaryFeasibility": "medium",
     "confidence": "medium",
     "actionableInsight": "Implement regular reminders and personalized notifications to re-engage users with their wishlist items."
-  },
-  {
-    "id": "sale-waitlist",
-    "label": "WishlistAsSaleWaitlist",
-    "summary": "Users treat the wishlist as a list to buy during EOSS or BFF.",
-    "researchQuestionIds": [
-      1,
-      4,
-      8
-    ],
-    "barrierType": "price",
-    "metricNode": "revisit",
-    "segmentHints": [
-      "S3"
-    ],
-    "quotes": [
-      {
-        "text": "No more authentic. Myntra has become a cheap store sale platform, weird sizes, bad material quality, missing items and no proper customer support. It has become really disappointing.",
-        "reviewId": "appstore-in-1-14425352751",
-        "source": "app_store",
-        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "My Myntra wishlist is basically my EOSS shopping list. I save everything now and wait for the sale to actually buy.",
-        "reviewId": "fix-sale-01",
-        "source": "reddit",
-        "url": "https://www.reddit.com/r/myntra/comments/fixture-sale-01"
-      },
-      {
-        "text": "I will buy this jacket from my wishlist during BFF. No point paying full price when the sale is around the corner.",
-        "reviewId": "fix-sale-02",
-        "source": "youtube",
-        "url": "https://youtube.com/watch?v=fixture-sale"
-      }
-    ],
-    "estimatedFrequency": 0.121,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "low",
-    "confidence": "medium",
-    "actionableInsight": "Segment sale-waiters separately; do not use discounts as the intervention — quantify how often price timing exceeds 30 days."
   },
   {
     "id": "bookmark-vs-intent",
@@ -575,126 +427,6 @@
     "actionableInsight": "Separate bookmark language from still-planning-to-buy language so W2P is not diluted by low-intent saves."
   },
   {
-    "id": "fit-size-anxiety",
-    "label": "FitSizeAnxiety",
-    "summary": "Users stall on wishlisted items because they cannot tell if the size will fit.",
-    "researchQuestionIds": [
-      2,
-      3,
-      7
-    ],
-    "barrierType": "fit",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S2"
-    ],
-    "quotes": [
-      {
-        "text": "Very good service. More than the items bought Myntras service of sending items on time, collecting items that don’t fit well and processing refunds is seamless and very efficient",
-        "reviewId": "appstore-in-1-14425728523",
-        "source": "app_store",
-        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Excellent Quality & Fit. Good quality fabric and comfortable to wear. The fitting is perfect and the product looks exactly like the pictures. Worth buying.” 👍",
-        "reviewId": "appstore-in-2-14424069474",
-        "source": "app_store",
-        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Larah Borosil pudding set. Best product with perfect size quantity",
-        "reviewId": "appstore-in-3-14422586987",
-        "source": "app_store",
-        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      }
-    ],
-    "estimatedFrequency": 0.348,
-    "impactOnW2P": "high",
-    "nonMonetaryFeasibility": "high",
-    "confidence": "medium",
-    "actionableInsight": "Synthesize size and body-type review patterns so shoppers can resolve fit doubt without leaving the wishlist."
-  },
-  {
-    "id": "styling-occasion",
-    "label": "StylingOccasionMismatch",
-    "summary": "Users like an item but are unsure when to wear it or what to pair it with.",
-    "researchQuestionIds": [
-      3,
-      7,
-      10
-    ],
-    "barrierType": "style",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S1",
-      "S2"
-    ],
-    "quotes": [
-      {
-        "text": "Perfect fit. Bought for my mother and she loved the colour and the saree material. The colour is absolutely amazing (teal) and special occasion wear.",
-        "reviewId": "appstore-gb-1-13869948686",
-        "source": "app_store",
-        "url": "https://apps.apple.com/gb/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "I like this dress but I do not know what occasion I would wear it to. Wedding guest? Office party? It is stuck on my wishlist.",
-        "reviewId": "fix-style-01",
-        "source": "forum",
-        "url": "https://example.com/forum/style-01"
-      },
-      {
-        "text": "Need styling help. The festive set is pretty but I cannot figure out what to pair it with, so I just keep it saved.",
-        "reviewId": "fix-style-02",
-        "source": "reddit"
-      }
-    ],
-    "estimatedFrequency": 0.106,
-    "impactOnW2P": "high",
-    "nonMonetaryFeasibility": "high",
-    "confidence": "medium",
-    "actionableInsight": "Surface occasion fit and pairing notes from reviews so users can decide if the save matches a real event."
-  },
-  {
-    "id": "comparison-paralysis",
-    "label": "ComparisonParalysis",
-    "summary": "Users save many similar items and cannot narrow to one choice.",
-    "researchQuestionIds": [
-      5,
-      2,
-      10
-    ],
-    "barrierType": "compare",
-    "metricNode": "decide",
-    "segmentHints": [
-      "S4"
-    ],
-    "quotes": [
-      {
-        "text": "Best shipping app. Shopping app like no other. Absolutely seamless intuitive not just for shopping but also for reviews, returns and similar options. Highly recommended!",
-        "reviewId": "appstore-in-1-14425636994",
-        "source": "app_store",
-        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Nice Indian merchandise Shopping App. Nice Indian Merchandise Shopping App with highest availability of options if you like online purchase with good return options within a week",
-        "reviewId": "appstore-us-1-14355232375",
-        "source": "app_store",
-        "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Too many extra charges. For the return every thing extra do like the app these days",
-        "reviewId": "appstore-us-1-14334814701",
-        "source": "app_store",
-        "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      }
-    ],
-    "estimatedFrequency": 0.136,
-    "impactOnW2P": "high",
-    "nonMonetaryFeasibility": "high",
-    "confidence": "medium",
-    "actionableInsight": "Help users compare 2–3 same-category wishlist items on fit and review themes instead of adding more alternatives."
-  },
-  {
     "id": "review-trust-gap",
     "label": "ReviewTrustGap",
     "summary": "Users leave Myntra to check YouTube or Instagram try-ons before buying.",
@@ -731,83 +463,5 @@
     "nonMonetaryFeasibility": "medium",
     "confidence": "medium",
     "actionableInsight": "Bring synthesized try-on and review evidence into the wishlist so users do not have to leave the app."
-  },
-  {
-    "id": "price-timing",
-    "label": "PriceTiming",
-    "summary": "Users postpone because the current price feels too high, independent of fit.",
-    "researchQuestionIds": [
-      2,
-      4,
-      7
-    ],
-    "barrierType": "price",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S3"
-    ],
-    "quotes": [
-      {
-        "text": "Anonymous. This is by far one of the worst shopping experiences I have ever had. The app is completely unprofessional, customer service is useless, and the overall quality is extremely poor. They misguided me about the delivery timeline, and due to my visa delay, I was unable to ",
-        "reviewId": "appstore-gb-2-13508351477",
-        "source": "app_store",
-        "url": "https://apps.apple.com/gb/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Wishlisted a jacket that feels overpriced. Fit is fine, I am just not paying this much right now.",
-        "reviewId": "fix-price-02",
-        "source": "myntra_review"
-      },
-      {
-        "text": "Not worth it at current MRP. I saved it and I will wait for price, even if I already know my size.",
-        "reviewId": "fix-price-03",
-        "source": "forum"
-      }
-    ],
-    "estimatedFrequency": 0.152,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "low",
-    "confidence": "medium",
-    "actionableInsight": "Quantify price-timing separately from fit blockers; do not treat incentive alerts as the solution."
-  },
-  {
-    "id": "return-fear",
-    "label": "ReturnFearDelay",
-    "summary": "Easy returns lower risk but users still delay ordering from the wishlist.",
-    "researchQuestionIds": [
-      2,
-      4,
-      3
-    ],
-    "barrierType": "fit",
-    "metricNode": "resolve",
-    "segmentHints": [
-      "S2"
-    ],
-    "quotes": [
-      {
-        "text": "AS. Amazing!!!! Greatest part is that it has the smoothest return/exchange system no hassle.",
-        "reviewId": "appstore-in-3-14422301795",
-        "source": "app_store",
-        "url": "https://apps.apple.com/in/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Always best 👍🏼. Products, collections, quality, delivery and return best in all … amazing service. Best app for shopping.",
-        "reviewId": "appstore-us-1-14390274408",
-        "source": "app_store",
-        "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      },
-      {
-        "text": "Wrong Products, Denied Returns, Poor Support. I had a very disappointing experience with Myntra customer support. They were unable to properly investigate or resolve my issue. I have faced problems with two different orders from the seller Livewear, where the wrong products were ",
-        "reviewId": "appstore-us-1-14358255468",
-        "source": "app_store",
-        "url": "https://apps.apple.com/us/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
-      }
-    ],
-    "estimatedFrequency": 0.455,
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "high",
-    "confidence": "medium",
-    "actionableInsight": "Use return-reason patterns to raise pre-purchase confidence so try-and-buy is not the only decision strategy."
   }
 ]

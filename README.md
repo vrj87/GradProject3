@@ -1,23 +1,35 @@
 # GradProject3
 
-Myntra Wishlist-to-Purchase (W2P 30d) graduation project — AI-powered discovery engine plus a Myntra-themed demo storefront.
+Myntra Wishlist-to-Purchase (W2P 30d) — AI discovery engine (Phase 1) and opportunity ranking (Phase 2).
 
-## Quick start
+## Reviewer demo (~60s)
 
 ```bash
 cd Phase-1
 npm install
+npm run 1c          # or npm run collapse if artefacts already exist
 npm run dev
 ```
 
-Open [http://localhost:3000/](http://localhost:3000/) for the storefront. Use `/studio` for live scrape insights and data download.
+Then from the repo root:
+
+```bash
+npm run phase2:rank
+```
+
+Open [http://localhost:3000/studio](http://localhost:3000/studio):
+
+1. **Live voices** — public App Store / Play Store comments  
+2. **Shopper stories** — ranked themes + quotes  
+3. **Q1–Q10** — research-question coverage (gap or linked themes)  
+4. **What to focus on** — Phase 2 nomination (no guessed scores)
 
 ## Structure
 
 | Path | Description |
 |------|-------------|
-| `Phase-1/` | Discovery pipeline (1a–1d), storefront app, scrape artefacts |
-| `phase-2/` | Metric matrix and opportunity nomination |
+| `Phase-1/` | **Canonical** discovery engine (1a–1d), storefront, artefacts |
+| `phase-2/` | Metric tree + filled matrix + interview nomination |
 | `docs/` | Architecture, problem statement, edge cases |
 
 ## Root scripts

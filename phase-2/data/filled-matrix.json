@@ -2,15 +2,12 @@
   {
     "opportunityArea": "Fit & size confidence synthesis",
     "themeId": "fit-size-anxiety",
-    "supportingThemeIds": [
-      "size-fit-uncertainty",
-      "fit-and-size-uncertainty"
-    ],
+    "supportingThemeIds": [],
     "impactOnW2P": "high",
     "feasibility": "high",
     "evidenceStrength": "medium",
-    "frequency": 0.348,
-    "score": 0.87,
+    "frequency": 0.379,
+    "score": 0.876,
     "metricNode": "resolve",
     "rank": 1,
     "status": "filled",
@@ -19,33 +16,28 @@
   {
     "opportunityArea": "Styling / occasion guidance",
     "themeId": "styling-occasion",
-    "supportingThemeIds": [
-      "fit-style-uncertainty",
-      "style-occasion-uncertainty"
-    ],
+    "supportingThemeIds": [],
     "impactOnW2P": "high",
     "feasibility": "high",
-    "evidenceStrength": "medium",
-    "frequency": 0.106,
-    "score": 0.821,
+    "evidenceStrength": "high",
+    "frequency": 0.136,
+    "score": 0.827,
     "metricNode": "resolve",
-    "rank": 3,
+    "rank": 2,
     "status": "filled",
     "matchReason": "Exact theme id styling-occasion"
   },
   {
     "opportunityArea": "Wishlist compare & prioritization",
     "themeId": "comparison-paralysis",
-    "supportingThemeIds": [
-      "compare-and-decide"
-    ],
+    "supportingThemeIds": [],
     "impactOnW2P": "high",
     "feasibility": "high",
     "evidenceStrength": "medium",
     "frequency": 0.136,
     "score": 0.827,
     "metricNode": "decide",
-    "rank": 2,
+    "rank": 3,
     "status": "filled",
     "matchReason": "Exact theme id comparison-paralysis"
   },
@@ -59,7 +51,7 @@
     "frequency": 0.045,
     "score": 0.649,
     "metricNode": "resolve",
-    "rank": 7,
+    "rank": 5,
     "status": "filled",
     "matchReason": "Exact theme id review-trust-gap"
   },
@@ -73,7 +65,7 @@
     "frequency": 0.121,
     "score": 0.504,
     "metricNode": "decide",
-    "rank": 11,
+    "rank": 7,
     "status": "filled",
     "matchReason": "Exact theme id social-validation"
   },
@@ -89,18 +81,14 @@
     "frequency": 0.061,
     "score": 0.492,
     "metricNode": "revisit",
-    "rank": 15,
+    "rank": 8,
     "status": "filled",
     "matchReason": "Exact theme id bookmark-vs-intent"
   },
   {
     "opportunityArea": "Price-drop / sale alerts",
-    "themeId": "price-and-value-uncertainty",
-    "supportingThemeIds": [
-      "sale-waiting",
-      "price-timing",
-      "sale-waitlist"
-    ],
+    "themeId": "sale-waitlist",
+    "supportingThemeIds": [],
     "impactOnW2P": "—",
     "feasibility": "Excluded (monetary)",
     "evidenceStrength": "—",
@@ -140,20 +128,6 @@
     "matchReason": "Additional engine theme — not in the Part 2 template"
   },
   {
-    "opportunityArea": "ReturnAndExchangeUncertainty",
-    "themeId": "return-and-exchange-uncertainty",
-    "supportingThemeIds": [],
-    "impactOnW2P": "medium",
-    "feasibility": "medium",
-    "evidenceStrength": "medium",
-    "frequency": 0.076,
-    "score": 0.495,
-    "metricNode": "resolve",
-    "rank": 13,
-    "status": "filled",
-    "matchReason": "Additional engine theme — not in the Part 2 template"
-  },
-  {
     "opportunityArea": "PoorCustomerSupport",
     "themeId": "poor-customer-support",
     "supportingThemeIds": [],
@@ -163,21 +137,7 @@
     "frequency": 0.045,
     "score": 0.489,
     "metricNode": "revisit",
-    "rank": 16,
-    "status": "filled",
-    "matchReason": "Additional engine theme — not in the Part 2 template"
-  },
-  {
-    "opportunityArea": "ReturnAndRefundIssues",
-    "themeId": "return-and-refund-issues",
-    "supportingThemeIds": [],
-    "impactOnW2P": "low",
-    "feasibility": "medium",
-    "evidenceStrength": "medium",
-    "frequency": 0.061,
-    "score": 0.372,
-    "metricNode": "resolve",
-    "rank": 20,
+    "rank": 9,
     "status": "filled",
     "matchReason": "Additional engine theme — not in the Part 2 template"
   }

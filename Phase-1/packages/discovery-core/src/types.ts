@@ -75,6 +75,7 @@ export interface Theme {
   nonMonetaryFeasibility: ImpactLevel;
   confidence: ImpactLevel;
   actionableInsight: string;
+  mergedFrom?: string[];
 }
 
 export interface ThemeValidationResult {

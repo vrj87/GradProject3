@@ -1,88 +1,7 @@
 [
   {
-    "themeId": "fit-and-size-uncertainty",
-    "label": "FitAndSizeUncertainty",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": [
-      "multiSource: capped confidence at medium"
-    ]
-  },
-  {
-    "themeId": "price-and-value-uncertainty",
-    "label": "PriceAndValueUncertainty",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "return-and-exchange-uncertainty",
-    "label": "ReturnAndExchangeUncertainty",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "poor-customer-support",
-    "label": "PoorCustomerSupport",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": [
-      "multiSource: capped confidence at medium"
-    ]
-  },
-  {
-    "themeId": "return-and-refund-issues",
-    "label": "ReturnAndRefundIssues",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "size-fit-uncertainty",
-    "label": "SizeFitUncertainty",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "sale-waiting",
-    "label": "SaleWaiting",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "style-occasion-uncertainty",
-    "label": "StyleOccasionUncertainty",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "compare-and-decide",
-    "label": "CompareAndDecide",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "social-validation",
-    "label": "SocialValidation",
-    "passed": true,
-    "confidence": "high",
-    "reasons": []
-  },
-  {
-    "themeId": "fit-style-uncertainty",
-    "label": "FitStyleUncertainty",
-    "passed": true,
-    "confidence": "high",
-    "reasons": []
-  },
-  {
-    "themeId": "wishlist-decay",
-    "label": "WishlistDecay",
+    "themeId": "fit-size-anxiety",
+    "label": "FitSizeAnxiety",
     "passed": true,
     "confidence": "medium",
     "reasons": []
@@ -95,15 +14,15 @@
     "reasons": []
   },
   {
-    "themeId": "bookmark-vs-intent",
-    "label": "BookmarkVsIntent",
+    "themeId": "return-fear",
+    "label": "ReturnFearDelay",
     "passed": true,
     "confidence": "medium",
     "reasons": []
   },
   {
-    "themeId": "fit-size-anxiety",
-    "label": "FitSizeAnxiety",
+    "themeId": "poor-customer-support",
+    "label": "PoorCustomerSupport",
     "passed": true,
     "confidence": "medium",
     "reasons": []
@@ -112,7 +31,7 @@
     "themeId": "styling-occasion",
     "label": "StylingOccasionMismatch",
     "passed": true,
-    "confidence": "medium",
+    "confidence": "high",
     "reasons": []
   },
   {
@@ -123,22 +42,29 @@
     "reasons": []
   },
   {
+    "themeId": "social-validation",
+    "label": "SocialValidation",
+    "passed": true,
+    "confidence": "high",
+    "reasons": []
+  },
+  {
+    "themeId": "wishlist-decay",
+    "label": "WishlistDecay",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "bookmark-vs-intent",
+    "label": "BookmarkVsIntent",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
     "themeId": "review-trust-gap",
     "label": "ReviewTrustGap",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "price-timing",
-    "label": "PriceTiming",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "return-fear",
-    "label": "ReturnFearDelay",
     "passed": true,
     "confidence": "medium",
     "reasons": []

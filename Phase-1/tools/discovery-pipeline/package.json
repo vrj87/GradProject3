@@ -8,6 +8,7 @@
     "1c": "tsx src/cli.ts 1c",
     "1d": "tsx src/cli.ts 1d",
     "refresh": "tsx src/cli.ts refresh",
+    "collapse": "tsx src/cli.ts collapse",
     "scrape": "tsx src/cli.ts scrape",
     "dev": "tsx src/serve.ts"
   },

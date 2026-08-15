@@ -28,13 +28,10 @@ function parseEnvContent(raw: string): Record<string, string> {
   return vars;
 }
 
-/** Load `.env` from Phase-1 and sibling discovery-engine. */
+/** Load `.env` from Phase-1. */
 export function loadEnvFiles(): string[] {
   const root = phase1Root();
-  const candidates = [
-    path.join(root, ".env"),
-    path.resolve(root, "../discovery-engine/.env")
-  ];
+  const candidates = [path.join(root, ".env")];
   const loaded: string[] = [];
   for (const file of candidates) {
     if (!existsSync(file)) continue;

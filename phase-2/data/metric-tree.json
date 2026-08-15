@@ -26,27 +26,15 @@
         "fit-size-anxiety",
         "styling-occasion",
         "return-fear",
-        "size-fit-uncertainty",
-        "fit-style-uncertainty",
-        "review-trust-gap",
-        "fit-and-size-uncertainty",
-        "style-occasion-uncertainty",
-        "return-and-exchange-uncertainty",
-        "return-and-refund-issues"
+        "review-trust-gap"
       ],
       "labels": [
         "FitSizeAnxiety",
         "StylingOccasionMismatch",
         "ReturnFearDelay",
-        "SizeFitUncertainty",
-        "FitStyleUncertainty",
-        "ReviewTrustGap",
-        "FitAndSizeUncertainty",
-        "StyleOccasionUncertainty",
-        "ReturnAndExchangeUncertainty",
-        "ReturnAndRefundIssues"
+        "ReviewTrustGap"
       ],
-      "highestScore": 0.87,
+      "highestScore": 0.876,
       "covered": true
     },
     {
@@ -54,13 +42,11 @@
       "definition": "Among users with 2+ similar items, % who narrow to one choice in 30d",
       "themeIds": [
         "comparison-paralysis",
-        "social-validation",
-        "compare-and-decide"
+        "social-validation"
       ],
       "labels": [
         "ComparisonParalysis",
-        "SocialValidation",
-        "CompareAndDecide"
+        "SocialValidation"
       ],
       "highestScore": 0.827,
       "covered": true

@@ -14,6 +14,7 @@
     "1b": "npm run 1b --workspace=@myntra/discovery-pipeline",
     "1c": "npm run 1c --workspace=@myntra/discovery-pipeline",
     "1d": "npm run 1d --workspace=@myntra/discovery-pipeline",
+    "collapse": "npm run collapse --workspace=@myntra/discovery-pipeline",
     "discovery:refresh": "npm run refresh --workspace=@myntra/discovery-pipeline",
     "discovery:scrape": "npm run scrape --workspace=@myntra/discovery-pipeline",
     "dev": "npm run dev --workspace=@myntra/storefront",

@@ -17,6 +17,7 @@ import {
 } from "@myntra/discovery-core";
 
 import { extractThemes } from "./analyze.js";
+import { collapseNearDuplicates } from "./collapse.js";
 
 import { loadSeedFixtures, mergeCorpusWithStats, supplementRawCorpus } from "./fixtures.js";
 
@@ -116,7 +117,9 @@ export async function runExtract(): Promise<void> {
 
   const chunks = chunkReviews(normalized.kept);
 
-  const { themes, method, llmStats } = await extractThemes(normalized.kept, chunks);
+  const extracted = await extractThemes(normalized.kept, chunks);
+  const themes = collapseNearDuplicates(extracted.themes);
+  const { method, llmStats } = extracted;
 
   const { validated, results } = validateThemes(themes, normalized.kept);
 
@@ -163,6 +166,51 @@ export async function runExtract(): Promise<void> {
   );
 }
 
+/** Re-collapse existing themes without calling the LLM. */
+export async function runCollapse(): Promise<void> {
+  await ensureDirs();
+  const rawFile = await readArtefact<RawReview[]>(ARTEFACT_FILES.raw);
+  const { reviews: raw } = await supplementRawCorpus(rawFile);
+  const normalized = normalizeCorpus(raw);
+  const existing = await readArtefact<import("@myntra/discovery-core").Theme[]>(
+    ARTEFACT_FILES.themes
+  );
+  const themes = collapseNearDuplicates(existing);
+  const { validated, results } = validateThemes(themes, normalized.kept);
+  await writeJson(ARTEFACT_FILES.themes, validated);
+  await writeJson(ARTEFACT_FILES.validation, results);
+  const ranking = rankOpportunities(validated);
+  await writeJson(ARTEFACT_FILES.ranking, ranking);
+
+  const stats = await readArtefact<PipelineStats>(ARTEFACT_FILES.stats).catch(() => null);
+  const gaps = researchQuestionGaps(validated);
+  const nodeGaps = metricNodeGaps(validated);
+  await writeJson(ARTEFACT_FILES.stats, {
+    ...(stats ?? {}),
+    rawCount: stats?.rawCount ?? raw.length,
+    normalizedCount: normalized.kept.length,
+    droppedMinWords: stats?.droppedMinWords ?? normalized.droppedMinWords,
+    droppedIrrelevant: stats?.droppedIrrelevant ?? normalized.droppedIrrelevant,
+    droppedDuplicates: stats?.droppedDuplicates ?? normalized.droppedDuplicates,
+    chunkCount: stats?.chunkCount ?? 0,
+    sourceCoverage: stats?.sourceCoverage ?? {},
+    partialCoverage: stats?.partialCoverage ?? [],
+    extractionMethod: stats?.extractionMethod ?? "hybrid",
+    validatedThemeCount: validated.length,
+    rejectedThemeCount: results.filter((row) => !row.passed).length,
+    researchQuestionGaps: gaps,
+    metricNodeGaps: nodeGaps,
+    sampleSizeCapped: isSampleSizeCapped(normalized.kept),
+    fixtureCount: raw.filter((review) => review.id.startsWith("fix-")).length,
+    readyForPhase2: validated.length >= 8 && gaps.length === 0 && nodeGaps.length === 0,
+    generatedAt: new Date().toISOString()
+  });
+
+  console.log(
+    `collapse: ${existing.length} → ${validated.length} themes, ${ranking.length} ranked`
+  );
+}
+
 
 
 export async function runRefresh(): Promise<PipelineStats> {
@@ -193,7 +241,9 @@ export async function runRefresh(): Promise<PipelineStats> {
 
   console.log("1c extract + validate");
 
-  const { themes, method, llmStats } = await extractThemes(normalized.kept, chunks);
+  const extracted = await extractThemes(normalized.kept, chunks);
+  const themes = collapseNearDuplicates(extracted.themes);
+  const { method, llmStats } = extracted;
 
   const { validated, results } = validateThemes(themes, normalized.kept);
 

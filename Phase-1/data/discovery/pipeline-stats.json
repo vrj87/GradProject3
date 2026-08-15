@@ -18,7 +18,7 @@
   },
   "partialCoverage": [],
   "extractionMethod": "hybrid",
-  "validatedThemeCount": 20,
+  "validatedThemeCount": 10,
   "rejectedThemeCount": 0,
   "researchQuestionGaps": [],
   "metricNodeGaps": [],
@@ -33,5 +33,5 @@
     "gapFillThemes": 2
   },
   "readyForPhase2": true,
-  "generatedAt": "2026-08-15T12:10:31.388Z"
+  "generatedAt": "2026-08-15T12:32:32.023Z"
 }

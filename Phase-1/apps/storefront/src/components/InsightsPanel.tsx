@@ -11,6 +11,8 @@ interface Theme {
   id: string;
   label: string;
   summary: string;
+  researchQuestionIds?: number[];
+  mergedFrom?: string[];
   quotes: Array<{ text: string; source: string; reviewId: string; url?: string }>;
 }
 
@@ -91,6 +93,11 @@ export function InsightsPanel() {
                 <article key={theme.id} className="bg-white border border-myntra-border p-4">
                   <h4 className="font-bold text-lg">{friendlyTheme(theme.label)}</h4>
                   <p className="text-sm text-myntra-muted mt-1">{theme.summary}</p>
+                  {theme.researchQuestionIds?.length ? (
+                    <p className="text-xs text-myntra-pink font-bold mt-2">
+                      Q{theme.researchQuestionIds.join(" · Q")}
+                    </p>
+                  ) : null}
                   <ul className="mt-3 space-y-2 text-sm">
                     {theme.quotes.map((quote) => (
                       <li key={quote.reviewId} className="border-l-2 border-myntra-pink pl-3">

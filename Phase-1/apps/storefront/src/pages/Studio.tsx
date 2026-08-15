@@ -3,10 +3,12 @@ import { DownloadScrapeData } from "../components/DownloadScrapeData";
 import { InsightsPanel } from "../components/InsightsPanel";
 import { LiveListenPanel } from "../components/LiveListenPanel";
 import { Phase2Panel } from "../components/Phase2Panel";
+import { QuestionsCoverage } from "../components/QuestionsCoverage";
 
 const VIEWS = [
   { id: "listen", label: "Live voices" },
   { id: "stories", label: "Shopper stories" },
+  { id: "questions", label: "Q1–Q10" },
   { id: "focus", label: "What to focus on" }
 ] as const;
 
@@ -56,6 +58,7 @@ export function Studio() {
       </div>
       {view === "listen" && <LiveListenPanel />}
       {view === "stories" && <InsightsPanel />}
+      {view === "questions" && <QuestionsCoverage />}
       {view === "focus" && <Phase2Panel />}
     </div>
   );

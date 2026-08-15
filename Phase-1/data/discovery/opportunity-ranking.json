@@ -6,9 +6,21 @@
     "metricNode": "resolve",
     "impactOnW2P": "high",
     "nonMonetaryFeasibility": "high",
-    "estimatedFrequency": 0.348,
-    "score": 0.87,
+    "estimatedFrequency": 0.379,
+    "score": 0.876,
     "rank": 1,
+    "priceFlag": false
+  },
+  {
+    "themeId": "styling-occasion",
+    "label": "StylingOccasionMismatch",
+    "barrierType": "style",
+    "metricNode": "resolve",
+    "impactOnW2P": "high",
+    "nonMonetaryFeasibility": "high",
+    "estimatedFrequency": 0.136,
+    "score": 0.827,
+    "rank": 2,
     "priceFlag": false
   },
   {
@@ -20,55 +32,19 @@
     "nonMonetaryFeasibility": "high",
     "estimatedFrequency": 0.136,
     "score": 0.827,
-    "rank": 2,
-    "priceFlag": false
-  },
-  {
-    "themeId": "styling-occasion",
-    "label": "StylingOccasionMismatch",
-    "barrierType": "style",
-    "metricNode": "resolve",
-    "impactOnW2P": "high",
-    "nonMonetaryFeasibility": "high",
-    "estimatedFrequency": 0.106,
-    "score": 0.821,
     "rank": 3,
     "priceFlag": false
   },
   {
     "themeId": "return-fear",
     "label": "ReturnFearDelay",
-    "barrierType": "fit",
+    "barrierType": "other",
     "metricNode": "resolve",
     "impactOnW2P": "medium",
     "nonMonetaryFeasibility": "high",
     "estimatedFrequency": 0.455,
     "score": 0.731,
     "rank": 4,
-    "priceFlag": false
-  },
-  {
-    "themeId": "size-fit-uncertainty",
-    "label": "SizeFitUncertainty",
-    "barrierType": "fit",
-    "metricNode": "resolve",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "high",
-    "estimatedFrequency": 0.379,
-    "score": 0.716,
-    "rank": 5,
-    "priceFlag": false
-  },
-  {
-    "themeId": "fit-style-uncertainty",
-    "label": "FitStyleUncertainty",
-    "barrierType": "style",
-    "metricNode": "resolve",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "high",
-    "estimatedFrequency": 0.136,
-    "score": 0.667,
-    "rank": 6,
     "priceFlag": false
   },
   {
@@ -80,43 +56,19 @@
     "nonMonetaryFeasibility": "medium",
     "estimatedFrequency": 0.045,
     "score": 0.649,
-    "rank": 7,
+    "rank": 5,
     "priceFlag": false
   },
   {
-    "themeId": "fit-and-size-uncertainty",
-    "label": "FitAndSizeUncertainty",
-    "barrierType": "fit",
-    "metricNode": "resolve",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "estimatedFrequency": 0.379,
-    "score": 0.556,
-    "rank": 8,
-    "priceFlag": false
-  },
-  {
-    "themeId": "price-and-value-uncertainty",
-    "label": "PriceAndValueUncertainty",
+    "themeId": "sale-waitlist",
+    "label": "WishlistAsSaleWaitlist",
     "barrierType": "price",
     "metricNode": "decide",
     "impactOnW2P": "medium",
     "nonMonetaryFeasibility": "medium",
     "estimatedFrequency": 0.212,
     "score": 0.522,
-    "rank": 9,
-    "priceFlag": true
-  },
-  {
-    "themeId": "sale-waiting",
-    "label": "SaleWaiting",
-    "barrierType": "price",
-    "metricNode": "decide",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "estimatedFrequency": 0.121,
-    "score": 0.504,
-    "rank": 10,
+    "rank": 6,
     "priceFlag": true
   },
   {
@@ -128,43 +80,7 @@
     "nonMonetaryFeasibility": "medium",
     "estimatedFrequency": 0.121,
     "score": 0.504,
-    "rank": 11,
-    "priceFlag": false
-  },
-  {
-    "themeId": "style-occasion-uncertainty",
-    "label": "StyleOccasionUncertainty",
-    "barrierType": "style",
-    "metricNode": "resolve",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "estimatedFrequency": 0.091,
-    "score": 0.498,
-    "rank": 12,
-    "priceFlag": false
-  },
-  {
-    "themeId": "return-and-exchange-uncertainty",
-    "label": "ReturnAndExchangeUncertainty",
-    "barrierType": "other",
-    "metricNode": "resolve",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "estimatedFrequency": 0.076,
-    "score": 0.495,
-    "rank": 13,
-    "priceFlag": false
-  },
-  {
-    "themeId": "compare-and-decide",
-    "label": "CompareAndDecide",
-    "barrierType": "compare",
-    "metricNode": "decide",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "medium",
-    "estimatedFrequency": 0.076,
-    "score": 0.495,
-    "rank": 14,
+    "rank": 7,
     "priceFlag": false
   },
   {
@@ -176,7 +92,7 @@
     "nonMonetaryFeasibility": "medium",
     "estimatedFrequency": 0.061,
     "score": 0.492,
-    "rank": 15,
+    "rank": 8,
     "priceFlag": false
   },
   {
@@ -188,7 +104,7 @@
     "nonMonetaryFeasibility": "medium",
     "estimatedFrequency": 0.045,
     "score": 0.489,
-    "rank": 16,
+    "rank": 9,
     "priceFlag": false
   },
   {
@@ -200,43 +116,7 @@
     "nonMonetaryFeasibility": "medium",
     "estimatedFrequency": 0.045,
     "score": 0.489,
-    "rank": 17,
-    "priceFlag": false
-  },
-  {
-    "themeId": "price-timing",
-    "label": "PriceTiming",
-    "barrierType": "price",
-    "metricNode": "resolve",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "low",
-    "estimatedFrequency": 0.152,
-    "score": 0.39,
-    "rank": 18,
-    "priceFlag": true
-  },
-  {
-    "themeId": "sale-waitlist",
-    "label": "WishlistAsSaleWaitlist",
-    "barrierType": "price",
-    "metricNode": "revisit",
-    "impactOnW2P": "medium",
-    "nonMonetaryFeasibility": "low",
-    "estimatedFrequency": 0.121,
-    "score": 0.384,
-    "rank": 19,
-    "priceFlag": true
-  },
-  {
-    "themeId": "return-and-refund-issues",
-    "label": "ReturnAndRefundIssues",
-    "barrierType": "other",
-    "metricNode": "resolve",
-    "impactOnW2P": "low",
-    "nonMonetaryFeasibility": "medium",
-    "estimatedFrequency": 0.061,
-    "score": 0.372,
-    "rank": 20,
+    "rank": 10,
     "priceFlag": false
   }
 ]

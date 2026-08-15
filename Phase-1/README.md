@@ -19,6 +19,7 @@ npm run 1b        # scrape only
 npm run 1a        # normalize existing raw-reviews.json
 npm run 1c        # extract + rank from raw
 npm run 1d        # 1b → 1a → 1c + report (same as discovery:refresh)
+npm run collapse  # merge near-duplicate themes without calling the LLM
 npm run dev       # http://localhost:3000
 ```
 
@@ -50,5 +51,6 @@ Set `GROQ_API_KEY` and/or `OPENAI_API_KEY` in `.env` (see `.env.example`).
 ## Storefront
 
 - Shop: http://localhost:3000
-- Live Insights (1d output): http://localhost:3000/?tab=insights
-- Opportunity ranking (Phase 2): http://localhost:3000/?tab=ranking
+- Live Insights: http://localhost:3000/studio?view=stories
+- Q1–Q10 coverage: http://localhost:3000/studio?view=questions
+- Opportunity ranking (Phase 2): http://localhost:3000/studio?view=focus

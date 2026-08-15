@@ -2,7 +2,7 @@
   "highestPotentialOpportunity": "FitSizeAnxiety → resolve",
   "themeId": "fit-size-anxiety",
   "metricNode": "resolve",
-  "score": 0.87,
+  "score": 0.876,
   "interviewSegment": "S2 ∩ S4",
   "segmentRationale": "Top non-price themes include both Resolve (fit) and Decide (compare). Recruit S2 ∩ S4; do not lock P1 until Phase 4.",
   "supportingThemeIds": [
@@ -17,10 +17,7 @@
   ],
   "explicitlyNotPursuing": [
     "Price-drop / sale alerts (monetary — excluded by assignment constraint)",
-    "PriceAndValueUncertainty (price-flagged, rank 9)",
-    "SaleWaiting (price-flagged, rank 10)",
-    "PriceTiming (price-flagged, rank 18)",
-    "WishlistAsSaleWaitlist (price-flagged, rank 19)"
+    "WishlistAsSaleWaitlist (price-flagged, rank 6)"
   ],
   "priceFlagged": false,
   "caveats": [],
@@ -45,7 +42,7 @@
       "linkedThemeIds": [
         "fit-size-anxiety",
         "poor-customer-support",
-        "compare-and-decide",
+        "comparison-paralysis",
         "social-validation"
       ],
       "researchQuestionIds": [
@@ -57,10 +54,10 @@
       "briefQuestion": 3,
       "prompt": "What is stopping you this week even if the price stayed the same?",
       "linkedThemeIds": [
-        "fit-and-size-uncertainty",
-        "return-and-exchange-uncertainty",
+        "fit-size-anxiety",
+        "return-fear",
         "poor-customer-support",
-        "return-and-refund-issues"
+        "comparison-paralysis"
       ],
       "researchQuestionIds": [
         2,
@@ -71,10 +68,10 @@
       "briefQuestion": 4,
       "prompt": "What would need to be true to purchase without waiting for a sale?",
       "linkedThemeIds": [
-        "fit-and-size-uncertainty",
-        "return-and-exchange-uncertainty",
+        "fit-size-anxiety",
+        "return-fear",
         "poor-customer-support",
-        "return-and-refund-issues"
+        "styling-occasion"
       ],
       "researchQuestionIds": [
         2,
@@ -86,10 +83,10 @@
       "briefQuestion": 5,
       "prompt": "What information are you still missing?",
       "linkedThemeIds": [
-        "fit-and-size-uncertainty",
-        "return-and-exchange-uncertainty",
-        "size-fit-uncertainty",
-        "style-occasion-uncertainty"
+        "fit-size-anxiety",
+        "return-fear",
+        "styling-occasion",
+        "social-validation"
       ],
       "researchQuestionIds": [
         3,
@@ -102,9 +99,9 @@
       "prompt": "Are you considering alternatives — on Myntra or elsewhere?",
       "linkedThemeIds": [
         "fit-size-anxiety",
-        "fit-and-size-uncertainty",
-        "return-and-exchange-uncertainty",
-        "compare-and-decide"
+        "return-fear",
+        "styling-occasion",
+        "comparison-paralysis"
       ],
       "researchQuestionIds": [
         5,
@@ -115,10 +112,10 @@
       "briefQuestion": 7,
       "prompt": "What did you do outside the app before deciding?",
       "linkedThemeIds": [
-        "fit-and-size-uncertainty",
-        "return-and-exchange-uncertainty",
-        "size-fit-uncertainty",
-        "style-occasion-uncertainty"
+        "fit-size-anxiety",
+        "return-fear",
+        "styling-occasion",
+        "social-validation"
       ],
       "researchQuestionIds": [
         6,
@@ -130,8 +127,8 @@
       "prompt": "How do you compare multiple wishlisted items today?",
       "linkedThemeIds": [
         "fit-size-anxiety",
-        "fit-and-size-uncertainty",
-        "compare-and-decide",
+        "styling-occasion",
+        "comparison-paralysis",
         "wishlist-decay"
       ],
       "researchQuestionIds": [
@@ -141,6 +138,6 @@
     }
   ],
   "readyForPhase3": true,
-  "generatedAt": "2026-08-15T12:16:04.408Z",
+  "generatedAt": "2026-08-15T12:32:32.843Z",
   "phase1Ready": true
 }
