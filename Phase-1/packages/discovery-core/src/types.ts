@@ -98,6 +98,15 @@ export interface RankedOpportunity {
   priceFlag: boolean;
 }
 
+export interface LlmExtractionStats {
+  batchesProcessed: number;
+  batchesFailed: number;
+  rawThemeCount: number;
+  themesMerged: number;
+  quoteRepairs: number;
+  gapFillThemes: number;
+}
+
 export interface PipelineStats {
   rawCount: number;
   normalizedCount: number;
@@ -107,10 +116,14 @@ export interface PipelineStats {
   chunkCount: number;
   sourceCoverage: Record<string, number>;
   partialCoverage: string[];
-  extractionMethod: "groq" | "openai" | "rule-based";
+  extractionMethod: "groq" | "openai" | "rule-based" | "hybrid";
   validatedThemeCount: number;
   rejectedThemeCount: number;
   researchQuestionGaps: number[];
+  metricNodeGaps: MetricNode[];
+  sampleSizeCapped: boolean;
+  fixtureCount: number;
+  llmStats?: LlmExtractionStats;
   readyForPhase2: boolean;
   generatedAt: string;
 }

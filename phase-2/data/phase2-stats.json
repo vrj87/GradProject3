@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-08-15T09:25:13.529Z",
+  "generatedAt": "2026-08-15T12:16:04.408Z",
   "source": "C:\\Users\\Vinyan\\Desktop\\nextleap\\Cursor\\GradProject3\\Phase-1\\data\\discovery",
-  "filledRows": 2,
-  "unobservedRows": 6,
-  "readyForPhase3": false
+  "extractionMethod": "hybrid",
+  "filledRows": 10,
+  "unobservedRows": 1,
+  "excludedRows": 1,
+  "uncoveredNodes": [
+    "act"
+  ],
+  "bookmarkSeparated": true,
+  "readyForPhase3": true,
+  "phase1Ready": true
 }

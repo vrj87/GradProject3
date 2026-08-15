@@ -2,17 +2,145 @@
   "highestPotentialOpportunity": "FitSizeAnxiety → resolve",
   "themeId": "fit-size-anxiety",
   "metricNode": "resolve",
-  "interviewSegment": "S2",
-  "segmentRationale": "Ranking supports fit-anxious stallers (S2). Compare/S4 is not evidenced — do not lock S2 ∩ S4.",
+  "score": 0.87,
+  "interviewSegment": "S2 ∩ S4",
+  "segmentRationale": "Top non-price themes include both Resolve (fit) and Decide (compare). Recruit S2 ∩ S4; do not lock P1 until Phase 4.",
+  "supportingThemeIds": [
+    "styling-occasion",
+    "return-fear"
+  ],
+  "subMetricsMoved": [
+    "Uncertainty resolution rate",
+    "Cart-add rate (from wishlist)",
+    "Shortlist-to-decision rate",
+    "Active intent rate vs bookmark"
+  ],
   "explicitlyNotPursuing": [
-    "Price-drop / sale alerts (monetary — excluded by assignment constraint)"
+    "Price-drop / sale alerts (monetary — excluded by assignment constraint)",
+    "PriceAndValueUncertainty (price-flagged, rank 9)",
+    "SaleWaiting (price-flagged, rank 10)",
+    "PriceTiming (price-flagged, rank 18)",
+    "WishlistAsSaleWaitlist (price-flagged, rank 19)"
   ],
   "priceFlagged": false,
-  "caveats": [
-    "Phase 1 readyForPhase2 is false (2 themes; Q gaps: 1, 5, 6, 8, 9, 10). Nomination is provisional.",
-    "Decide-node / comparison paralysis was not observed in Phase 1 ranking. Probe in interviews; do not claim compare MVP is validated."
+  "caveats": [],
+  "interviewSeeds": [
+    {
+      "briefQuestion": 1,
+      "prompt": "Why did you save each item?",
+      "linkedThemeIds": [
+        "fit-size-anxiety",
+        "poor-customer-support",
+        "social-validation",
+        "wishlist-decay"
+      ],
+      "researchQuestionIds": [
+        1,
+        8
+      ]
+    },
+    {
+      "briefQuestion": 2,
+      "prompt": "Do you still intend to buy it? What changed?",
+      "linkedThemeIds": [
+        "fit-size-anxiety",
+        "poor-customer-support",
+        "compare-and-decide",
+        "social-validation"
+      ],
+      "researchQuestionIds": [
+        8,
+        9
+      ]
+    },
+    {
+      "briefQuestion": 3,
+      "prompt": "What is stopping you this week even if the price stayed the same?",
+      "linkedThemeIds": [
+        "fit-and-size-uncertainty",
+        "return-and-exchange-uncertainty",
+        "poor-customer-support",
+        "return-and-refund-issues"
+      ],
+      "researchQuestionIds": [
+        2,
+        4
+      ]
+    },
+    {
+      "briefQuestion": 4,
+      "prompt": "What would need to be true to purchase without waiting for a sale?",
+      "linkedThemeIds": [
+        "fit-and-size-uncertainty",
+        "return-and-exchange-uncertainty",
+        "poor-customer-support",
+        "return-and-refund-issues"
+      ],
+      "researchQuestionIds": [
+        2,
+        3,
+        7
+      ]
+    },
+    {
+      "briefQuestion": 5,
+      "prompt": "What information are you still missing?",
+      "linkedThemeIds": [
+        "fit-and-size-uncertainty",
+        "return-and-exchange-uncertainty",
+        "size-fit-uncertainty",
+        "style-occasion-uncertainty"
+      ],
+      "researchQuestionIds": [
+        3,
+        6,
+        7
+      ]
+    },
+    {
+      "briefQuestion": 6,
+      "prompt": "Are you considering alternatives — on Myntra or elsewhere?",
+      "linkedThemeIds": [
+        "fit-size-anxiety",
+        "fit-and-size-uncertainty",
+        "return-and-exchange-uncertainty",
+        "compare-and-decide"
+      ],
+      "researchQuestionIds": [
+        5,
+        6
+      ]
+    },
+    {
+      "briefQuestion": 7,
+      "prompt": "What did you do outside the app before deciding?",
+      "linkedThemeIds": [
+        "fit-and-size-uncertainty",
+        "return-and-exchange-uncertainty",
+        "size-fit-uncertainty",
+        "style-occasion-uncertainty"
+      ],
+      "researchQuestionIds": [
+        6,
+        7
+      ]
+    },
+    {
+      "briefQuestion": 8,
+      "prompt": "How do you compare multiple wishlisted items today?",
+      "linkedThemeIds": [
+        "fit-size-anxiety",
+        "fit-and-size-uncertainty",
+        "compare-and-decide",
+        "wishlist-decay"
+      ],
+      "researchQuestionIds": [
+        5,
+        10
+      ]
+    }
   ],
-  "readyForPhase3": false,
-  "generatedAt": "2026-08-15T09:25:13.529Z",
-  "phase1Ready": false
+  "readyForPhase3": true,
+  "generatedAt": "2026-08-15T12:16:04.408Z",
+  "phase1Ready": true
 }

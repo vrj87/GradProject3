@@ -1,109 +1,76 @@
+import { evidenceLabel, supportingMatches, TEMPLATE_ROWS, bestMatch } from "./match.js";
 import type { MatrixRow, RankedTheme, Theme } from "./types.js";
 
-export const TEMPLATE_ROWS: Array<{
-  opportunityArea: string;
-  themeIds: string[];
-  metricNode: string;
-  excluded?: boolean;
-}> = [
-  {
-    opportunityArea: "Fit & size confidence synthesis",
-    themeIds: ["fit-size-anxiety"],
-    metricNode: "resolve"
-  },
-  {
-    opportunityArea: "Styling / occasion guidance",
-    themeIds: ["styling-occasion"],
-    metricNode: "resolve"
-  },
-  {
-    opportunityArea: "Wishlist compare & prioritization",
-    themeIds: ["comparison-paralysis"],
-    metricNode: "decide"
-  },
-  {
-    opportunityArea: "In-app social proof (review/try-on synthesis)",
-    themeIds: ["review-trust-gap"],
-    metricNode: "resolve"
-  },
-  {
-    opportunityArea: "Share-for-feedback",
-    themeIds: ["social-validation"],
-    metricNode: "resolve"
-  },
-  {
-    opportunityArea: "Wishlist revisit nudges (generic)",
-    themeIds: ["wishlist-decay"],
-    metricNode: "revisit"
-  },
-  {
-    opportunityArea: "Price-drop / sale alerts",
-    themeIds: ["sale-waitlist", "price-timing"],
-    metricNode: "—",
-    excluded: true
-  },
-  {
-    opportunityArea: "Back-in-stock alerts",
-    themeIds: [],
-    metricNode: "act"
-  }
-];
+export { TEMPLATE_ROWS };
 
-export function fillMatrix(
-  ranking: RankedTheme[],
-  themes: Theme[]
-): MatrixRow[] {
-  const byId = new Map(ranking.map((row) => [row.themeId, row]));
+export function fillMatrix(ranking: RankedTheme[], themes: Theme[]): MatrixRow[] {
   const themeById = new Map(themes.map((theme) => [theme.id, theme]));
   const used = new Set<string>();
+  const rows: MatrixRow[] = [];
 
-  const rows: MatrixRow[] = TEMPLATE_ROWS.map((template) => {
+  for (const template of TEMPLATE_ROWS) {
     if (template.excluded) {
-      return {
+      const extras = ranking.filter((row) => row.priceFlag || row.barrierType === "price");
+      extras.forEach((row) => used.add(row.themeId));
+      rows.push({
         opportunityArea: template.opportunityArea,
-        themeId: null,
+        themeId: extras[0]?.themeId ?? null,
+        supportingThemeIds: extras.slice(1).map((row) => row.themeId),
         impactOnW2P: "—",
         feasibility: "Excluded (monetary)",
         evidenceStrength: "—",
         frequency: "—",
+        score: "—",
         metricNode: template.metricNode,
         rank: "Exclude",
-        status: "excluded"
-      };
+        status: "excluded",
+        matchReason: "Assignment constraint — no coupons, cashback, or price-drop alerts"
+      });
+      continue;
     }
 
-    const match = template.themeIds
-      .map((id) => byId.get(id))
-      .find((row): row is RankedTheme => Boolean(row));
-
+    const match = bestMatch(template, ranking, used);
     if (!match) {
-      return {
+      rows.push({
         opportunityArea: template.opportunityArea,
         themeId: template.themeIds[0] ?? null,
+        supportingThemeIds: [],
         impactOnW2P: "unobserved",
         feasibility: "unobserved",
         evidenceStrength: "none — not in Phase 1 ranking",
         frequency: "—",
+        score: "—",
         metricNode: template.metricNode,
         rank: "—",
-        status: "unobserved"
-      };
+        status: "unobserved",
+        matchReason: "No Phase 1 theme mapped — cell left empty, not guessed"
+      });
+      continue;
     }
 
-    used.add(match.themeId);
-    const theme = themeById.get(match.themeId);
-    return {
+    used.add(match.theme.themeId);
+    const support = supportingMatches(template, ranking, match.theme.themeId);
+    support.forEach((row) => used.add(row.themeId));
+    const theme = themeById.get(match.theme.themeId);
+
+    rows.push({
       opportunityArea: template.opportunityArea,
-      themeId: match.themeId,
-      impactOnW2P: match.impactOnW2P,
-      feasibility: match.nonMonetaryFeasibility,
-      evidenceStrength: theme?.confidence ?? "medium",
-      frequency: match.estimatedFrequency,
-      metricNode: match.metricNode,
-      rank: match.rank,
-      status: "filled"
-    };
-  });
+      themeId: match.theme.themeId,
+      supportingThemeIds: support.map((row) => row.themeId),
+      impactOnW2P: match.theme.impactOnW2P,
+      feasibility: match.theme.nonMonetaryFeasibility,
+      evidenceStrength: evidenceLabel(theme),
+      frequency: match.theme.estimatedFrequency,
+      score: match.theme.score,
+      metricNode: match.theme.metricNode,
+      rank: match.theme.rank,
+      status: "filled",
+      matchReason:
+        match.score >= 100
+          ? `Exact theme id ${match.theme.themeId}`
+          : `Mapped ${match.theme.themeId} (match ${match.score})`
+    });
+  }
 
   for (const extra of ranking) {
     if (used.has(extra.themeId)) continue;
@@ -111,15 +78,18 @@ export function fillMatrix(
     rows.push({
       opportunityArea: extra.label,
       themeId: extra.themeId,
+      supportingThemeIds: [],
       impactOnW2P: extra.impactOnW2P,
       feasibility: extra.priceFlag
         ? "Excluded if incentive-led"
         : extra.nonMonetaryFeasibility,
-      evidenceStrength: theme?.confidence ?? "medium",
+      evidenceStrength: evidenceLabel(theme),
       frequency: extra.estimatedFrequency,
+      score: extra.score,
       metricNode: extra.metricNode,
       rank: extra.rank,
-      status: extra.priceFlag ? "excluded" : "filled"
+      status: extra.priceFlag ? "excluded" : "filled",
+      matchReason: "Additional engine theme — not in the Part 2 template"
     });
   }
 

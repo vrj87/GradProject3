@@ -42,7 +42,9 @@ export function renderReport(
   <h1>AI discovery engine — ranked opportunities</h1>
   <p>W2P 30d · no monetary incentives · extraction: <strong>${stats.extractionMethod}</strong></p>
   <p class="${stats.readyForPhase2 ? "ok" : "no"}">readyForPhase2: ${stats.readyForPhase2}</p>
-  <p>Raw ${stats.rawCount} · normalized ${stats.normalizedCount} · validated themes ${stats.validatedThemeCount} · Q gaps: ${stats.researchQuestionGaps.join(", ") || "none"}</p>
+  <p>Raw ${stats.rawCount} · normalized ${stats.normalizedCount} · fixtures ${stats.fixtureCount} · validated themes ${stats.validatedThemeCount}</p>
+  <p>Q gaps: ${stats.researchQuestionGaps.join(", ") || "none"} · metric node gaps: ${stats.metricNodeGaps.join(", ") || "none"}</p>
+  ${stats.llmStats ? `<p>LLM batches: ${stats.llmStats.batchesProcessed} ok / ${stats.llmStats.batchesFailed} failed · gap-fill themes: ${stats.llmStats.gapFillThemes}</p>` : ""}
   <h2>Opportunity ranking</h2>
   <table>
     <thead><tr><th>#</th><th>Theme</th><th>Node</th><th>Impact</th><th>Feasibility</th><th>Freq</th><th>Score</th><th>Price flag</th></tr></thead>

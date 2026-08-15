@@ -6,7 +6,7 @@ Canonical home for assignment **Part 1**. Increments are runnable separately and
 |-----------|--------------|------|---------|
 | **1a** | Types, hash, normalize, dedupe, chunk | `packages/discovery-core/` | `npm run 1a` |
 | **1b** | Live scrapers (App Store, Play Store, Reddit) | `tools/discovery-pipeline/src/scrape/` | `npm run 1b` |
-| **1c** | Theme extract, validate, rank | `analyze.ts`, `validate.ts`, `rank.ts` | `npm run 1c` |
+| **1c** | LLM batch extract, quote grounding, validate, rank | `analyze.ts`, `llm.ts`, `validate.ts`, `rank.ts` | `npm run 1c` |
 | **1d** | Full workflow + artefacts + storefront | `refresh.ts`, `apps/storefront/` | `npm run 1d` then `npm run dev` |
 
 ## Run
@@ -37,6 +37,15 @@ npm run dev
 `raw-reviews.json` → `normalized-reviews.json` → `chunks.json` → `themes.json` → `validation-results.json` → `opportunity-ranking.json` → `pipeline-stats.json`
 
 Phase 2 reads these files from `Phase-1/data/discovery/`.
+
+### LLM pipeline (1c)
+
+- **Batch extraction:** reviews are chunked and sent to Groq (`llama-3.3-70b-versatile`) or OpenAI (`gpt-4o-mini`) in batches with retry on 429/5xx.
+- **Quote grounding:** every quote must match review text; hallucinated quotes are rejected.
+- **Hybrid fallback:** rule-based templates merge with LLM output; gap-fill ensures Q1–Q10 coverage.
+- **Curated fixtures:** `data/fixtures/seed-reviews.json` supplements live scrapes for reviewer testing.
+
+Set `GROQ_API_KEY` and/or `OPENAI_API_KEY` in `.env` (see `.env.example`).
 
 ## Storefront
 

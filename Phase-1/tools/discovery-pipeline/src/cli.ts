@@ -1,4 +1,16 @@
+import { loadEnvFiles } from "./load-env.js";
 import { runExtract, runNormalize, runRefresh, runScrape } from "./refresh.js";
+
+const envFiles = loadEnvFiles();
+if (process.env.GROQ_API_KEY) {
+  console.log(`env: Groq key loaded (${envFiles.length} file(s))`);
+} else if (envFiles.length > 0) {
+  console.warn(
+    `env: found ${envFiles.length} .env file(s) but GROQ_API_KEY is missing — using rule-based extraction`
+  );
+} else {
+  console.warn("env: no .env found — add GROQ_API_KEY to Phase-1/.env or discovery-engine/.env");
+}
 
 const command = process.argv[2] ?? "refresh";
 

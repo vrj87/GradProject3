@@ -2,100 +2,183 @@
   {
     "opportunityArea": "Fit & size confidence synthesis",
     "themeId": "fit-size-anxiety",
+    "supportingThemeIds": [
+      "size-fit-uncertainty",
+      "fit-and-size-uncertainty"
+    ],
     "impactOnW2P": "high",
     "feasibility": "high",
     "evidenceStrength": "medium",
-    "frequency": 0.471,
+    "frequency": 0.348,
+    "score": 0.87,
     "metricNode": "resolve",
     "rank": 1,
-    "status": "filled"
+    "status": "filled",
+    "matchReason": "Exact theme id fit-size-anxiety"
   },
   {
     "opportunityArea": "Styling / occasion guidance",
     "themeId": "styling-occasion",
-    "impactOnW2P": "unobserved",
-    "feasibility": "unobserved",
-    "evidenceStrength": "none — not in Phase 1 ranking",
-    "frequency": "—",
+    "supportingThemeIds": [
+      "fit-style-uncertainty",
+      "style-occasion-uncertainty"
+    ],
+    "impactOnW2P": "high",
+    "feasibility": "high",
+    "evidenceStrength": "medium",
+    "frequency": 0.106,
+    "score": 0.821,
     "metricNode": "resolve",
-    "rank": "—",
-    "status": "unobserved"
+    "rank": 3,
+    "status": "filled",
+    "matchReason": "Exact theme id styling-occasion"
   },
   {
     "opportunityArea": "Wishlist compare & prioritization",
     "themeId": "comparison-paralysis",
-    "impactOnW2P": "unobserved",
-    "feasibility": "unobserved",
-    "evidenceStrength": "none — not in Phase 1 ranking",
-    "frequency": "—",
+    "supportingThemeIds": [
+      "compare-and-decide"
+    ],
+    "impactOnW2P": "high",
+    "feasibility": "high",
+    "evidenceStrength": "medium",
+    "frequency": 0.136,
+    "score": 0.827,
     "metricNode": "decide",
-    "rank": "—",
-    "status": "unobserved"
+    "rank": 2,
+    "status": "filled",
+    "matchReason": "Exact theme id comparison-paralysis"
   },
   {
     "opportunityArea": "In-app social proof (review/try-on synthesis)",
     "themeId": "review-trust-gap",
-    "impactOnW2P": "unobserved",
-    "feasibility": "unobserved",
-    "evidenceStrength": "none — not in Phase 1 ranking",
-    "frequency": "—",
+    "supportingThemeIds": [],
+    "impactOnW2P": "high",
+    "feasibility": "medium",
+    "evidenceStrength": "medium",
+    "frequency": 0.045,
+    "score": 0.649,
     "metricNode": "resolve",
-    "rank": "—",
-    "status": "unobserved"
+    "rank": 7,
+    "status": "filled",
+    "matchReason": "Exact theme id review-trust-gap"
   },
   {
     "opportunityArea": "Share-for-feedback",
     "themeId": "social-validation",
-    "impactOnW2P": "unobserved",
-    "feasibility": "unobserved",
-    "evidenceStrength": "none — not in Phase 1 ranking",
-    "frequency": "—",
-    "metricNode": "resolve",
-    "rank": "—",
-    "status": "unobserved"
+    "supportingThemeIds": [],
+    "impactOnW2P": "medium",
+    "feasibility": "medium",
+    "evidenceStrength": "high",
+    "frequency": 0.121,
+    "score": 0.504,
+    "metricNode": "decide",
+    "rank": 11,
+    "status": "filled",
+    "matchReason": "Exact theme id social-validation"
   },
   {
     "opportunityArea": "Wishlist revisit nudges (generic)",
-    "themeId": "wishlist-decay",
-    "impactOnW2P": "unobserved",
-    "feasibility": "unobserved",
-    "evidenceStrength": "none — not in Phase 1 ranking",
-    "frequency": "—",
+    "themeId": "bookmark-vs-intent",
+    "supportingThemeIds": [
+      "wishlist-decay"
+    ],
+    "impactOnW2P": "medium",
+    "feasibility": "medium",
+    "evidenceStrength": "medium",
+    "frequency": 0.061,
+    "score": 0.492,
     "metricNode": "revisit",
-    "rank": "—",
-    "status": "unobserved"
+    "rank": 15,
+    "status": "filled",
+    "matchReason": "Exact theme id bookmark-vs-intent"
   },
   {
     "opportunityArea": "Price-drop / sale alerts",
-    "themeId": null,
+    "themeId": "price-and-value-uncertainty",
+    "supportingThemeIds": [
+      "sale-waiting",
+      "price-timing",
+      "sale-waitlist"
+    ],
     "impactOnW2P": "—",
     "feasibility": "Excluded (monetary)",
     "evidenceStrength": "—",
     "frequency": "—",
+    "score": "—",
     "metricNode": "—",
     "rank": "Exclude",
-    "status": "excluded"
+    "status": "excluded",
+    "matchReason": "Assignment constraint — no coupons, cashback, or price-drop alerts"
   },
   {
     "opportunityArea": "Back-in-stock alerts",
     "themeId": null,
+    "supportingThemeIds": [],
     "impactOnW2P": "unobserved",
     "feasibility": "unobserved",
     "evidenceStrength": "none — not in Phase 1 ranking",
     "frequency": "—",
+    "score": "—",
     "metricNode": "act",
     "rank": "—",
-    "status": "unobserved"
+    "status": "unobserved",
+    "matchReason": "No Phase 1 theme mapped — cell left empty, not guessed"
   },
   {
     "opportunityArea": "ReturnFearDelay",
     "themeId": "return-fear",
+    "supportingThemeIds": [],
     "impactOnW2P": "medium",
     "feasibility": "high",
     "evidenceStrength": "medium",
-    "frequency": 0.647,
+    "frequency": 0.455,
+    "score": 0.731,
     "metricNode": "resolve",
-    "rank": 2,
-    "status": "filled"
+    "rank": 4,
+    "status": "filled",
+    "matchReason": "Additional engine theme — not in the Part 2 template"
+  },
+  {
+    "opportunityArea": "ReturnAndExchangeUncertainty",
+    "themeId": "return-and-exchange-uncertainty",
+    "supportingThemeIds": [],
+    "impactOnW2P": "medium",
+    "feasibility": "medium",
+    "evidenceStrength": "medium",
+    "frequency": 0.076,
+    "score": 0.495,
+    "metricNode": "resolve",
+    "rank": 13,
+    "status": "filled",
+    "matchReason": "Additional engine theme — not in the Part 2 template"
+  },
+  {
+    "opportunityArea": "PoorCustomerSupport",
+    "themeId": "poor-customer-support",
+    "supportingThemeIds": [],
+    "impactOnW2P": "medium",
+    "feasibility": "medium",
+    "evidenceStrength": "medium",
+    "frequency": 0.045,
+    "score": 0.489,
+    "metricNode": "revisit",
+    "rank": 16,
+    "status": "filled",
+    "matchReason": "Additional engine theme — not in the Part 2 template"
+  },
+  {
+    "opportunityArea": "ReturnAndRefundIssues",
+    "themeId": "return-and-refund-issues",
+    "supportingThemeIds": [],
+    "impactOnW2P": "low",
+    "feasibility": "medium",
+    "evidenceStrength": "medium",
+    "frequency": 0.061,
+    "score": 0.372,
+    "metricNode": "resolve",
+    "rank": 20,
+    "status": "filled",
+    "matchReason": "Additional engine theme — not in the Part 2 template"
   }
 ]

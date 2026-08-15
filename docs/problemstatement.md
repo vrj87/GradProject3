@@ -266,30 +266,31 @@ Push notifications that only increase revisit **fail the constraint test** if th
 | **Time-to-first revisit** | Median days from add to first wishlist open | Late revisit compresses decision time | Analytics |
 | **Size/stock availability** | % of items in-stock in the user’s size at revisit | Hard blocker even with high intent | Analytics |
 
-### 2.3 Opportunity ranking template (fill from Phase 1 only)
+### 2.3 Opportunity ranking (filled from Phase 1)
 
-Do **not** treat the empty cells as High/Medium guesses. Copy scores from `opportunity-ranking.json`.
+Do **not** treat empty cells as guesses. Copied from `opportunity-ranking.json` via [`phase-2/`](../phase-2/).
 
 | Opportunity area | Impact on W2P 30d | Feasibility (no incentives) | Evidence strength | Frequency | Maps to node | Rank |
 |------------------|-------------------|----------------------------|-------------------|-----------|--------------|------|
-| Fit & size confidence synthesis | high | high | medium | 0.471 | Resolve | 1 |
-| Styling / occasion guidance | unobserved | unobserved | none — not in Phase 1 ranking | — | Resolve | — |
-| Wishlist compare & prioritization | unobserved | unobserved | none — not in Phase 1 ranking | — | Decide | — |
-| In-app social proof (review/try-on synthesis) | unobserved | unobserved | none — not in Phase 1 ranking | — | Resolve | — |
-| Share-for-feedback | unobserved | unobserved | none — not in Phase 1 ranking | — | Resolve | — |
-| Wishlist revisit nudges (generic) | unobserved | unobserved | none — not in Phase 1 ranking | — | Revisit | — |
+| Fit & size confidence synthesis | high | high | medium | 0.348 | resolve | 1 |
+| Styling / occasion guidance | high | high | medium | 0.106 | resolve | 3 |
+| Wishlist compare & prioritization | high | high | medium | 0.136 | decide | 2 |
+| In-app social proof (review/try-on synthesis) | high | medium | medium | 0.045 | resolve | 7 |
+| Share-for-feedback | medium | medium | high | 0.121 | decide | 11 |
+| Wishlist revisit nudges (generic) | medium | medium | medium | 0.061 | revisit | 15 |
 | Price-drop / sale alerts | — | **Excluded** (monetary) | — | — | — | Exclude |
-| Back-in-stock alerts | unobserved | unobserved | none — not in Phase 1 ranking | — | Act | — |
-| ReturnFearDelay (additional from engine) | medium | high | medium | 0.647 | Resolve | 2 |
+| Back-in-stock alerts | unobserved | unobserved | none — not in Phase 1 ranking | — | act | — |
+| ReturnFearDelay (additional from engine) | medium | high | medium | 0.455 | resolve | 4 |
 
-Filled by [`phase-2/`](../phase-2/) from `Phase-1/data/discovery/opportunity-ranking.json` (live scrape). Unobserved cells were **not** guessed.
+Filled by [`phase-2/`](../phase-2/) from `Phase-1/data/discovery/opportunity-ranking.json`. Unobserved cells were **not** guessed.
 
 **Phase 2 decision (from `phase-2/data/nomination.json`):**
 
-- Highest-potential opportunity: **FitSizeAnxiety → Resolve**
-- Interview segment: **S2** (fit-anxious stallers). S2 ∩ S4 is **not** locked — compare/Decide was unobserved.
+- Highest-potential opportunity: **FitSizeAnxiety → resolve**
+- Interview segment: **S2 ∩ S4** — ranking includes both Resolve (fit) and Decide (compare). Recruit this intersection; do **not** lock P1 until Phase 4.
 - Explicitly not pursuing: Price-drop / sale alerts (monetary)
-- Caveats: Phase 1 `readyForPhase2` is false (2 themes; Q gaps 1, 5, 6, 8, 9, 10). Nomination is provisional. Probe comparison in interviews.
+- `readyForPhase3`: **true** (Phase 1 `readyForPhase2` is also true)
+- Act-node (back-in-stock) remains unobserved — do not invent a stock-alert MVP.
 
 ---
 
@@ -303,7 +304,7 @@ Filled by [`phase-2/`](../phase-2/) from `Phase-1/data/discovery/opportunity-ran
 
 ### 3.1 Target segment (provisional — replace if Phase 2 ranking differs)
 
-**Working filter:** S2 ∩ S4 — multiple items in the same category, genuine purchase interest, stall on fit/style/comparison rather than price alone.
+**Working filter (from Phase 2 nomination):** S2 ∩ S4 — multiple items in the same category, genuine purchase interest, stall on fit/style/comparison rather than price alone. P1 eligibility is still **not locked**.
 
 ### 3.2 Recruitment
 

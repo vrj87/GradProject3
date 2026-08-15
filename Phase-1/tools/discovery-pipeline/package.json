@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@myntra/discovery-core": "1.0.0",
+    "dotenv": "^17.4.2",
     "google-play-scraper": "^10.0.1"
   }
 }

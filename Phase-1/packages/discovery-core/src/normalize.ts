@@ -16,9 +16,18 @@ export function languageHint(text: string): string {
   return "en";
 }
 
+function keywordInText(text: string, keyword: string): boolean {
+  const lower = text.toLowerCase();
+  if (keyword.length <= 5 && !keyword.includes(" ")) {
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`\\b${escaped}\\b`, "i").test(lower);
+  }
+  return lower.includes(keyword);
+}
+
 export function isWishlistRelevant(text: string): boolean {
   const lower = text.toLowerCase();
-  return WISHLIST_KEYWORDS.some((keyword) => lower.includes(keyword));
+  return WISHLIST_KEYWORDS.some((keyword) => keywordInText(lower, keyword));
 }
 
 export function isFrequencyExcluded(source: string): boolean {

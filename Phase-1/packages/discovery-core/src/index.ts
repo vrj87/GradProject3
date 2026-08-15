@@ -4,3 +4,4 @@ export * from "./normalize.js";
 export * from "./chunk.js";
 export * from "./paths.js";
 export * from "./sourceUrl.js";
+export * from "./quote.js";

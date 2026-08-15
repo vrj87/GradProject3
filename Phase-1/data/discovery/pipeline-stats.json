@@ -1,26 +1,37 @@
 {
-  "rawCount": 250,
-  "normalizedCount": 17,
-  "droppedMinWords": 144,
-  "droppedIrrelevant": 89,
+  "rawCount": 633,
+  "normalizedCount": 67,
+  "droppedMinWords": 347,
+  "droppedIrrelevant": 219,
   "droppedDuplicates": 0,
-  "chunkCount": 17,
+  "chunkCount": 67,
   "sourceCoverage": {
-    "app_store": 100,
-    "play_store": 150
+    "app_store": 456,
+    "play_store": 153,
+    "fixture": 4,
+    "reddit": 10,
+    "youtube": 3,
+    "forum": 3,
+    "myntra_review": 2,
+    "quora": 1,
+    "interview": 1
   },
   "partialCoverage": [],
-  "extractionMethod": "rule-based",
-  "validatedThemeCount": 2,
-  "rejectedThemeCount": 8,
-  "researchQuestionGaps": [
-    1,
-    5,
-    6,
-    8,
-    9,
-    10
-  ],
-  "readyForPhase2": false,
-  "generatedAt": "2026-08-15T08:59:43.326Z"
+  "extractionMethod": "hybrid",
+  "validatedThemeCount": 20,
+  "rejectedThemeCount": 0,
+  "researchQuestionGaps": [],
+  "metricNodeGaps": [],
+  "sampleSizeCapped": false,
+  "fixtureCount": 33,
+  "llmStats": {
+    "batchesProcessed": 4,
+    "batchesFailed": 0,
+    "rawThemeCount": 12,
+    "themesMerged": 14,
+    "quoteRepairs": 0,
+    "gapFillThemes": 2
+  },
+  "readyForPhase2": true,
+  "generatedAt": "2026-08-15T12:10:31.388Z"
 }

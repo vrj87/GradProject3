@@ -4,27 +4,42 @@
   <meta charset="utf-8" />
   <title>Phase 2 — Opportunity ranking</title>
   <style>
-    body { font-family: Georgia, serif; max-width: 960px; margin: 2rem auto; color: #1a1a1a; }
+    body { font-family: Georgia, serif; max-width: 980px; margin: 2rem auto; color: #1a1a1a; }
     table { border-collapse: collapse; width: 100%; font-size: 14px; }
     th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
     .ok { color: #0b6; } .warn { color: #b60; }
+    tr.excluded { background: #f6f6f6; color: #666; }
+    tr.unobserved { background: #fff8e8; }
+    small { color: #555; }
   </style>
 </head>
 <body>
   <h1>Phase 2 — Metric decomposition + ranking</h1>
-  <p>Filled from Phase 1 <code>opportunity-ranking.json</code>. Extraction: rule-based.</p>
-  <p class="warn">readyForPhase3: false</p>
+  <p>Filled from Phase 1 <code>opportunity-ranking.json</code>. Extraction: hybrid. Unobserved cells were not guessed.</p>
+  <p class="ok">readyForPhase3: true · Phase 1 readyForPhase2: true</p>
+  <h2>What must change</h2>
+  <p>W2P 30d — users who purchase ≥1 wishlisted item within 30 days of adding it</p>
+  <p><strong>Product:</strong> revisit × uncertainty resolution × shortlist-to-decision → cart/checkout</p>
+  <p><strong>Constraint:</strong> No monetary incentives as the core lever</p>
+  <table>
+    <thead><tr><th>Node</th><th>Definition</th><th>Covered</th><th>Themes</th></tr></thead>
+    <tbody><tr><td>revisit</td><td>% of wishlist adds where the user opens the wishlist within 30 days</td><td>yes</td><td>BookmarkVsIntent, PoorCustomerSupport, WishlistDecay</td></tr><tr><td>resolve</td><td>% of items where the blocking doubt (fit, style, trust) is resolved</td><td>yes</td><td>FitSizeAnxiety, StylingOccasionMismatch, ReturnFearDelay, SizeFitUncertainty, FitStyleUncertainty, ReviewTrustGap, FitAndSizeUncertainty, StyleOccasionUncertainty, ReturnAndExchangeUncertainty, ReturnAndRefundIssues</td></tr><tr><td>decide</td><td>Among users with 2+ similar items, % who narrow to one choice in 30d</td><td>yes</td><td>ComparisonParalysis, SocialValidation, CompareAndDecide</td></tr><tr><td>act</td><td>% of wishlisted items added to cart / purchased within 30d</td><td>gap</td><td>—</td></tr></tbody>
+  </table>
   <h2>Nomination</h2>
   <ul>
     <li><strong>Highest-potential opportunity:</strong> FitSizeAnxiety → resolve</li>
-    <li><strong>Interview segment:</strong> S2</li>
-    <li><strong>Rationale:</strong> Ranking supports fit-anxious stallers (S2). Compare/S4 is not evidenced — do not lock S2 ∩ S4.</li>
-    <li><strong>Not pursuing:</strong> Price-drop / sale alerts (monetary — excluded by assignment constraint)</li>
+    <li><strong>Interview segment:</strong> S2 ∩ S4</li>
+    <li><strong>Rationale:</strong> Top non-price themes include both Resolve (fit) and Decide (compare). Recruit S2 ∩ S4; do not lock P1 until Phase 4.</li>
+    <li><strong>Sub-metrics moved:</strong> Uncertainty resolution rate; Cart-add rate (from wishlist); Shortlist-to-decision rate; Active intent rate vs bookmark</li>
+    <li><strong>Not pursuing:</strong> Price-drop / sale alerts (monetary — excluded by assignment constraint); PriceAndValueUncertainty (price-flagged, rank 9); SaleWaiting (price-flagged, rank 10); PriceTiming (price-flagged, rank 18); WishlistAsSaleWaitlist (price-flagged, rank 19)</li>
   </ul>
+  
   <h2>Filled matrix</h2>
   <table>
     <thead><tr><th>Opportunity</th><th>Impact</th><th>Feasibility</th><th>Evidence</th><th>Freq</th><th>Node</th><th>Rank</th><th>Status</th></tr></thead>
-    <tbody><tr><td>Fit &amp; size confidence synthesis</td><td>high</td><td>high</td><td>medium</td><td>0.471</td><td>resolve</td><td>1</td><td>filled</td></tr><tr><td>Styling / occasion guidance</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>resolve</td><td>—</td><td>unobserved</td></tr><tr><td>Wishlist compare &amp; prioritization</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>decide</td><td>—</td><td>unobserved</td></tr><tr><td>In-app social proof (review/try-on synthesis)</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>resolve</td><td>—</td><td>unobserved</td></tr><tr><td>Share-for-feedback</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>resolve</td><td>—</td><td>unobserved</td></tr><tr><td>Wishlist revisit nudges (generic)</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>revisit</td><td>—</td><td>unobserved</td></tr><tr><td>Price-drop / sale alerts</td><td>—</td><td>Excluded (monetary)</td><td>—</td><td>—</td><td>—</td><td>Exclude</td><td>excluded</td></tr><tr><td>Back-in-stock alerts</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>act</td><td>—</td><td>unobserved</td></tr><tr><td>ReturnFearDelay</td><td>medium</td><td>high</td><td>medium</td><td>0.647</td><td>resolve</td><td>2</td><td>filled</td></tr></tbody>
+    <tbody><tr class="filled"><td>Fit &amp; size confidence synthesis</td><td>high</td><td>high</td><td>medium</td><td>0.348</td><td>resolve</td><td>1</td><td>filled</td></tr><tr class="filled"><td>Styling / occasion guidance</td><td>high</td><td>high</td><td>medium</td><td>0.106</td><td>resolve</td><td>3</td><td>filled</td></tr><tr class="filled"><td>Wishlist compare &amp; prioritization</td><td>high</td><td>high</td><td>medium</td><td>0.136</td><td>decide</td><td>2</td><td>filled</td></tr><tr class="filled"><td>In-app social proof (review/try-on synthesis)</td><td>high</td><td>medium</td><td>medium</td><td>0.045</td><td>resolve</td><td>7</td><td>filled</td></tr><tr class="filled"><td>Share-for-feedback</td><td>medium</td><td>medium</td><td>high</td><td>0.121</td><td>decide</td><td>11</td><td>filled</td></tr><tr class="filled"><td>Wishlist revisit nudges (generic)</td><td>medium</td><td>medium</td><td>medium</td><td>0.061</td><td>revisit</td><td>15</td><td>filled</td></tr><tr class="excluded"><td>Price-drop / sale alerts</td><td>—</td><td>Excluded (monetary)</td><td>—</td><td>—</td><td>—</td><td>Exclude</td><td>excluded</td></tr><tr class="unobserved"><td>Back-in-stock alerts</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>act</td><td>—</td><td>unobserved</td></tr><tr class="filled"><td>ReturnFearDelay</td><td>medium</td><td>high</td><td>medium</td><td>0.455</td><td>resolve</td><td>4</td><td>filled</td></tr><tr class="filled"><td>ReturnAndExchangeUncertainty</td><td>medium</td><td>medium</td><td>medium</td><td>0.076</td><td>resolve</td><td>13</td><td>filled</td></tr><tr class="filled"><td>PoorCustomerSupport</td><td>medium</td><td>medium</td><td>medium</td><td>0.045</td><td>revisit</td><td>16</td><td>filled</td></tr><tr class="filled"><td>ReturnAndRefundIssues</td><td>low</td><td>medium</td><td>medium</td><td>0.061</td><td>resolve</td><td>20</td><td>filled</td></tr></tbody>
   </table>
+  <h2>Phase 3 interview seeds (brief 8)</h2>
+  <ol><li><strong>Q1.</strong> Why did you save each item? <small>themes: fit-size-anxiety, poor-customer-support, social-validation, wishlist-decay</small></li><li><strong>Q2.</strong> Do you still intend to buy it? What changed? <small>themes: fit-size-anxiety, poor-customer-support, compare-and-decide, social-validation</small></li><li><strong>Q3.</strong> What is stopping you this week even if the price stayed the same? <small>themes: fit-and-size-uncertainty, return-and-exchange-uncertainty, poor-customer-support, return-and-refund-issues</small></li><li><strong>Q4.</strong> What would need to be true to purchase without waiting for a sale? <small>themes: fit-and-size-uncertainty, return-and-exchange-uncertainty, poor-customer-support, return-and-refund-issues</small></li><li><strong>Q5.</strong> What information are you still missing? <small>themes: fit-and-size-uncertainty, return-and-exchange-uncertainty, size-fit-uncertainty, style-occasion-uncertainty</small></li><li><strong>Q6.</strong> Are you considering alternatives — on Myntra or elsewhere? <small>themes: fit-size-anxiety, fit-and-size-uncertainty, return-and-exchange-uncertainty, compare-and-decide</small></li><li><strong>Q7.</strong> What did you do outside the app before deciding? <small>themes: fit-and-size-uncertainty, return-and-exchange-uncertainty, size-fit-uncertainty, style-occasion-uncertainty</small></li><li><strong>Q8.</strong> How do you compare multiple wishlisted items today? <small>themes: fit-size-anxiety, fit-and-size-uncertainty, compare-and-decide, wishlist-decay</small></li></ol>
 </body>
 </html>

@@ -1,7 +1,88 @@
 [
   {
-    "themeId": "fit-size-anxiety",
-    "label": "FitSizeAnxiety",
+    "themeId": "fit-and-size-uncertainty",
+    "label": "FitAndSizeUncertainty",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": [
+      "multiSource: capped confidence at medium"
+    ]
+  },
+  {
+    "themeId": "price-and-value-uncertainty",
+    "label": "PriceAndValueUncertainty",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "return-and-exchange-uncertainty",
+    "label": "ReturnAndExchangeUncertainty",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "poor-customer-support",
+    "label": "PoorCustomerSupport",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": [
+      "multiSource: capped confidence at medium"
+    ]
+  },
+  {
+    "themeId": "return-and-refund-issues",
+    "label": "ReturnAndRefundIssues",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "size-fit-uncertainty",
+    "label": "SizeFitUncertainty",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "sale-waiting",
+    "label": "SaleWaiting",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "style-occasion-uncertainty",
+    "label": "StyleOccasionUncertainty",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "compare-and-decide",
+    "label": "CompareAndDecide",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "social-validation",
+    "label": "SocialValidation",
+    "passed": true,
+    "confidence": "high",
+    "reasons": []
+  },
+  {
+    "themeId": "fit-style-uncertainty",
+    "label": "FitStyleUncertainty",
+    "passed": true,
+    "confidence": "high",
+    "reasons": []
+  },
+  {
+    "themeId": "wishlist-decay",
+    "label": "WishlistDecay",
     "passed": true,
     "confidence": "medium",
     "reasons": []
@@ -9,65 +90,51 @@
   {
     "themeId": "sale-waitlist",
     "label": "WishlistAsSaleWaitlist",
-    "passed": false,
+    "passed": true,
     "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
-  },
-  {
-    "themeId": "styling-occasion",
-    "label": "StylingOccasionMismatch",
-    "passed": false,
-    "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
-  },
-  {
-    "themeId": "comparison-paralysis",
-    "label": "ComparisonParalysis",
-    "passed": false,
-    "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
+    "reasons": []
   },
   {
     "themeId": "bookmark-vs-intent",
     "label": "BookmarkVsIntent",
-    "passed": false,
+    "passed": true,
     "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
+    "reasons": []
   },
   {
-    "themeId": "social-validation",
-    "label": "SocialValidation",
-    "passed": false,
+    "themeId": "fit-size-anxiety",
+    "label": "FitSizeAnxiety",
+    "passed": true,
     "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
+    "reasons": []
+  },
+  {
+    "themeId": "styling-occasion",
+    "label": "StylingOccasionMismatch",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "comparison-paralysis",
+    "label": "ComparisonParalysis",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
   },
   {
     "themeId": "review-trust-gap",
     "label": "ReviewTrustGap",
-    "passed": false,
+    "passed": true,
     "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
+    "reasons": []
   },
   {
     "themeId": "price-timing",
     "label": "PriceTiming",
-    "passed": false,
+    "passed": true,
     "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
+    "reasons": []
   },
   {
     "themeId": "return-fear",
@@ -75,14 +142,5 @@
     "passed": true,
     "confidence": "medium",
     "reasons": []
-  },
-  {
-    "themeId": "wishlist-decay",
-    "label": "WishlistDecay",
-    "passed": false,
-    "confidence": "medium",
-    "reasons": [
-      "minQuotes: need at least 2 quotes"
-    ]
   }
 ]

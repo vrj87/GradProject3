@@ -27,6 +27,14 @@ interface Payload {
   stats: {
     rawCount: number;
     normalizedCount: number;
+    extractionMethod?: string;
+    readyForPhase2?: boolean;
+    validatedThemeCount?: number;
+    llmStats?: {
+      batchesProcessed: number;
+      batchesFailed: number;
+      gapFillThemes: number;
+    };
   };
 }
 
@@ -54,9 +62,17 @@ export function InsightsPanel() {
         {error && <p className="text-myntra-pink mt-4">{error}</p>}
         {data && (
           <>
-            <div className="grid grid-cols-2 gap-3 my-8 max-w-xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 my-8 max-w-3xl">
               <Stat label="Reviews we read" value={String(data.stats.rawCount)} />
               <Stat label="About wishlists" value={String(data.stats.normalizedCount)} />
+              <Stat
+                label="AI extraction"
+                value={data.stats.extractionMethod ?? "—"}
+              />
+              <Stat
+                label="Phase 2 ready"
+                value={data.stats.readyForPhase2 ? "Yes" : "Not yet"}
+              />
             </div>
             <h3 className="font-bold mb-3">What comes up most</h3>
             <div className="grid md:grid-cols-2 gap-4 mb-10">

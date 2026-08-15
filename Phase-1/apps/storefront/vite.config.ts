@@ -43,15 +43,19 @@ function discoveryApi(): Plugin {
         }
         if (url.pathname === "/api/phase2") {
           try {
-            const [matrix, nomination] = await Promise.all([
+            const [matrix, nomination, tree, stats] = await Promise.all([
               readFile(path.join(phase2, "filled-matrix.json"), "utf8"),
-              readFile(path.join(phase2, "nomination.json"), "utf8")
+              readFile(path.join(phase2, "nomination.json"), "utf8"),
+              readFile(path.join(phase2, "metric-tree.json"), "utf8").catch(() => "null"),
+              readFile(path.join(phase2, "phase2-stats.json"), "utf8").catch(() => "null")
             ]);
             res.setHeader("Content-Type", "application/json");
             res.end(
               JSON.stringify({
                 matrix: JSON.parse(matrix),
-                nomination: JSON.parse(nomination)
+                nomination: JSON.parse(nomination),
+                tree: tree === "null" ? null : JSON.parse(tree),
+                stats: stats === "null" ? null : JSON.parse(stats)
               })
             );
           } catch {

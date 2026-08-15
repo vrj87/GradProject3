@@ -11,6 +11,7 @@ interface MatrixRow {
   opportunityArea: string;
   impactOnW2P: string;
   frequency: string | number;
+  metricNode?: string;
   rank: string | number;
   status: string;
 }
@@ -21,12 +22,29 @@ interface Nomination {
   segmentRationale: string;
   explicitlyNotPursuing: string[];
   caveats: string[];
+  readyForPhase3?: boolean;
+  subMetricsMoved?: string[];
+}
+
+interface TreeNode {
+  node: string;
+  covered: boolean;
+  labels: string[];
 }
 
 interface Payload {
   matrix: MatrixRow[];
   nomination: Nomination;
+  tree?: { nodes: TreeNode[]; product: string } | null;
+  stats?: { readyForPhase3?: boolean; filledRows?: number } | null;
 }
+
+const NODE_LABELS: Record<string, string> = {
+  revisit: "Come back",
+  resolve: "Clear the doubt",
+  decide: "Pick one",
+  act: "Add to bag"
+};
 
 export function Phase2Panel() {
   const [data, setData] = useState<Payload | null>(null);
@@ -51,7 +69,7 @@ export function Phase2Panel() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <h2 className="text-xl font-bold">Where shoppers get stuck</h2>
         <p className="text-myntra-muted mt-2 text-sm max-w-2xl">
-          Based on live reviews. We only highlight what shoppers actually mentioned.
+          Ranked from live reviews. We only fill what Phase 1 actually measured — no guessed scores.
         </p>
         {error && <p className="text-myntra-pink mt-4">{error}</p>}
         {data && (
@@ -67,12 +85,25 @@ export function Phase2Panel() {
               <p className="text-sm mt-3 text-myntra-muted">
                 We are not using discounts or sale alerts.
               </p>
+              {data.nomination.readyForPhase3 && (
+                <p className="text-xs font-bold text-myntra-pink mt-3">Ready for interviews</p>
+              )}
               {caveats.map((caveat) => (
                 <p key={caveat} className="text-sm text-myntra-gold mt-2">
                   {caveat}
                 </p>
               ))}
             </div>
+            {data.tree?.nodes && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                {data.tree.nodes.map((node) => (
+                  <div key={node.node} className="bg-white border border-myntra-border p-4">
+                    <div className="text-xs text-myntra-muted">{NODE_LABELS[node.node] ?? node.node}</div>
+                    <div className="font-bold mt-1">{node.covered ? "Seen in reviews" : "Not seen yet"}</div>
+                  </div>
+                ))}
+              </div>
+            )}
             <h3 className="font-bold mb-3">Heard in reviews</h3>
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               {seen.map((row) => (
