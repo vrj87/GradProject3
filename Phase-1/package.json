@@ -1,0 +1,33 @@
+{
+  "name": "myntra-phase-1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Phase 1a–1d AI-powered discovery engine for Myntra W2P 30d",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "tools/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "1a": "npm run 1a --workspace=@myntra/discovery-pipeline",
+    "1b": "npm run 1b --workspace=@myntra/discovery-pipeline",
+    "1c": "npm run 1c --workspace=@myntra/discovery-pipeline",
+    "1d": "npm run 1d --workspace=@myntra/discovery-pipeline",
+    "discovery:refresh": "npm run refresh --workspace=@myntra/discovery-pipeline",
+    "discovery:scrape": "npm run scrape --workspace=@myntra/discovery-pipeline",
+    "dev": "npm run dev --workspace=@myntra/storefront",
+    "dev:report": "npm run dev --workspace=@myntra/discovery-pipeline",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

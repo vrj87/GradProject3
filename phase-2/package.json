@@ -1,0 +1,17 @@
+{
+  "name": "myntra-phase-2-ranking",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase 2 — metric decomposition + opportunity ranking from Phase 1 artefacts",
+  "scripts": {
+    "rank": "tsx src/cli.ts",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

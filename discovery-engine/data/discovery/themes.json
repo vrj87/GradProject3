@@ -1,0 +1,82 @@
+[
+  {
+    "id": "fit-size-anxiety",
+    "label": "FitSizeAnxiety",
+    "summary": "Users stall on wishlisted items because they cannot tell if the size will fit.",
+    "researchQuestionIds": [
+      2,
+      3,
+      7
+    ],
+    "barrierType": "fit",
+    "metricNode": "resolve",
+    "segmentHints": [
+      "S2"
+    ],
+    "quotes": [
+      {
+        "text": "Larah Borosil pudding set. Best product with perfect size quantity",
+        "reviewId": "appstore-in-2-14422586987",
+        "source": "app_store",
+        "url": "https://itunes.apple.com/in/rss/customerreviews/page=2/id=907394059/sortby=mostrecent/json"
+      },
+      {
+        "text": "Awesome 🔥🔥. I recently ordered a sweatshirt from Roadster and I'm really happy with the purchase. The quality of the fabric is very good and it feels comfortable to wear. The fitting is perfect and the design looks stylish as well. It is great for casual wear and winter days. O",
+        "reviewId": "appstore-in-3-14422078662",
+        "source": "app_store",
+        "url": "https://itunes.apple.com/in/rss/customerreviews/page=3/id=907394059/sortby=mostrecent/json"
+      },
+      {
+        "text": "Shoes for baby boy. Fits well and very comfy",
+        "reviewId": "appstore-in-3-14421412071",
+        "source": "app_store",
+        "url": "https://itunes.apple.com/in/rss/customerreviews/page=3/id=907394059/sortby=mostrecent/json"
+      }
+    ],
+    "estimatedFrequency": 0.471,
+    "impactOnW2P": "high",
+    "nonMonetaryFeasibility": "high",
+    "confidence": "medium",
+    "actionableInsight": "Synthesize size and body-type review patterns so shoppers can resolve fit doubt without leaving the wishlist."
+  },
+  {
+    "id": "return-fear",
+    "label": "ReturnFearDelay",
+    "summary": "Easy returns lower risk but users still delay ordering from the wishlist.",
+    "researchQuestionIds": [
+      2,
+      4,
+      3
+    ],
+    "barrierType": "fit",
+    "metricNode": "resolve",
+    "segmentHints": [
+      "S2"
+    ],
+    "quotes": [
+      {
+        "text": "Every Thing Best. `Everything is best about this app. Great collection, fast delivery, easy returns and smooth shopping experience. Love Myntra!`",
+        "reviewId": "appstore-in-2-14422646005",
+        "source": "app_store",
+        "url": "https://itunes.apple.com/in/rss/customerreviews/page=2/id=907394059/sortby=mostrecent/json"
+      },
+      {
+        "text": "AS. Amazing!!!! Greatest part is that it has the smoothest return/exchange system no hassle.",
+        "reviewId": "appstore-in-2-14422301795",
+        "source": "app_store",
+        "url": "https://itunes.apple.com/in/rss/customerreviews/page=2/id=907394059/sortby=mostrecent/json"
+      },
+      {
+        "text": "5 star Rating. Awesome experience with the Myntra… delivery and returns are so smooth… service is just too perfect… Love Myntra…🫶🏻✨",
+        "reviewId": "appstore-in-3-14421819971",
+        "source": "app_store",
+        "url": "https://itunes.apple.com/in/rss/customerreviews/page=3/id=907394059/sortby=mostrecent/json"
+      }
+    ],
+    "estimatedFrequency": 0.647,
+    "impactOnW2P": "medium",
+    "nonMonetaryFeasibility": "high",
+    "confidence": "medium",
+    "actionableInsight": "Use return-reason patterns to raise pre-purchase confidence so try-and-buy is not the only decision strategy."
+  }
+]

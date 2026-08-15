@@ -1,0 +1,241 @@
+[
+  {
+    "id": "fix-fit-01",
+    "text": "Loved this kurta set enough to wishlist it, but I still cannot tell if the size will fit me. The size chart and reviews contradict each other.",
+    "source": "fixture",
+    "url": "https://example.com/fixture/fit-01",
+    "rating": 3,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-fit-02",
+    "text": "I keep opening the size chart for the same dress on my wishlist. Reviews say it runs small and I am scared to order the wrong size.",
+    "source": "reddit",
+    "url": "https://www.reddit.com/r/myntra/comments/fixture-fit-02",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-fit-03",
+    "text": "The sneakers look perfect but brand sizing is all over the place. Wishlisted two sizes because I do not know which will fit.",
+    "source": "app_store",
+    "sourceId": "fit-03",
+    "rating": 2,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-sale-01",
+    "text": "My Myntra wishlist is basically my EOSS shopping list. I save everything now and wait for the sale to actually buy.",
+    "source": "reddit",
+    "url": "https://www.reddit.com/r/myntra/comments/fixture-sale-01",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-sale-02",
+    "text": "I will buy this jacket from my wishlist during BFF. No point paying full price when the sale is around the corner.",
+    "source": "youtube",
+    "url": "https://youtube.com/watch?v=fixture-sale",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-sale-03",
+    "text": "Saved twenty items for the next End of Season Sale. That is what the wishlist is for.",
+    "source": "fixture",
+    "rating": 4,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-style-01",
+    "text": "I like this dress but I do not know what occasion I would wear it to. Wedding guest? Office party? It is stuck on my wishlist.",
+    "source": "forum",
+    "url": "https://example.com/forum/style-01",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-style-02",
+    "text": "Need styling help. The festive set is pretty but I cannot figure out what to pair it with, so I just keep it saved.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-style-03",
+    "text": "Wishlisted a formal shirt for a first day at work and still unsure if the occasion fit is right.",
+    "source": "myntra_review",
+    "rating": 4,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-compare-01",
+    "text": "I have eight similar white sneakers on my wishlist and I cannot decide which one to buy. Compare pages do not help.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-compare-02",
+    "text": "Too many kurta options saved. Every time I try to decide between them I add another similar one instead.",
+    "source": "app_store",
+    "rating": 3,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-compare-03",
+    "text": "Which one should I pick from these three wishlisted dresses? They all look the same in photos.",
+    "source": "quora",
+    "url": "https://www.quora.com/fixture-compare",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-bookmark-01",
+    "text": "I just saved it for later as a bookmark. I do not actually plan to buy this month, it is more of a moodboard.",
+    "source": "fixture",
+    "rating": 5,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-bookmark-02",
+    "text": "Half my wishlist is maybe-later inspiration. Only a few items are real purchase intent.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-bookmark-03",
+    "text": "I keep tapping save on trends I might like later. It is not a shortlist I will checkout from.",
+    "source": "play_store",
+    "rating": 4,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-social-01",
+    "text": "I wishlisted this lehenga but will not buy it until I share it on WhatsApp and my friend says it looks good on me.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-social-02",
+    "text": "Asked my partner for an opinion on the blazer I saved to my wishlist. Still waiting, so it sits there.",
+    "source": "forum",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-social-03",
+    "text": "Need a second opinion from a friend before I order the ethnic set I saved. Occasion wear is a big decision.",
+    "source": "youtube",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-trust-01",
+    "text": "I always check YouTube try-on hauls before buying anything I wishlisted on Myntra. In-app reviews feel too generic.",
+    "source": "youtube",
+    "url": "https://youtube.com/watch?v=fixture-trust",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-trust-02",
+    "text": "Checked Instagram try on videos for the same dress I saved. Still not confident from the product page reviews.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-trust-03",
+    "text": "I leave the app and search reviews on YouTube every time I am close to buying from my wishlist.",
+    "source": "app_store",
+    "rating": 3,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-price-01",
+    "text": "The sneakers are too expensive at full price. I like them but I will wait for the price to make sense.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-price-02",
+    "text": "Wishlisted a jacket that feels overpriced. Fit is fine, I am just not paying this much right now.",
+    "source": "myntra_review",
+    "rating": 4,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-price-03",
+    "text": "Not worth it at current MRP. I saved it and I will wait for price, even if I already know my size.",
+    "source": "forum",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-return-01",
+    "text": "I tell myself I can always return it, so I delay ordering from the wishlist. Try and buy is my backup plan.",
+    "source": "app_store",
+    "rating": 3,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-return-02",
+    "text": "Easy exchange is why I shop Myntra, but I still do not add the wishlisted kurta to cart because I expect I will send it back.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-return-03",
+    "text": "Return policy is great and I still hesitate. I would rather wait than deal with another exchange.",
+    "source": "play_store",
+    "rating": 2,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-decay-01",
+    "text": "I forgot half the things on my wishlist. There are too many items and I never look back at the old ones.",
+    "source": "app_store",
+    "rating": 2,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-decay-02",
+    "text": "My wishlist is clutter now. I open it, scroll, and close it without deciding.",
+    "source": "reddit",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-decay-03",
+    "text": "The old wishlist items just sit there. I forget why I saved them until a sale notification shows up.",
+    "source": "fixture",
+    "rating": 3,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-short-01",
+    "text": "Love Myntra!",
+    "source": "app_store",
+    "rating": 5,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-offtopic-01",
+    "text": "The app crashed during payment and my order failed twice yesterday which was extremely frustrating.",
+    "source": "play_store",
+    "rating": 1,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  },
+  {
+    "id": "fix-interview-01",
+    "text": "In the interview I said I wishlist similar kurtas because I cannot compare fit. This must not count in Phase 1 frequency.",
+    "source": "interview",
+    "rating": null,
+    "scrapedAt": "2026-08-01T00:00:00.000Z"
+  }
+]

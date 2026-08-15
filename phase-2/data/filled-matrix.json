@@ -1,0 +1,101 @@
+[
+  {
+    "opportunityArea": "Fit & size confidence synthesis",
+    "themeId": "fit-size-anxiety",
+    "impactOnW2P": "high",
+    "feasibility": "high",
+    "evidenceStrength": "medium",
+    "frequency": 0.471,
+    "metricNode": "resolve",
+    "rank": 1,
+    "status": "filled"
+  },
+  {
+    "opportunityArea": "Styling / occasion guidance",
+    "themeId": "styling-occasion",
+    "impactOnW2P": "unobserved",
+    "feasibility": "unobserved",
+    "evidenceStrength": "none — not in Phase 1 ranking",
+    "frequency": "—",
+    "metricNode": "resolve",
+    "rank": "—",
+    "status": "unobserved"
+  },
+  {
+    "opportunityArea": "Wishlist compare & prioritization",
+    "themeId": "comparison-paralysis",
+    "impactOnW2P": "unobserved",
+    "feasibility": "unobserved",
+    "evidenceStrength": "none — not in Phase 1 ranking",
+    "frequency": "—",
+    "metricNode": "decide",
+    "rank": "—",
+    "status": "unobserved"
+  },
+  {
+    "opportunityArea": "In-app social proof (review/try-on synthesis)",
+    "themeId": "review-trust-gap",
+    "impactOnW2P": "unobserved",
+    "feasibility": "unobserved",
+    "evidenceStrength": "none — not in Phase 1 ranking",
+    "frequency": "—",
+    "metricNode": "resolve",
+    "rank": "—",
+    "status": "unobserved"
+  },
+  {
+    "opportunityArea": "Share-for-feedback",
+    "themeId": "social-validation",
+    "impactOnW2P": "unobserved",
+    "feasibility": "unobserved",
+    "evidenceStrength": "none — not in Phase 1 ranking",
+    "frequency": "—",
+    "metricNode": "resolve",
+    "rank": "—",
+    "status": "unobserved"
+  },
+  {
+    "opportunityArea": "Wishlist revisit nudges (generic)",
+    "themeId": "wishlist-decay",
+    "impactOnW2P": "unobserved",
+    "feasibility": "unobserved",
+    "evidenceStrength": "none — not in Phase 1 ranking",
+    "frequency": "—",
+    "metricNode": "revisit",
+    "rank": "—",
+    "status": "unobserved"
+  },
+  {
+    "opportunityArea": "Price-drop / sale alerts",
+    "themeId": null,
+    "impactOnW2P": "—",
+    "feasibility": "Excluded (monetary)",
+    "evidenceStrength": "—",
+    "frequency": "—",
+    "metricNode": "—",
+    "rank": "Exclude",
+    "status": "excluded"
+  },
+  {
+    "opportunityArea": "Back-in-stock alerts",
+    "themeId": null,
+    "impactOnW2P": "unobserved",
+    "feasibility": "unobserved",
+    "evidenceStrength": "none — not in Phase 1 ranking",
+    "frequency": "—",
+    "metricNode": "act",
+    "rank": "—",
+    "status": "unobserved"
+  },
+  {
+    "opportunityArea": "ReturnFearDelay",
+    "themeId": "return-fear",
+    "impactOnW2P": "medium",
+    "feasibility": "high",
+    "evidenceStrength": "medium",
+    "frequency": 0.647,
+    "metricNode": "resolve",
+    "rank": 2,
+    "status": "filled"
+  }
+]

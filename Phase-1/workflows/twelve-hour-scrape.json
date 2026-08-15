@@ -1,0 +1,27 @@
+{
+  "name": "twelve-hour-scrape",
+  "nodes": [
+    {
+      "name": "Every12h",
+      "type": "n8n-nodes-base.cron",
+      "parameters": {
+        "triggerTimes": {
+          "item": [{ "hour": 0 }, { "hour": 12 }]
+        }
+      }
+    },
+    {
+      "name": "RefreshDiscovery",
+      "type": "n8n-nodes-base.executeCommand",
+      "parameters": {
+        "command": "npm run discovery:refresh"
+      }
+    }
+  ],
+  "connections": {
+    "Every12h": {
+      "main": [[{ "node": "RefreshDiscovery", "type": "main", "index": 0 }]]
+    }
+  },
+  "notes": "Optional. Phase 1 exit does not require n8n. Run from the Phase-1 folder."
+}

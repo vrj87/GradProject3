@@ -1,0 +1,26 @@
+{
+  "rawCount": 250,
+  "normalizedCount": 17,
+  "droppedMinWords": 144,
+  "droppedIrrelevant": 89,
+  "droppedDuplicates": 0,
+  "chunkCount": 17,
+  "sourceCoverage": {
+    "app_store": 100,
+    "play_store": 150
+  },
+  "partialCoverage": [],
+  "extractionMethod": "rule-based",
+  "validatedThemeCount": 2,
+  "rejectedThemeCount": 8,
+  "researchQuestionGaps": [
+    1,
+    5,
+    6,
+    8,
+    9,
+    10
+  ],
+  "readyForPhase2": false,
+  "generatedAt": "2026-08-15T08:59:43.326Z"
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Phase 2 — Opportunity ranking</title>
+  <style>
+    body { font-family: Georgia, serif; max-width: 960px; margin: 2rem auto; color: #1a1a1a; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+    .ok { color: #0b6; } .warn { color: #b60; }
+  </style>
+</head>
+<body>
+  <h1>Phase 2 — Metric decomposition + ranking</h1>
+  <p>Filled from Phase 1 <code>opportunity-ranking.json</code>. Extraction: rule-based.</p>
+  <p class="warn">readyForPhase3: false</p>
+  <h2>Nomination</h2>
+  <ul>
+    <li><strong>Highest-potential opportunity:</strong> FitSizeAnxiety → resolve</li>
+    <li><strong>Interview segment:</strong> S2</li>
+    <li><strong>Rationale:</strong> Ranking supports fit-anxious stallers (S2). Compare/S4 is not evidenced — do not lock S2 ∩ S4.</li>
+    <li><strong>Not pursuing:</strong> Price-drop / sale alerts (monetary — excluded by assignment constraint)</li>
+  </ul>
+  <h2>Filled matrix</h2>
+  <table>
+    <thead><tr><th>Opportunity</th><th>Impact</th><th>Feasibility</th><th>Evidence</th><th>Freq</th><th>Node</th><th>Rank</th><th>Status</th></tr></thead>
+    <tbody><tr><td>Fit &amp; size confidence synthesis</td><td>high</td><td>high</td><td>medium</td><td>0.471</td><td>resolve</td><td>1</td><td>filled</td></tr><tr><td>Styling / occasion guidance</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>resolve</td><td>—</td><td>unobserved</td></tr><tr><td>Wishlist compare &amp; prioritization</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>decide</td><td>—</td><td>unobserved</td></tr><tr><td>In-app social proof (review/try-on synthesis)</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>resolve</td><td>—</td><td>unobserved</td></tr><tr><td>Share-for-feedback</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>resolve</td><td>—</td><td>unobserved</td></tr><tr><td>Wishlist revisit nudges (generic)</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>revisit</td><td>—</td><td>unobserved</td></tr><tr><td>Price-drop / sale alerts</td><td>—</td><td>Excluded (monetary)</td><td>—</td><td>—</td><td>—</td><td>Exclude</td><td>excluded</td></tr><tr><td>Back-in-stock alerts</td><td>unobserved</td><td>unobserved</td><td>none — not in Phase 1 ranking</td><td>—</td><td>act</td><td>—</td><td>unobserved</td></tr><tr><td>ReturnFearDelay</td><td>medium</td><td>high</td><td>medium</td><td>0.647</td><td>resolve</td><td>2</td><td>filled</td></tr></tbody>
+  </table>
+</body>
+</html>

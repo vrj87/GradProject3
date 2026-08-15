@@ -1,0 +1,18 @@
+{
+  "name": "@myntra/discovery-pipeline",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "1a": "tsx src/cli.ts 1a",
+    "1b": "tsx src/cli.ts 1b",
+    "1c": "tsx src/cli.ts 1c",
+    "1d": "tsx src/cli.ts 1d",
+    "refresh": "tsx src/cli.ts refresh",
+    "scrape": "tsx src/cli.ts scrape",
+    "dev": "tsx src/serve.ts"
+  },
+  "dependencies": {
+    "@myntra/discovery-core": "1.0.0",
+    "google-play-scraper": "^10.0.1"
+  }
+}

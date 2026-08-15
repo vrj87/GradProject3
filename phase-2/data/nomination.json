@@ -1,0 +1,18 @@
+{
+  "highestPotentialOpportunity": "FitSizeAnxiety → resolve",
+  "themeId": "fit-size-anxiety",
+  "metricNode": "resolve",
+  "interviewSegment": "S2",
+  "segmentRationale": "Ranking supports fit-anxious stallers (S2). Compare/S4 is not evidenced — do not lock S2 ∩ S4.",
+  "explicitlyNotPursuing": [
+    "Price-drop / sale alerts (monetary — excluded by assignment constraint)"
+  ],
+  "priceFlagged": false,
+  "caveats": [
+    "Phase 1 readyForPhase2 is false (2 themes; Q gaps: 1, 5, 6, 8, 9, 10). Nomination is provisional.",
+    "Decide-node / comparison paralysis was not observed in Phase 1 ranking. Probe in interviews; do not claim compare MVP is validated."
+  ],
+  "readyForPhase3": false,
+  "generatedAt": "2026-08-15T09:25:13.529Z",
+  "phase1Ready": false
+}
