@@ -32,9 +32,16 @@ describe("normalize", () => {
     ).toBe(true);
   });
 
-  it("gates on wishlist-relevant keywords", () => {
+  it("keeps wishlist and fit-doubt comments, drops generic fit praise", () => {
     expect(isWishlistRelevant("delivery was late and the app crashed")).toBe(false);
     expect(isWishlistRelevant("saved this kurta to my wishlist")).toBe(true);
+    expect(isWishlistRelevant("Size 2-3 yr. Purchased this for my toddler. So comfortable and a perfect fit.")).toBe(
+      false
+    );
+    expect(isWishlistRelevant("The size chart is confusing so I cannot tell if it will fit.")).toBe(true);
+    expect(
+      isWishlistRelevant("I always check YouTube try-ons before I buy something from my shortlist.")
+    ).toBe(true);
   });
 
   it("dedupes by hash and keeps the longest variant", () => {

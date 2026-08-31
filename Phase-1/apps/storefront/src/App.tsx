@@ -1,15 +1,27 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
+import { BackToTop } from "./components/BackToTop";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { MobileBottomNav } from "./components/MobileBottomNav";
 import { Bag } from "./pages/Bag";
 import { Home } from "./pages/Home";
+import { OrderDetail } from "./pages/OrderDetail";
 import { Orders } from "./pages/Orders";
 import { ProductPage } from "./pages/Product";
 import { Profile } from "./pages/Profile";
 import { Shop } from "./pages/Shop";
 import { Studio } from "./pages/Studio";
 import { Wishlist } from "./pages/Wishlist";
+
+function DecideToStudio() {
+  const [params] = useSearchParams();
+  const next = new URLSearchParams();
+  next.set("view", "room");
+  next.set("step", "hang");
+  const item = params.get("item");
+  if (item) next.set("item", item);
+  return <Navigate to={`/studio?${next.toString()}`} replace />;
+}
 
 export function App() {
   return (
@@ -21,15 +33,17 @@ export function App() {
           <Route path="/shop/:gender" element={<Shop />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/decide" element={<DecideToStudio />} />
           <Route path="/bag" element={<Bag />} />
           <Route path="/studio" element={<Studio />} />
-          <Route path="/discovery" element={<Navigate to="/studio" replace />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <Footer />
+      <BackToTop />
       <MobileBottomNav />
     </div>
   );

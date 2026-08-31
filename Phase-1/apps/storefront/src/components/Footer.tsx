@@ -1,9 +1,21 @@
 import { Link } from "react-router-dom";
+import { STUDIO_ENTRY, onStudioNavClick } from "../lib/studioFlow";
 
 export function Footer() {
   return (
     <footer className="bg-myntra-bg mt-10 text-[13px] text-myntra-muted">
       <div className="max-w-[1200px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 py-12">
+        <div>
+          <h4 className="font-bold text-myntra-dark mb-3 text-[12px] tracking-wide">ONLY HERE</h4>
+          <Link
+            to={STUDIO_ENTRY}
+            onClick={onStudioNavClick}
+            className="block py-0.5 font-bold text-myntra-pink hover:text-myntra-dark"
+          >
+            Studio
+          </Link>
+          <p className="py-0.5 text-[12px]">Save → hang → keep one → see the bet</p>
+        </div>
         <div>
           <h4 className="font-bold text-myntra-dark mb-3 text-[12px] tracking-wide">ONLINE SHOPPING</h4>
           <Link to="/shop/men" className="block py-0.5 hover:text-myntra-dark">Men</Link>
@@ -11,7 +23,6 @@ export function Footer() {
           <Link to="/shop/kids" className="block py-0.5 hover:text-myntra-dark">Kids</Link>
           <Link to="/shop/home" className="block py-0.5 hover:text-myntra-dark">Home & Living</Link>
           <Link to="/shop/beauty" className="block py-0.5 hover:text-myntra-dark">Beauty</Link>
-          <Link to="/studio" className="block py-0.5 hover:text-myntra-dark">Studio</Link>
         </div>
         <div>
           <h4 className="font-bold text-myntra-dark mb-3 text-[12px] tracking-wide">CUSTOMER POLICIES</h4>

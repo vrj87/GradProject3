@@ -3,6 +3,8 @@ import { AccountNav } from "../components/AccountNav";
 import { addedDaysAgo } from "../data/demoWishlist";
 import { ORDERS } from "../data/orders";
 import { PRODUCTS, formatInr } from "../data/products";
+import { w2pCount } from "../lib/placedOrders";
+import { STUDIO_ENTRY } from "../lib/studioFlow";
 import { useStore } from "../store";
 
 const CLUSTER_COPY: Record<string, { title: string; wait: string }> = {
@@ -21,11 +23,23 @@ const CLUSTER_COPY: Record<string, { title: string; wait: string }> = {
   saree: {
     title: "Wedding saree",
     wait: "Drape and the unstitched blouse"
+  },
+  "casual-top": {
+    title: "Tops",
+    wait: "Length and bust"
+  },
+  "women-jeans": {
+    title: "Jeans",
+    wait: "Cut and waist"
+  },
+  heels: {
+    title: "Heels",
+    wait: "UK size and how long you can stand"
   }
 };
 
 export function Profile() {
-  const { wishlist, resetDemoWishlist } = useStore();
+  const { wishlist, orders, resetDemoWishlist } = useStore();
   const saved = PRODUCTS.filter((item) => wishlist.includes(item.id));
   const oldestDays = Math.max(0, ...saved.map((item) => addedDaysAgo(item.id) ?? 0));
   const daysLeft = Math.max(0, 30 - oldestDays);
@@ -38,6 +52,7 @@ export function Profile() {
     }, {})
   ).sort((a, b) => b[1].length - a[1].length);
 
+  const bought = w2pCount(orders);
   const recentOrders = ORDERS.slice(0, 3)
     .map((order) => ({
       order,
@@ -58,8 +73,14 @@ export function Profile() {
                 <p className="text-[13px] text-myntra-muted mt-0.5">Bengaluru · Myntra Insider</p>
               </div>
               <div className="text-[12px] text-myntra-muted text-right">
-                <p>{ORDERS.length} orders in the last year</p>
-                <p>None from this shortlist yet</p>
+                <p>{ORDERS.length + orders.length} orders in the last year</p>
+                {bought > 0 ? (
+                  <Link to="/orders" className="font-bold text-myntra-pink">
+                    {bought} bought from this shortlist, no coupon →
+                  </Link>
+                ) : (
+                  <p>None from this shortlist yet</p>
+                )}
               </div>
             </div>
           </section>
@@ -81,17 +102,17 @@ export function Profile() {
               <p className="text-white/75 text-sm mt-2 max-w-xl">
                 {saved.length > 0
                   ? `Shoppers like you usually wait on size — not a sale. ${daysLeft} days left in the usual 30-day window to pick one.`
-                  : "Restore the demo shortlist to see how Fit Insight helps you choose between similar saves."}
+                  : "Restore the demo shortlist to see how shoppers compare similar saves without waiting for a sale."}
               </p>
               <div className="flex flex-wrap gap-3 mt-5">
-                <Link to="/studio" className="bg-myntra-pink text-white font-bold px-5 py-2.5 text-sm">
-                  SEE LIVE VOICES
+                <Link to={STUDIO_ENTRY} className="bg-myntra-pink text-white font-bold px-5 py-2.5 text-sm">
+                  OPEN STUDIO
                 </Link>
                 <Link
-                  to="/wishlist"
+                  to="/studio?view=why"
                   className="border border-white/40 text-white font-bold px-5 py-2.5 text-sm hover:bg-white/10"
                 >
-                  COMPARE WISHLIST
+                  WHY THIS ROOM
                 </Link>
               </div>
             </div>
@@ -121,10 +142,10 @@ export function Profile() {
                           </p>
                         </div>
                         <Link
-                          to="/wishlist"
+                          to={STUDIO_ENTRY}
                           className="text-[11px] font-bold text-myntra-pink self-start"
                         >
-                          COMPARE THESE
+                          HANG THESE
                         </Link>
                       </div>
                       <div className="flex gap-2 mt-3 overflow-x-auto no-scrollbar">

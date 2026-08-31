@@ -5,22 +5,7 @@ import {
   scrapeDownloadUrl,
   voicesToCsv
 } from "../lib/exportDiscovery";
-
-interface Voice {
-  id: string;
-  text: string;
-  source: string;
-  rating: number | null;
-  gatheredAt: string;
-  url: string;
-}
-
-interface DiscoveryPayload {
-  stats: unknown;
-  voices: Voice[];
-  themes?: unknown;
-  ranking?: unknown;
-}
+import { loadDiscovery, type DiscoveryPayload } from "../lib/fetchDiscovery";
 
 export function DownloadScrapeData() {
   const [open, setOpen] = useState(false);
@@ -36,9 +21,8 @@ export function DownloadScrapeData() {
     setBusy(true);
     setError("");
     try {
-      const res = await fetch("/api/discovery");
-      if (!res.ok) throw new Error("Scrape data is not available right now.");
-      const payload = (await res.json()) as DiscoveryPayload;
+      const payload = await loadDiscovery();
+      if (!payload) throw new Error("Scrape data is not available right now.");
       const output = build(payload);
       if (typeof output === "string") {
         downloadText(output, filename, mime);

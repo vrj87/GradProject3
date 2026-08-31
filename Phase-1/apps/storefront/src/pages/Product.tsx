@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
+import { ProductImage } from "../components/ProductImage";
+import { ProductShopperFit } from "../components/ProductShopperFit";
 import {
   CATEGORY_LABELS,
   DEPARTMENT_LABELS,
   PRODUCTS,
-  discount,
   formatInr,
   formatRatingCount,
   similarProducts
 } from "../data/products";
 import { useStore } from "../store";
+import { studioRoom } from "../lib/studioFlow";
 
 export function ProductPage() {
   const { id } = useParams();
@@ -34,11 +36,6 @@ export function ProductPage() {
   const similar = similarProducts(product, 8);
   const saved = wishlist.includes(product.id);
   const apparel = !product.sizes[0]?.includes("UK") && product.sizes[0] !== "OS";
-  const fitBand = product.fitNote.toLowerCase().includes("small")
-    ? "Runs a little small"
-    : product.fitNote.toLowerCase().includes("large")
-      ? "Runs a little large"
-      : "Mostly true to size";
 
   return (
     <div className="max-w-[1200px] mx-auto px-3 md:px-4 py-4 md:py-6">
@@ -48,15 +45,10 @@ export function ProductPage() {
       <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-4 md:gap-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {(product.images.length > 1 ? product.images : [product.image, product.image]).map((src, index) => (
-            <img
+            <ProductImage
               key={`${src}-${index}`}
-              src={src}
-              alt=""
+              product={{ ...product, image: src }}
               className="w-full aspect-[3/4] object-cover bg-myntra-bg"
-              onError={(event) => {
-                event.currentTarget.src =
-                  "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80";
-              }}
             />
           ))}
         </div>
@@ -70,13 +62,12 @@ export function ProductPage() {
           </div>
           <div className="border-t border-myntra-border mt-4 pt-4">
             <div className="text-[24px]">
-              <b>{formatInr(product.price)}</b>{" "}
-              <span className="line-through text-myntra-muted text-[18px] font-normal">
-                MRP {formatInr(product.mrp)}
-              </span>{" "}
-              <span className="text-myntra-gold font-bold text-[18px]">({discount(product)}% OFF)</span>
+              <b>MRP {formatInr(product.price)}</b>
             </div>
             <p className="text-myntra-green text-[13px] font-bold mt-1">inclusive of all taxes</p>
+            <p className="text-myntra-muted text-[12px] mt-1">
+              One price, no markdown. This store settles saves with fit, not a discount.
+            </p>
           </div>
 
           <div className="mt-6">
@@ -106,21 +97,12 @@ export function ProductPage() {
               <div className="mt-3 border border-myntra-border p-3 text-[12px] text-myntra-muted">
                 {apparel
                   ? "XS 32 · S 34 · M 36 · L 38 · XL 40 · XXL 42 (chest / bust in inches). Compare with a garment that already fits you."
-                  : "UK sizes as marked. If you are between sizes, read Fit Insight before you order."}
+                  : "UK sizes as marked. If you are between sizes, read the size notes before you order."}
               </div>
             )}
           </div>
 
-          <div className="mt-5 border border-[#e0e0e0] p-4">
-            <div className="flex justify-between items-center">
-              <div className="font-bold text-[13px]">FIT INSIGHT</div>
-              <span className="text-[12px] font-bold text-myntra-pink">{fitBand}</span>
-            </div>
-            <p className="text-[13px] text-myntra-muted mt-2">{product.fitNote}</p>
-            <Link to="/studio" className="inline-block mt-2 text-[12px] font-bold text-myntra-pink">
-              Why shoppers wait on fit
-            </Link>
-          </div>
+          <ProductShopperFit product={product} />
 
           <div className="hidden md:flex gap-3 mt-6">
             <button
@@ -141,6 +123,14 @@ export function ProductPage() {
               {saved ? "WISHLISTED" : "WISHLIST"}
             </button>
           </div>
+          {saved && (
+            <Link
+              to={studioRoom(product.id, "hang")}
+              className="hidden md:block mt-3 text-center text-[12px] font-bold text-myntra-pink"
+            >
+              TRY THIS LOOK IN THE ROOM →
+            </Link>
+          )}
 
           <div className="mt-8">
             <h3 className="font-bold text-[15px] mb-2">DELIVERY OPTIONS</h3>

@@ -345,7 +345,7 @@ Missing any of the eight brief topics fails Part 3 ([edge-cases.md](./edge-cases
 | Occasion timing drives postponement | | |
 | Final segment and root cause for Phase 4 | | |
 
-**Interview artefact link (placeholder):** [Interview notes / survey URL TBD](#)
+**Interview artefact:** [Fashion Wishlist → Purchase questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · response sheet TBD (paste when replies are in).
 
 ---
 
@@ -507,7 +507,7 @@ Demo instrumentation uses simulated cart/purchase flags and must be labeled as *
 | **1-slider in deck** (how the engine works) | Pending | Inside PDF |
 | **[PDF] 10-slide deck** | Pending | TBD |
 | **[Link] Deployed MVP** | Pending | [Production URL TBD](#) |
-| **Interview notes / survey** | Pending | [URL TBD](#) |
+| **Interview notes / survey** | Form live; responses pending | [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · responses TBD |
 
 ### 6.5 Deck content map (10 slides max)
 

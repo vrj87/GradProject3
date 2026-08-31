@@ -1,5 +1,6 @@
 import type { NormalizedReview, RawReview } from "./types.js";
 import { WISHLIST_KEYWORDS } from "./types.js";
+import { surveyKeepKeywords } from "./survey.js";
 import { textHash } from "./hash.js";
 
 const DEVANAGARI = /[\u0900-\u097F]/;
@@ -25,9 +26,23 @@ function keywordInText(text: string, keyword: string): boolean {
   return lower.includes(keyword);
 }
 
+const PRAISE_ONLY_FIT =
+  /\b(perfect fit|excellent fit|good fit|nice fit|great fit|amazing fit)\b/i;
+const FIT_DOUBT =
+  /\b(size chart|runs small|runs large|too tight|too loose|wrong size|will it fit|if it (will|would) fit|size is confusing|not sure.*(size|fit)|(size|fit).*not sure)\b/i;
+const WISHLIST_INTENT =
+  /\b(wishlist|wish list|shortlist|saved it|save for later|bookmark|moodboard)\b/i;
+const SURVEY_BEHAVIOR =
+  /\b(youtube|instagram|customer photos?|still deciding|didn't buy|did not buy|never bought|ask friends?|inspiration|will it look)\b/i;
+
 export function isWishlistRelevant(text: string): boolean {
   const lower = text.toLowerCase();
-  return WISHLIST_KEYWORDS.some((keyword) => keywordInText(lower, keyword));
+  if (WISHLIST_INTENT.test(lower) || FIT_DOUBT.test(lower) || SURVEY_BEHAVIOR.test(lower)) return true;
+  if (PRAISE_ONLY_FIT.test(lower) && !WISHLIST_INTENT.test(lower) && !FIT_DOUBT.test(lower)) {
+    return false;
+  }
+  const extra = surveyKeepKeywords().filter((keyword) => keyword.length > 4);
+  return [...WISHLIST_KEYWORDS, ...extra].some((keyword) => keywordInText(lower, keyword));
 }
 
 export function isFrequencyExcluded(source: string): boolean {

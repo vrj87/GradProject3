@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import {
@@ -9,6 +9,12 @@ import {
   type Category,
   type Gender
 } from "../data/products";
+import {
+  OCCASION_LABELS,
+  isOccasionFilter,
+  matchesShopQuery,
+  occasionMatch
+} from "../lib/decidePiles";
 
 export function Shop() {
   const { gender: deptParam = "women" } = useParams();
@@ -18,12 +24,21 @@ export function Shop() {
   const availableCats = CATS_BY_DEPT[gender];
   const [params] = useSearchParams();
   const q = (params.get("q") ?? "").toLowerCase();
-  const initialCat = params.get("cat") as Category | null;
-  const [cats, setCats] = useState<Category[]>(initialCat ? [initialCat] : []);
+  const catParam = params.get("cat");
+  const occParam = (params.get("occ") ?? "").toLowerCase();
+  const occ = isOccasionFilter(occParam) && occParam !== "any" ? occParam : "";
+  const [cats, setCats] = useState<Category[]>(() =>
+    catParam && availableCats.includes(catParam as Category) ? [catParam as Category] : []
+  );
   const [brands, setBrands] = useState<string[]>([]);
   const [sort, setSort] = useState("recommended");
   const [maxPrice, setMaxPrice] = useState(10000);
   const [filtersOpen, setFiltersOpen] = useState(false);
+
+  useEffect(() => {
+    setCats(catParam && availableCats.includes(catParam as Category) ? [catParam as Category] : []);
+    setBrands([]);
+  }, [gender, catParam, availableCats]);
 
   const brandOptions = useMemo(() => {
     const pool = q
@@ -33,33 +48,27 @@ export function Shop() {
   }, [gender, q]);
 
   const items = useMemo(() => {
-    let list = PRODUCTS.filter((item) => item.gender === (gender as Gender));
-    if (q) {
-      list = PRODUCTS.filter(
-        (item) =>
-          item.name.toLowerCase().includes(q) ||
-          item.brand.toLowerCase().includes(q) ||
-          item.occasion.toLowerCase().includes(q) ||
-          item.category.includes(q)
-      );
-    }
+    let list = PRODUCTS.filter((item) => item.gender === gender);
+    if (q) list = list.filter((item) => matchesShopQuery(item, q));
+    if (occ) list = list.filter((item) => occasionMatch(item, occ) >= 2);
     if (cats.length) list = list.filter((item) => cats.includes(item.category));
     if (brands.length) list = list.filter((item) => brands.includes(item.brand));
     list = list.filter((item) => item.price <= maxPrice);
     if (sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
     if (sort === "rating") list = [...list].sort((a, b) => b.rating - a.rating);
-    if (sort === "discount") {
-      list = [...list].sort((a, b) => b.mrp - b.price - (a.mrp - a.price));
-    }
     return list;
-  }, [gender, q, cats, brands, sort, maxPrice]);
+  }, [gender, q, occ, cats, brands, sort, maxPrice]);
 
   const heading = q
     ? `Search results for “${q}”`
-    : cats.length === 1
-      ? `${DEPARTMENT_LABELS[gender]} ${CATEGORY_LABELS[cats[0]]}`
-      : DEPARTMENT_LABELS[gender];
+    : occ && cats.length === 1
+      ? `${DEPARTMENT_LABELS[gender]} ${OCCASION_LABELS[occ]} ${CATEGORY_LABELS[cats[0]]}`
+      : occ
+        ? `${DEPARTMENT_LABELS[gender]} ${OCCASION_LABELS[occ]}`
+        : cats.length === 1
+          ? `${DEPARTMENT_LABELS[gender]} ${CATEGORY_LABELS[cats[0]]}`
+          : DEPARTMENT_LABELS[gender];
 
   const filterProps = {
     cats,
@@ -81,6 +90,12 @@ export function Shop() {
           <>
             {" / "}
             {CATEGORY_LABELS[cats[0]]}
+          </>
+        )}
+        {occ && isOccasionFilter(occ) && (
+          <>
+            {" / "}
+            {OCCASION_LABELS[occ]}
           </>
         )}
       </div>
@@ -110,7 +125,6 @@ export function Shop() {
                 <option value="recommended">Sort by : Recommended</option>
                 <option value="price-asc">Price : Low to High</option>
                 <option value="price-desc">Price : High to Low</option>
-                <option value="discount">Better Discount</option>
                 <option value="rating">Customer Rating</option>
               </select>
             </div>

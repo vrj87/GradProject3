@@ -1,79 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { StudioFlow } from "./StudioFlow";
+import { SurveyBanner } from "./SurveyBanner";
+import { loadDiscovery, type DiscoveryPayload } from "../lib/fetchDiscovery";
 import { friendlyImpact, friendlyShare, friendlySource, friendlyTheme } from "../lib/friendlyLabels";
 import { publicReviewUrl, reviewLinkLabel, storeListingUrl } from "../lib/sourceUrls";
+import { STUDIO_ENTRY, STUDIO_WHY } from "../lib/studioFlow";
 import { PRODUCTS } from "../data/products";
 import { useStore } from "../store";
 
-interface RankRow {
-  rank: number;
-  label: string;
-  impactOnW2P: string;
-  estimatedFrequency: number;
-}
-
-interface Theme {
-  id: string;
-  label: string;
-  summary: string;
-  quotes: Array<{ text: string; source: string; reviewId?: string; url?: string }>;
-}
-
-interface Payload {
-  themes: Theme[];
-  ranking: RankRow[];
-  stats?: {
-    rawCount: number;
-    normalizedCount: number;
-    validatedThemeCount: number;
-    sourceCoverage: Record<string, number>;
-  };
-}
-
 const THEME_LINKS: Record<string, string> = {
-  FitSizeAnxiety: "/shop/women?cat=ethnic",
+  FitSizeAnxiety: STUDIO_ENTRY,
+  ComparisonParalysis: STUDIO_ENTRY,
   ReturnFearDelay: "/shop/women?cat=western"
 };
 
-const FALLBACK: Payload = {
-  themes: [
-    {
-      id: "fit",
-      label: "FitSizeAnxiety",
-      summary: "Shoppers save festive sets, then wait because bust, length, or size still feels uncertain.",
-      quotes: [{ text: "Print is lovely. I usually wear M but the bust felt snug — thinking of exchanging for L.", source: "review" }]
-    },
-    {
-      id: "return",
-      label: "ReturnFearDelay",
-      summary: "People hesitate when they think they will need to send a piece back after trying it at home.",
-      quotes: [{ text: "Easy returns, so I may order two sizes and send one back.", source: "review" }]
-    }
-  ],
-  ranking: [
-    { rank: 1, label: "FitSizeAnxiety", impactOnW2P: "high", estimatedFrequency: 0.42 },
-    { rank: 2, label: "ReturnFearDelay", impactOnW2P: "medium", estimatedFrequency: 0.28 }
-  ]
-};
-
-const STEPS = [
-  { n: "01", title: "Collect live reviews", text: "Pull the latest public notes from the App Store and Play Store." },
-  { n: "02", title: "Keep fit and save talk", text: "Drop short or off-topic comments. Keep size, returns, and shortlists." },
-  { n: "03", title: "Show the pattern", text: "Group the repeating worry so you can pick one look and move it to bag." }
-];
-
 export function HomeFitInsight() {
-  const [data, setData] = useState<Payload>(FALLBACK);
+  const [data, setData] = useState<DiscoveryPayload | null>(null);
   const { wishlist } = useStore();
   const saved = PRODUCTS.filter((item) => wishlist.includes(item.id)).slice(0, 3);
+  const nonPrice = (data?.ranking ?? []).filter((row) => !row.priceFlag).slice(0, 2);
 
   useEffect(() => {
-    fetch("/api/discovery")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((payload: Payload | null) => {
-        if (payload?.ranking?.length || payload?.stats) setData({ ...FALLBACK, ...payload });
-      })
-      .catch(() => undefined);
+    loadDiscovery().then((payload) => {
+      if (payload) setData(payload);
+    });
   }, []);
 
   return (
@@ -87,20 +38,23 @@ export function HomeFitInsight() {
           </span>
         </div>
 
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-end">
+        <div>
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-              Live shopper voices
+              Name the doubt on one body. Keep one hanger.
             </h2>
             <p className="mt-3 text-white/80 text-sm md:text-base max-w-xl">
-              We collect public store reviews as they come in, keep comments about saving and fit,
-              and turn them into Fit Insight — so you can decide, not wait for a sale.
+              Wishlist already shows intent. Studio hangs two similar saves on a shared silhouette,
+              names bust / length / foot, and keeps one look so a save can become a bag add inside
+              30 days — without a sale.
             </p>
-            {data.stats && (
+            {data?.stats && (
               <div className="flex flex-wrap gap-2 mt-4 text-[11px] font-bold">
                 <span className="bg-white/10 px-2 py-1">{data.stats.rawCount} reviews collected</span>
                 <span className="bg-white/10 px-2 py-1">{data.stats.normalizedCount} about wishlists</span>
-                {Object.entries(data.stats.sourceCoverage).map(([source, count]) => (
+                {Object.entries(data.stats.sourceCoverage ?? {})
+                  .filter(([source]) => !["fixture", "interview"].includes(source))
+                  .map(([source, count]) => (
                   <a
                     key={source}
                     href={storeListingUrl(source)}
@@ -113,30 +67,26 @@ export function HomeFitInsight() {
                 ))}
               </div>
             )}
+            <div className="mt-5">
+              <StudioFlow current="save" />
+            </div>
             <div className="flex flex-wrap gap-3 mt-6">
               <Link
-                to="/studio"
+                to={STUDIO_ENTRY}
                 className="bg-myntra-pink text-white font-bold px-6 py-3 text-sm tracking-wide"
               >
-                SEE LIVE VOICES
+                OPEN THE ROOM
               </Link>
               <Link
-                to="/wishlist"
-                className="border border-white/40 text-white font-bold px-6 py-3 text-sm tracking-wide hover:bg-white/10"
+                to={STUDIO_WHY}
+                className="bg-white text-myntra-dark font-bold px-6 py-3 text-sm tracking-wide"
               >
-                COMPARE WISHLIST
+                WHY THIS ROOM
               </Link>
             </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {STEPS.map((step) => (
-              <div key={step.n} className="border border-white/15 bg-white/5 p-3 md:p-4">
-                <div className="text-myntra-pink text-[11px] font-bold tracking-[0.18em]">{step.n}</div>
-                <h3 className="font-bold text-[13px] md:text-sm mt-2 leading-snug">{step.title}</h3>
-                <p className="hidden sm:block text-[11px] text-white/65 mt-1 leading-relaxed">{step.text}</p>
-              </div>
-            ))}
+            <div className="mt-5">
+              <SurveyBanner compact />
+            </div>
           </div>
         </div>
 
@@ -146,11 +96,11 @@ export function HomeFitInsight() {
               <div>
                 <p className="font-bold text-sm">Still deciding on {wishlist.length} saved items?</p>
                 <p className="text-[12px] text-myntra-muted mt-0.5">
-                  Shoppers in your shoes usually wait on fit — not on a discount.
+                  The comments we keep are about doubt — fit, compare, occasion — not a missing discount.
                 </p>
               </div>
-              <Link to="/wishlist" className="text-[11px] font-bold text-myntra-pink">
-                SEE YOUR SHORTLIST →
+              <Link to={STUDIO_ENTRY} className="text-[11px] font-bold text-myntra-pink">
+                HANG ONE LOOK →
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
@@ -168,8 +118,8 @@ export function HomeFitInsight() {
         )}
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
-          {data.ranking.slice(0, 2).map((row) => {
-            const theme = data.themes.find((item) => item.label === row.label);
+          {nonPrice.map((row) => {
+            const theme = data?.themes.find((item) => item.label === row.label || item.id === row.themeId);
             const quote = theme?.quotes[0];
             const quoteUrl = quote
               ? publicReviewUrl({

@@ -1,8 +1,19 @@
 import type { RawReview } from "@myntra/discovery-core";
+import { surveyRedditQueries } from "@myntra/discovery-core";
 import { fetchJson, nowIso, type ScrapeResult } from "./http.js";
 
 const SUBREDDITS = ["myntra", "IndianFashionAddicts", "AskIndia", "IndiaFashion"];
-const QUERIES = ["wishlist", "myntra size fit", "myntra return", "EOSS wishlist"];
+const QUERIES = surveyRedditQueries();
+const PULLPUSH_QUERY = [
+  "wishlist",
+  "size chart",
+  "didn't buy",
+  "wait for sale",
+  "compare",
+  "youtube",
+  "saved for later",
+  "fit"
+].join(" OR ");
 
 interface RedditListing {
   data?: {
@@ -76,7 +87,7 @@ async function scrapeRedditOfficial(reviews: RawReview[], errors: string[]) {
 
 async function scrapePullPush(reviews: RawReview[], errors: string[]) {
   for (const subreddit of SUBREDDITS) {
-    const url = `https://api.pullpush.io/reddit/search/comment/?q=${encodeURIComponent("wishlist OR size OR return OR EOSS OR fit")}&subreddit=${subreddit}&size=50`;
+    const url = `https://api.pullpush.io/reddit/search/comment/?q=${encodeURIComponent(PULLPUSH_QUERY)}&subreddit=${subreddit}&size=50`;
     try {
       const payload = await fetchJson<PullPushResponse>(url, 15000);
       for (const item of payload.data ?? []) {

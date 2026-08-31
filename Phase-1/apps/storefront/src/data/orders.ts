@@ -1,4 +1,6 @@
-export type OrderStatus = "Delivered" | "Returned" | "Cancelled" | "Exchanged";
+import type { OrderStatus } from "../lib/placedOrders";
+
+export type { OrderStatus };
 
 export interface Order {
   id: string;
@@ -74,5 +76,3 @@ export const ORDERS: Order[] = [
     payment: "UPI"
   }
 ];
-
-export const ORDER_FILTERS = ["All", "Delivered", "Returned", "Cancelled", "Exchanged"] as const;

@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
@@ -8,6 +8,40 @@ import { publicReviewUrl } from "./src/lib/sourceUrls";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const discovery = path.join(root, "data", "discovery");
 const phase2 = path.resolve(root, "../phase-2/data");
+
+const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "public");
+
+async function syncPublicData(): Promise<void> {
+  const targets: Array<[string, string]> = [
+    [path.join(discovery, "themes.json"), "discovery/themes.json"],
+    [path.join(discovery, "opportunity-ranking.json"), "discovery/opportunity-ranking.json"],
+    [path.join(discovery, "pipeline-stats.json"), "discovery/pipeline-stats.json"],
+    [path.join(discovery, "normalized-reviews.json"), "discovery/normalized-reviews.json"],
+    [path.join(discovery, "raw-reviews.json"), "discovery/raw-reviews.json"],
+    [path.join(phase2, "filled-matrix.json"), "phase2/filled-matrix.json"],
+    [path.join(phase2, "nomination.json"), "phase2/nomination.json"],
+    [path.join(phase2, "metric-tree.json"), "phase2/metric-tree.json"],
+    [path.join(phase2, "phase2-stats.json"), "phase2/phase2-stats.json"]
+  ];
+  await mkdir(path.join(publicDir, "discovery"), { recursive: true });
+  await mkdir(path.join(publicDir, "phase2"), { recursive: true });
+  for (const [from, rel] of targets) {
+    try {
+      await copyFile(from, path.join(publicDir, rel));
+    } catch {
+      /* artefact may not exist yet */
+    }
+  }
+}
+
+function copyArtefacts(): Plugin {
+  return {
+    name: "copy-discovery-artefacts",
+    async buildStart() {
+      await syncPublicData();
+    }
+  };
+}
 
 const DOWNLOAD_ARTEFACTS: Record<string, string> = {
   raw: "raw-reviews.json",
@@ -20,6 +54,17 @@ function discoveryApi(): Plugin {
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url ?? "/", "http://localhost");
+        const staticMatch = url.pathname.match(/^\/(discovery|phase2)\/[\w.-]+\.json$/);
+        if (staticMatch) {
+          try {
+            const body = await readFile(path.join(publicDir, url.pathname.slice(1)));
+            res.setHeader("Content-Type", "application/json");
+            res.end(body);
+            return;
+          } catch {
+            /* fall through to public dir / SPA */
+          }
+        }
         const downloadMatch = url.pathname.match(/^\/api\/discovery\/download\/([^/]+)$/);
         if (downloadMatch) {
           const artefact = DOWNLOAD_ARTEFACTS[downloadMatch[1] ?? ""];
@@ -132,6 +177,6 @@ function discoveryApi(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), discoveryApi()],
+  plugins: [react(), copyArtefacts(), discoveryApi()],
   server: { port: 3000, host: true }
 });

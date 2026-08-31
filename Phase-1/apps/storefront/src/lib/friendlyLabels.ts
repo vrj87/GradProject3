@@ -17,10 +17,22 @@ const THEME_TITLES: Record<string, string> = {
   "comparison-paralysis": "Choosing between saved items",
   "In-app social proof (review/try-on synthesis)": "Trusting reviews and try-ons",
   "review-trust-gap": "Trusting reviews and try-ons",
-  "Share-for-feedback": "Asking friends before buying",
-  "social-validation": "Asking friends before buying",
+  BookmarkVsIntent: "Saved for later, not ready to buy",
+  "bookmark-vs-intent": "Saved for later, not ready to buy",
+  WishlistAsSaleWaitlist: "Waiting for a sale",
+  "sale-waitlist": "Waiting for a sale",
+  PoorCustomerSupport: "Support worries after saving",
+  "poor-customer-support": "Support worries after saving",
+  PriceWaiting: "Waiting for a sale",
+  "price-waiting": "Waiting for a sale",
+  StyleUncertainty: "What to wear for an occasion",
+  "style-uncertainty": "What to wear for an occasion",
+  WishlistDecay: "Forgetting what was saved",
+  "wishlist-decay": "Forgetting what was saved",
+  ReviewTrustGap: "Trusting reviews and try-ons",
+  QualityUncertainty: "Quality still unclear",
+  "quality-uncertainty": "Quality still unclear",
   "Wishlist revisit nudges (generic)": "Coming back to saved items",
-  "wishlist-decay": "Coming back to saved items",
   "Price-drop / sale alerts": "Sale alerts",
   "Back-in-stock alerts": "Back-in-stock alerts"
 };
@@ -94,6 +106,38 @@ export function friendlyShare(value: string | number): string {
   if (typeof value !== "number" || Number.isNaN(value)) return "";
   const pct = Math.round(value * 100);
   return `About ${pct}% of wishlist comments`;
+}
+
+const WEIGHT: Record<string, number> = { high: 1, medium: 0.6, low: 0.3 };
+
+export function friendlyScoreRecipe(row: {
+  score?: number;
+  priceFlag?: boolean;
+  impactOnW2P?: string;
+  nonMonetaryFeasibility?: string;
+  estimatedFrequency?: number;
+}): string {
+  if (row.priceFlag) {
+    return "Counted separately. Waiting for a sale is real — it is not the lever we will use.";
+  }
+  const impact = WEIGHT[row.impactOnW2P ?? ""] ?? 0;
+  const feasible = WEIGHT[row.nonMonetaryFeasibility ?? ""] ?? 0;
+  const freq = row.estimatedFrequency ?? 0;
+  const parts = [
+    `40% how much it blocks a buy (${impact})`,
+    `40% whether we can help without a discount (${feasible})`,
+    `20% how often it shows up (${freq})`
+  ];
+  if (typeof row.score === "number") {
+    return `Score ${row.score.toFixed(2)} = ${parts.join(" + ")}.`;
+  }
+  return `Ranked as ${parts.join(", ")}.`;
+}
+
+export function friendlyExtraction(value: string): string {
+  if (value === "hybrid" || value === "groq" || value === "openai") return "From live shopper comments";
+  if (value === "rule-based") return "From repeating phrases";
+  return "From public comments";
 }
 
 export function isShopperFacingCaveat(text: string): boolean {

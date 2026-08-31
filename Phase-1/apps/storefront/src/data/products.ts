@@ -1,4 +1,7 @@
+import { fallbackImage, img, shots } from "./productImages";
+
 export type Gender = "men" | "women" | "kids" | "home" | "beauty";
+export { fallbackImage };
 export type Category =
   | "ethnic"
   | "western"
@@ -45,10 +48,14 @@ export interface Product {
   reviews: ProductReview[];
 }
 
-const img = (id: string, w = 800) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&q=80`;
+function withLooks<T extends { id: string; image: string; images: string[] }>(items: T[]): T[] {
+  return items.map((item) => {
+    const next = shots(item.id);
+    return next ? { ...item, ...next } : item;
+  });
+}
 
-export const PRODUCTS: Product[] = [
+export const CATALOG: Product[] = [
   {
     id: "w-kurta-1",
     brand: "Libas",
@@ -123,7 +130,7 @@ export const PRODUCTS: Product[] = [
     occasion: "Festive",
     fitNote: "Georgette is sheer — most people wear a slip. Check length if you prefer midi.",
     cluster: "kurta-set",
-    badge: "50% OFF",
+    badge: "Often compared",
     reviews: [
       { name: "Sneha T.", rating: 4, sizeBought: "M", text: "Looks like the other teal sets I wishlisted. Hard to pick one without trying." },
       { name: "Ritika M.", rating: 4, sizeBought: "L", text: "Easy returns, so I may order two sizes and send one back." }
@@ -177,7 +184,7 @@ export const PRODUCTS: Product[] = [
     occasion: "Festive",
     fitNote: "Some reviews say it runs large. Check the size chart if you prefer a closer fit.",
     cluster: "kurta-set",
-    badge: "70% OFF",
+    badge: "Runs large",
     reviews: [
       { name: "Neha G.", rating: 3, sizeBought: "M", text: "Looked cheaper in person than the photo. Saved it for the sale, still not sure." },
       { name: "Pooja L.", rating: 4, sizeBought: "S", text: "For the price it is fine. Embroidery came a bit loose near the neck." }
@@ -236,6 +243,136 @@ export const PRODUCTS: Product[] = [
     ]
   },
   {
+    id: "w-kurta-8",
+    brand: "Global Desi",
+    name: "Printed Kurta with Sharara & Dupatta",
+    gender: "women",
+    category: "ethnic",
+    price: 2399,
+    mrp: 4599,
+    rating: 4.2,
+    ratingCount: 1320,
+    image: img("1583391733956-375ff59226c2"),
+    images: [img("1583391733956-375ff59226c2"), img("1610030469983-98e550d6193c")],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["Teal"],
+    description: "Sharara set for mehendi and daytime festive functions.",
+    seller: "Global Desi",
+    material: "Viscose",
+    fit: "Regular",
+    occasion: "Mehendi, festive",
+    fitNote: "Sharara length runs long. If you are under 5'4, check the hem before you buy.",
+    cluster: "kurta-set",
+    reviews: [
+      { name: "Ira V.", rating: 4, sizeBought: "M", text: "Love the print. Saved four festive sets and this is the loudest one." },
+      { name: "Sana K.", rating: 4, sizeBought: "S", text: "Bust was fine. I am still comparing length with the Libas palazzo set." }
+    ]
+  },
+  {
+    id: "w-kurta-9",
+    brand: "Indya",
+    name: "Embroidered Anarkali Kurta Set",
+    gender: "women",
+    category: "ethnic",
+    price: 2899,
+    mrp: 5499,
+    rating: 4.3,
+    ratingCount: 760,
+    image: img("1610030469983-98e550d6193c"),
+    images: [img("1610030469983-98e550d6193c"), img("1583391733956-375ff59226c2")],
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Emerald"],
+    description: "Anarkali cut for sangeet and evening festive looks.",
+    seller: "Indya",
+    material: "Georgette",
+    fit: "Flared",
+    occasion: "Sangeet, wedding guest",
+    fitNote: "Flared from the bust. If you are between sizes, stay with your usual — it does not cling.",
+    cluster: "kurta-set",
+    reviews: [
+      { name: "Meher A.", rating: 5, sizeBought: "M", text: "Drama I wanted. Still have the Biba cotton saved for daytime functions." },
+      { name: "Ria P.", rating: 4, sizeBought: "L", text: "Sleeves felt long. Checking if I should keep this or the Ahalyaa set." }
+    ]
+  },
+  {
+    id: "w-kurta-10",
+    brand: "Aurelia",
+    name: "Straight Chikankari Kurta Set",
+    gender: "women",
+    category: "ethnic",
+    price: 1699,
+    mrp: 3299,
+    rating: 4.1,
+    ratingCount: 2100,
+    image: img("1604436607823-d721dfe2df46"),
+    images: [img("1604436607823-d721dfe2df46"), img("1610313517157-ee3d5f95d619")],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["Ivory"],
+    description: "Office-to-festive chikankari set with straight trousers.",
+    seller: "Aurelia",
+    material: "Cotton blend",
+    fit: "Straight",
+    occasion: "Work, daytime festive",
+    fitNote: "Straight cut is true at the shoulder. Check trouser length if you are petite.",
+    cluster: "kurta-set",
+    reviews: [
+      { name: "Pallavi S.", rating: 4, sizeBought: "M", text: "Soft work. Comparing this with Biba because both feel office-safe." },
+      { name: "Devika R.", rating: 3, sizeBought: "S", text: "Ivory looks see-through in sun. May need a camisole." }
+    ]
+  },
+  {
+    id: "w-kurta-11",
+    brand: "Varanga",
+    name: "Gotta Patti Kurta with Palazzo",
+    gender: "women",
+    category: "ethnic",
+    price: 1399,
+    mrp: 4299,
+    rating: 4.0,
+    ratingCount: 3180,
+    image: img("1621184455862-c163dfb30e0f"),
+    images: [img("1621184455862-c163dfb30e0f"), img("1607647735186-f3c200aa175a")],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    colors: ["Mustard"],
+    description: "Festive gotta work set often saved next to Kalini and Sangria.",
+    seller: "Varanga",
+    material: "Poly silk",
+    fit: "Regular",
+    occasion: "Festive, puja",
+    fitNote: "Gotta at the bust can feel stiff. If you are between sizes, pick the larger one.",
+    cluster: "kurta-set",
+    reviews: [
+      { name: "Jhanvi T.", rating: 4, sizeBought: "L", text: "Looked richer in the photo. Saved it beside Kalini for the same function." },
+      { name: "Anushka M.", rating: 3, sizeBought: "M", text: "Bust felt tight when I raised my arms. Thinking of exchanging." }
+    ]
+  },
+  {
+    id: "w-kurta-12",
+    brand: "Taavi",
+    name: "Handblock Print Kurta Set",
+    gender: "women",
+    category: "ethnic",
+    price: 2199,
+    mrp: 3999,
+    rating: 4.4,
+    ratingCount: 540,
+    image: img("1759840278381-bf7d5e332050"),
+    images: [img("1759840278381-bf7d5e332050"), img("1708534246055-d7b149acb731")],
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Indigo block"],
+    description: "Handblock set for daytime weddings and office festive Fridays.",
+    seller: "Taavi",
+    material: "Cotton",
+    fit: "Regular",
+    occasion: "Daytime festive, work",
+    fitNote: "Cotton is usually true to size. May shrink slightly after the first wash.",
+    cluster: "kurta-set",
+    reviews: [
+      { name: "Nitya H.", rating: 5, sizeBought: "M", text: "My usual size worked. Still comparing with the Biba indigo set." },
+      { name: "Esha L.", rating: 4, sizeBought: "S", text: "Print is unique. I have too many similar blues saved." }
+    ]
+  },
+  {
     id: "w-saree-1",
     brand: "Mitera",
     name: "Woven Banarasi Silk Saree",
@@ -259,6 +396,84 @@ export const PRODUCTS: Product[] = [
     reviews: [
       { name: "Rekha M.", rating: 4, sizeBought: "OS", text: "Heavy to drape. Saved it for a wedding in three weeks — still checking YouTube pleats." },
       { name: "Smita P.", rating: 5, sizeBought: "OS", text: "Looked richer than the price. Getting the blouse stitched this weekend." }
+    ]
+  },
+  {
+    id: "w-saree-2",
+    brand: "SareeMall",
+    name: "Kanjeevaram Silk Saree",
+    gender: "women",
+    category: "ethnic",
+    price: 3999,
+    mrp: 8999,
+    rating: 4.3,
+    ratingCount: 410,
+    image: img("1617627143750-d86bc21e42bb"),
+    images: [img("1617627143750-d86bc21e42bb"), img("1717835735088-4c821959bdaa")],
+    sizes: ["OS"],
+    colors: ["Red", "Gold"],
+    description: "Heavier silk for the main wedding function.",
+    seller: "SareeMall",
+    material: "Silk blend",
+    fit: "One size",
+    occasion: "Wedding",
+    fitNote: "Blouse is unstitched. Check bust measurement before you send it to the tailor.",
+    cluster: "saree",
+    reviews: [
+      { name: "Lata R.", rating: 4, sizeBought: "OS", text: "Heavy pallu. Saved it next to the Mitera one — still not sure I can drape this." },
+      { name: "Uma S.", rating: 5, sizeBought: "OS", text: "Border is rich. Getting blouse stitching quotes this week." }
+    ]
+  },
+  {
+    id: "w-saree-3",
+    brand: "Kalini",
+    name: "Georgette Sequinned Saree",
+    gender: "women",
+    category: "ethnic",
+    price: 1299,
+    mrp: 3999,
+    rating: 3.9,
+    ratingCount: 2680,
+    image: img("1756483510831-34a18c266b93"),
+    images: [img("1756483510831-34a18c266b93"), img("1617627143750-d86bc21e42bb")],
+    sizes: ["OS"],
+    colors: ["Wine"],
+    description: "Lighter georgette saree often saved as a budget wedding option.",
+    seller: "Kalini",
+    material: "Georgette",
+    fit: "One size",
+    occasion: "Reception, sangeet",
+    fitNote: "Pre-stitched petticoat helps. Check blouse bust if you prefer a closer fit.",
+    cluster: "saree",
+    reviews: [
+      { name: "Bhavna D.", rating: 3, sizeBought: "OS", text: "Sequins came off in the first drape video. Still comparing with Mitera." },
+      { name: "Kirti P.", rating: 4, sizeBought: "OS", text: "Easier to drape than silk. Saved it because I am not sure about the blouse." }
+    ]
+  },
+  {
+    id: "w-saree-4",
+    brand: "Unnati Silks",
+    name: "Handloom Cotton Silk Saree",
+    gender: "women",
+    category: "ethnic",
+    price: 2199,
+    mrp: 4499,
+    rating: 4.5,
+    ratingCount: 290,
+    image: img("1601925260368-ae2f176d2b0d"),
+    images: [img("1601925260368-ae2f176d2b0d"), img("1717835735088-4c821959bdaa")],
+    sizes: ["OS"],
+    colors: ["Mustard"],
+    description: "Daytime function saree that is lighter than Banarasi.",
+    seller: "Unnati Silks",
+    material: "Cotton silk",
+    fit: "One size",
+    occasion: "Daytime festive, puja",
+    fitNote: "Blouse is semi-stitched. Check the chest on the size chart.",
+    cluster: "saree",
+    reviews: [
+      { name: "Anu C.", rating: 5, sizeBought: "OS", text: "Wearable for a morning function. Still have two heavier sarees saved." },
+      { name: "Geeta N.", rating: 4, sizeBought: "OS", text: "Soft. I keep switching between this and the Mitera gold." }
     ]
   },
   {
@@ -393,6 +608,84 @@ export const PRODUCTS: Product[] = [
     ]
   },
   {
+    id: "w-dress-6",
+    brand: "AND",
+    name: "Pleated Midi Shirt Dress",
+    gender: "women",
+    category: "western",
+    price: 2499,
+    mrp: 4599,
+    rating: 4.2,
+    ratingCount: 430,
+    image: img("1485968579580-b6d095142e6e"),
+    images: [img("1485968579580-b6d095142e6e"), img("1490481651871-ab68de25d43d")],
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Navy"],
+    description: "Shirt dress you can belt for brunch or a work party.",
+    seller: "AND",
+    material: "Crepe",
+    fit: "Regular",
+    occasion: "Work, brunch",
+    fitNote: "Belted waist is adjustable. Check shoulder width if you are broad-shouldered.",
+    cluster: "midi-dress",
+    reviews: [
+      { name: "Sia R.", rating: 4, sizeBought: "S", text: "Office-safe. Still comparing with the ONLY wrap for the same dinner." },
+      { name: "Tara N.", rating: 5, sizeBought: "M", text: "Length is good at 5'6. Saved three midis and this is the safest." }
+    ]
+  },
+  {
+    id: "w-dress-7",
+    brand: "H&M",
+    name: "Ribbed Knit Midi Dress",
+    gender: "women",
+    category: "western",
+    price: 1499,
+    mrp: 2299,
+    rating: 4.0,
+    ratingCount: 1880,
+    image: img("1572802419224-296b0aeee0d9"),
+    images: [img("1572802419224-296b0aeee0d9"), img("1539008835657-9e8e9680c956")],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["Chocolate"],
+    description: "Knit midi for dinners. Stretchy but shows shape.",
+    seller: "H&M",
+    material: "Viscose knit",
+    fit: "Slim",
+    occasion: "Dinner, party",
+    fitNote: "Knit clings at the hip. If you prefer room, take one size up.",
+    cluster: "midi-dress",
+    reviews: [
+      { name: "Aanya G.", rating: 3, sizeBought: "M", text: "Pretty colour. I keep opening the SASSAFRAS page next to this one." },
+      { name: "Mirai K.", rating: 4, sizeBought: "L", text: "Sized up and it felt better. Still not sure about the length." }
+    ]
+  },
+  {
+    id: "w-dress-8",
+    brand: "MANGO",
+    name: "Linen Blend Shirt Dress",
+    gender: "women",
+    category: "western",
+    price: 2999,
+    mrp: 4999,
+    rating: 4.3,
+    ratingCount: 310,
+    image: img("1469334031218-e382a71b716b"),
+    images: [img("1469334031218-e382a71b716b"), img("1485968579580-b6d095142e6e")],
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Sand"],
+    description: "Linen-look dress for daytime events and travel.",
+    seller: "MANGO",
+    material: "Linen blend",
+    fit: "Relaxed",
+    occasion: "Brunch, daytime festive",
+    fitNote: "Relaxed through the body. Stay with your usual size unless you want it oversized.",
+    cluster: "midi-dress",
+    reviews: [
+      { name: "Pia S.", rating: 5, sizeBought: "S", text: "Breezy. Comparing with Vero Moda floral for a daytime wedding." },
+      { name: "Roshni V.", rating: 4, sizeBought: "M", text: "Wrinkles easily. Saved it anyway while I decide." }
+    ]
+  },
+  {
     id: "w-top-1",
     brand: "HERE&NOW",
     name: "Women Ribbed Crop Top",
@@ -419,6 +712,58 @@ export const PRODUCTS: Product[] = [
     ]
   },
   {
+    id: "w-top-2",
+    brand: "Roadster",
+    name: "Women Relaxed Cotton Tee",
+    gender: "women",
+    category: "western",
+    price: 399,
+    mrp: 799,
+    rating: 4.1,
+    ratingCount: 5400,
+    image: img("1487222477894-8943e31ef7b2"),
+    images: [img("1487222477894-8943e31ef7b2"), img("1529139574466-a303027c1d8b")],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["Black"],
+    description: "Everyday tee saved next to the crop while you decide coverage.",
+    seller: "Roadster",
+    material: "Cotton",
+    fit: "Relaxed",
+    occasion: "Everyday",
+    fitNote: "Relaxed through the body. Stay with your usual size unless you want it oversized.",
+    cluster: "casual-top",
+    reviews: [
+      { name: "Nidhi A.", rating: 4, sizeBought: "M", text: "Longer than the crop I saved. Still picking which one to buy first." },
+      { name: "Kavya S.", rating: 5, sizeBought: "S", text: "Soft cotton. True for me." }
+    ]
+  },
+  {
+    id: "w-top-3",
+    brand: "H&M",
+    name: "Women Square-Neck Fitted Top",
+    gender: "women",
+    category: "western",
+    price: 799,
+    mrp: 1299,
+    rating: 4.0,
+    ratingCount: 2100,
+    image: img("1503342217505-b0a15ec326ed"),
+    images: [img("1503342217505-b0a15ec326ed"), img("1529139574466-a303027c1d8b")],
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Ivory"],
+    description: "Square-neck top for jeans. Bust fit is the usual doubt.",
+    seller: "H&M",
+    material: "Cotton blend",
+    fit: "Fitted",
+    occasion: "Casual, brunch",
+    fitNote: "Square neck sits snug at the bust. If you are between sizes, pick the larger one.",
+    cluster: "casual-top",
+    reviews: [
+      { name: "Ishita P.", rating: 3, sizeBought: "S", text: "Cute neckline. Bust felt tight — thinking of M." },
+      { name: "Vanya R.", rating: 4, sizeBought: "M", text: "Better in M. Comparing with the ribbed crop for length." }
+    ]
+  },
+  {
     id: "w-jean-1",
     brand: "Levis",
     name: "Women 711 Skinny Jeans",
@@ -442,6 +787,58 @@ export const PRODUCTS: Product[] = [
     reviews: [
       { name: "Kiara B.", rating: 4, sizeBought: "28", text: "Took a day to loosen. I almost returned them." },
       { name: "Harshita P.", rating: 5, sizeBought: "30", text: "Length is long. Planning a small hem." }
+    ]
+  },
+  {
+    id: "w-jean-2",
+    brand: "Levis",
+    name: "Women 501 Original Jeans",
+    gender: "women",
+    category: "western",
+    price: 3999,
+    mrp: 5999,
+    rating: 4.4,
+    ratingCount: 980,
+    image: img("1659167099846-a0dbfc52aa2d"),
+    images: [img("1659167099846-a0dbfc52aa2d"), img("1559334417-a57bd929f003")],
+    sizes: ["26", "28", "30", "32"],
+    colors: ["Classic indigo"],
+    description: "Straight 501 often saved beside the 711 while you decide the cut.",
+    seller: "Levi's",
+    material: "Rigid denim",
+    fit: "Straight",
+    occasion: "Everyday",
+    fitNote: "Rigid denim feels snug on day one. If you are between waists, take the larger size.",
+    cluster: "women-jeans",
+    reviews: [
+      { name: "Ahana M.", rating: 4, sizeBought: "28", text: "Stiffer than 711. I keep both saved until I try a store." },
+      { name: "Ritika J.", rating: 5, sizeBought: "30", text: "Length is long. Same doubt as the skinny pair." }
+    ]
+  },
+  {
+    id: "w-jean-3",
+    brand: "ONLY",
+    name: "Women Wide-Leg Jeans",
+    gender: "women",
+    category: "western",
+    price: 1899,
+    mrp: 3499,
+    rating: 4.2,
+    ratingCount: 1560,
+    image: img("1541099647665-d2c4b584f554"),
+    images: [img("1541099647665-d2c4b584f554"), img("1559334417-a57bd929f003")],
+    sizes: ["26", "28", "30", "32"],
+    colors: ["Light wash"],
+    description: "Wide-leg jean as the third cut on a shortlist.",
+    seller: "ONLY",
+    material: "Denim with stretch",
+    fit: "Wide",
+    occasion: "Everyday",
+    fitNote: "High rise. Check the waist — if you are between sizes, pick the size that matches your hip.",
+    cluster: "women-jeans",
+    reviews: [
+      { name: "Misha K.", rating: 4, sizeBought: "28", text: "Love the cut. Still deciding vs skinny for daily wear." },
+      { name: "Trisha B.", rating: 4, sizeBought: "30", text: "Long on me. Same hem worry as Levi's." }
     ]
   },
   {
@@ -551,6 +948,84 @@ export const PRODUCTS: Product[] = [
     ]
   },
   {
+    id: "w-sneaker-5",
+    brand: "Skechers",
+    name: "Women Uno Sneakers",
+    gender: "women",
+    category: "footwear",
+    price: 3499,
+    mrp: 6499,
+    rating: 4.5,
+    ratingCount: 720,
+    image: img("1600185365483-26d7a4cc7513"),
+    images: [img("1600185365483-26d7a4cc7513"), img("1460353581641-37baddab0fa2")],
+    sizes: ["UK 4", "UK 5", "UK 6", "UK 7"],
+    colors: ["White"],
+    description: "Cushioned white sneaker saved when court shoes feel too stiff.",
+    seller: "Skechers",
+    material: "Mesh and leather look",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "Memory foam feels roomy. If you are between UK sizes, try the smaller one.",
+    cluster: "white-sneaker",
+    reviews: [
+      { name: "Hiral P.", rating: 5, sizeBought: "UK 5", text: "Most comfortable of the four I saved. Still like how Nike looks." },
+      { name: "Sneha D.", rating: 4, sizeBought: "UK 4", text: "A bit wide. Comparing with Adidas for a cleaner shape." }
+    ]
+  },
+  {
+    id: "w-sneaker-6",
+    brand: "New Balance",
+    name: "Women 574 Sneakers",
+    gender: "women",
+    category: "footwear",
+    price: 5999,
+    mrp: 8999,
+    rating: 4.6,
+    ratingCount: 390,
+    image: img("1542291026-7eec264c27ff"),
+    images: [img("1542291026-7eec264c27ff"), img("1560769629-975ec94e6a86")],
+    sizes: ["UK 4", "UK 5", "UK 6", "UK 7"],
+    colors: ["White grey"],
+    description: "Chunkier dad sneaker on shortlists next to court styles.",
+    seller: "New Balance",
+    material: "Suede and mesh",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "574 often feels true to size. Wide feet usually stay with their usual UK size.",
+    cluster: "white-sneaker",
+    reviews: [
+      { name: "Kiara L.", rating: 5, sizeBought: "UK 5", text: "Bulk I wanted. I still have Nike Court saved because it looks smarter." },
+      { name: "Zara M.", rating: 4, sizeBought: "UK 6", text: "True for me. Too many white pairs on the list now." }
+    ]
+  },
+  {
+    id: "w-sneaker-7",
+    brand: "HRX",
+    name: "Women Running Sneakers",
+    gender: "women",
+    category: "footwear",
+    price: 1499,
+    mrp: 2999,
+    rating: 4.1,
+    ratingCount: 2640,
+    image: img("1460353581641-37baddab0fa2"),
+    images: [img("1460353581641-37baddab0fa2"), img("1603808033192-082d6919d3e1")],
+    sizes: ["UK 3", "UK 4", "UK 5", "UK 6", "UK 7"],
+    colors: ["White"],
+    description: "Running-style white sneaker as a cheaper Nike alternative.",
+    seller: "HRX",
+    material: "Mesh",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "Mesh runs a little snug in the toe. If you have wide feet, consider half a size up.",
+    cluster: "white-sneaker",
+    reviews: [
+      { name: "Divya S.", rating: 4, sizeBought: "UK 5", text: "Fine for walks. Still deciding if I should spend on Nike instead." },
+      { name: "Rhea T.", rating: 3, sizeBought: "UK 6", text: "Needed to size up. Comparing with Campus as a backup." }
+    ]
+  },
+  {
     id: "w-heel-1",
     brand: "Shoetopia",
     name: "Women Block Heel Sandals",
@@ -574,6 +1049,58 @@ export const PRODUCTS: Product[] = [
     reviews: [
       { name: "Yamini S.", rating: 3, sizeBought: "UK 5", text: "Pinched at the toes after an hour. May return." },
       { name: "Falguni R.", rating: 4, sizeBought: "UK 6", text: "Stable block heel. Colour matches two kurtas I saved." }
+    ]
+  },
+  {
+    id: "w-heel-2",
+    brand: "Catwalk",
+    name: "Women Kitten Heel Sandals",
+    gender: "women",
+    category: "footwear",
+    price: 1299,
+    mrp: 2499,
+    rating: 4.1,
+    ratingCount: 880,
+    image: img("1518049362265-d4a4573e0bfd"),
+    images: [img("1518049362265-d4a4573e0bfd"), img("1543163521-1bf539c55dd2")],
+    sizes: ["UK 3", "UK 4", "UK 5", "UK 6"],
+    colors: ["Nude"],
+    description: "Lower heel for festive days when the block heel feels too much.",
+    seller: "Catwalk",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Festive, work",
+    fitNote: "Kitten heels often run small at the toe. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    reviews: [
+      { name: "Simran K.", rating: 4, sizeBought: "UK 6", text: "Easier than the block heel I saved. Still checking both for the same saree." },
+      { name: "Neelam J.", rating: 3, sizeBought: "UK 5", text: "Narrow. May exchange." }
+    ]
+  },
+  {
+    id: "w-heel-3",
+    brand: "Inc.5",
+    name: "Women Block Heel Mules",
+    gender: "women",
+    category: "footwear",
+    price: 999,
+    mrp: 1999,
+    rating: 3.9,
+    ratingCount: 1420,
+    image: img("1543163521-1bf539c55dd2"),
+    images: [img("1543163521-1bf539c55dd2"), img("1518049362265-d4a4573e0bfd")],
+    sizes: ["UK 3", "UK 4", "UK 5", "UK 6"],
+    colors: ["Beige"],
+    description: "Backless mule that shoppers save beside closed sandals.",
+    seller: "Inc.5",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Festive, party",
+    fitNote: "Mules can slip at the heel. If you are between sizes, try the smaller UK size for a closer hold.",
+    cluster: "heels",
+    reviews: [
+      { name: "Aashi P.", rating: 3, sizeBought: "UK 5", text: "Pretty but I walk out of them. Comparing with Shoetopia." },
+      { name: "Vedika S.", rating: 4, sizeBought: "UK 4", text: "Smaller size held better. Still not sure for a full wedding day." }
     ]
   },
   {
@@ -1660,9 +2187,646 @@ export const PRODUCTS: Product[] = [
   }
 ];
 
-export function discount(product: Product): number {
-  return Math.round(((product.mrp - product.price) / product.mrp) * 100);
+function pad(entry: {
+  id: string;
+  brand: string;
+  name: string;
+  category: Category;
+  price: number;
+  mrp: number;
+  photo: string;
+  sizes: string[];
+  colors: string[];
+  description: string;
+  material: string;
+  fit: string;
+  occasion: string;
+  fitNote: string;
+  cluster: string;
+  quote: string;
+  sizeBought?: string;
+}): Product {
+  const image = img(entry.photo);
+  const sizeBought = entry.sizeBought ?? entry.sizes[1] ?? entry.sizes[0];
+  return {
+    id: entry.id,
+    brand: entry.brand,
+    name: entry.name,
+    gender: "women",
+    category: entry.category,
+    price: entry.price,
+    mrp: entry.mrp,
+    rating: 4.1,
+    ratingCount: 640,
+    image,
+    images: [image],
+    sizes: entry.sizes,
+    colors: entry.colors,
+    description: entry.description,
+    seller: entry.brand,
+    material: entry.material,
+    fit: entry.fit,
+    occasion: entry.occasion,
+    fitNote: entry.fitNote,
+    cluster: entry.cluster,
+    reviews: [
+      { name: "Priya S.", rating: 4, sizeBought, text: entry.quote },
+      { name: "Ananya M.", rating: 4, sizeBought, text: "Saved next to similar looks. Still deciding which one to keep." }
+    ]
+  };
 }
+
+const OS = ["OS"];
+const APPAREL = ["XS", "S", "M", "L", "XL"];
+const WAIST = ["26", "28", "30", "32"];
+const UK = ["UK 3", "UK 4", "UK 5", "UK 6"];
+
+const ROOM_PADS: Product[] = [
+  pad({
+    id: "w-saree-5",
+    brand: "Suta",
+    name: "Mul Cotton Saree",
+    category: "ethnic",
+    price: 1899,
+    mrp: 3299,
+    photo: "1717835735088-4c821959bdaa",
+    sizes: OS,
+    colors: ["Peach"],
+    description: "Light mul cotton for daytime functions.",
+    material: "Mul cotton",
+    fit: "One size",
+    occasion: "Daytime festive, puja",
+    fitNote: "Blouse is unstitched. Check bust measurement before you send it to the tailor.",
+    cluster: "saree",
+    quote: "Easy to drape. Still comparing with the heavier Banarasi for the main function."
+  }),
+  pad({
+    id: "w-saree-6",
+    brand: "Fabindia",
+    name: "Handloom Cotton Saree",
+    category: "ethnic",
+    price: 2499,
+    mrp: 3999,
+    photo: "1617627143750-d86bc21e42bb",
+    sizes: OS,
+    colors: ["Indigo"],
+    description: "Handloom cotton for puja and daytime weddings.",
+    material: "Cotton",
+    fit: "One size",
+    occasion: "Puja, daytime festive",
+    fitNote: "Blouse is semi-stitched. Check the chest on the size chart.",
+    cluster: "saree",
+    quote: "Breathable. I have too many blues saved — this and Taavi and Biba."
+  }),
+  pad({
+    id: "w-saree-7",
+    brand: "Mimosa",
+    name: "Kanjivaram Style Silk Saree",
+    category: "ethnic",
+    price: 3499,
+    mrp: 7999,
+    photo: "1756483510831-34a18c266b93",
+    sizes: OS,
+    colors: ["Green", "Gold"],
+    description: "Heavier silk look for the wedding function.",
+    material: "Art silk",
+    fit: "One size",
+    occasion: "Wedding",
+    fitNote: "Blouse needs stitching. Check the unstitched blouse measurement before you decide.",
+    cluster: "saree",
+    quote: "Heavy pallu. Saved beside SareeMall while I decide if I can drape this."
+  }),
+  pad({
+    id: "w-saree-8",
+    brand: "Tikhi Imli",
+    name: "Printed Georgette Saree",
+    category: "ethnic",
+    price: 1599,
+    mrp: 3599,
+    photo: "1601925260368-ae2f176d2b0d",
+    sizes: OS,
+    colors: ["Pink"],
+    description: "Printed georgette often saved as a lighter reception option.",
+    material: "Georgette",
+    fit: "One size",
+    occasion: "Reception, sangeet",
+    fitNote: "Pre-pleated options help. Check blouse bust if you prefer a closer fit.",
+    cluster: "saree",
+    quote: "Easier than silk. Still not sure about the blouse size."
+  }),
+  pad({
+    id: "w-saree-9",
+    brand: "Anouk",
+    name: "Woven Tissue Saree",
+    category: "ethnic",
+    price: 2199,
+    mrp: 4999,
+    photo: "1610030469983-98e550d6193c",
+    sizes: OS,
+    colors: ["Ivory"],
+    description: "Tissue sheen for evening functions.",
+    material: "Tissue silk",
+    fit: "One size",
+    occasion: "Reception, festive",
+    fitNote: "Tissue can feel stiff. Check blouse bust before you stitch.",
+    cluster: "saree",
+    quote: "Shiny in person. Comparing with Kalini sequins for the same night."
+  }),
+  pad({
+    id: "w-saree-10",
+    brand: "Sangria",
+    name: "Ready-to-Wear Pre-Draped Saree",
+    category: "ethnic",
+    price: 1799,
+    mrp: 3999,
+    photo: "1583391733956-375ff59226c2",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Wine"],
+    description: "Pre-draped saree if pleats are the blocker.",
+    material: "Georgette",
+    fit: "Regular",
+    occasion: "Wedding guest, reception",
+    fitNote: "Pre-drape is sized like a dress. If you are between sizes, pick the larger one.",
+    cluster: "saree",
+    quote: "Pleats are done. Bust felt snug in M — thinking of L.",
+    sizeBought: "M"
+  }),
+  pad({
+    id: "w-dress-9",
+    brand: "Chemistry",
+    name: "Ruffle Hem Midi Dress",
+    category: "western",
+    price: 1699,
+    mrp: 3299,
+    photo: "1496747611176-843222e1e57c",
+    sizes: APPAREL,
+    colors: ["Berry"],
+    description: "Ruffle midi for parties, saved next to bodycon options.",
+    material: "Polyester",
+    fit: "Regular",
+    occasion: "Party, dinner",
+    fitNote: "Ruffle hem adds length. Check the bust if you are between sizes.",
+    cluster: "midi-dress",
+    quote: "Pretty movement. Still comparing with Tokyo Talkies for sitting comfort."
+  }),
+  pad({
+    id: "w-dress-10",
+    brand: "Mast & Harbour",
+    name: "Smocked Midi Dress",
+    category: "western",
+    price: 1399,
+    mrp: 2799,
+    photo: "1515886657613-9f3515b0c78f",
+    sizes: APPAREL,
+    colors: ["Sage"],
+    description: "Smocked bodice midi for brunch and daytime events.",
+    material: "Cotton blend",
+    fit: "Smocked",
+    occasion: "Brunch, daytime festive",
+    fitNote: "Smocked bust stretches. Stay with your usual size unless you want it loose.",
+    cluster: "midi-dress",
+    quote: "Bust was easy. Length is the doubt — comparing with SASSAFRAS."
+  }),
+  pad({
+    id: "w-top-4",
+    brand: "Mast & Harbour",
+    name: "Women Peplum Top",
+    category: "western",
+    price: 899,
+    mrp: 1799,
+    photo: "1529139574466-a303027c1d8b",
+    sizes: APPAREL,
+    colors: ["White"],
+    description: "Peplum that covers the waist, saved beside crops.",
+    material: "Crepe",
+    fit: "Regular",
+    occasion: "Casual, work",
+    fitNote: "Peplum hides the waist. Check bust — if you are between sizes, pick the larger one.",
+    cluster: "casual-top",
+    quote: "More coverage than the crop. Bust felt tight in S."
+  }),
+  pad({
+    id: "w-top-5",
+    brand: "DressBerry",
+    name: "Women Satin Cami Top",
+    category: "western",
+    price: 699,
+    mrp: 1499,
+    photo: "1539008835657-9e8e9680c956",
+    sizes: APPAREL,
+    colors: ["Champagne"],
+    description: "Satin cami for jeans or under a shrug.",
+    material: "Satin",
+    fit: "Slim",
+    occasion: "Party, dinner",
+    fitNote: "Satin shows every line. Many shoppers size up.",
+    cluster: "casual-top",
+    quote: "Pretty but clingy. Comparing with the square-neck H&M top."
+  }),
+  pad({
+    id: "w-top-6",
+    brand: "SASSAFRAS",
+    name: "Women Puff-Sleeve Top",
+    category: "western",
+    price: 799,
+    mrp: 1599,
+    photo: "1515372039744-b8f02a3ae446",
+    sizes: APPAREL,
+    colors: ["Black"],
+    description: "Puff sleeve top for jeans and skirts.",
+    material: "Cotton blend",
+    fit: "Regular",
+    occasion: "Casual, brunch",
+    fitNote: "Sleeves run a little snug. If you are between sizes, pick the larger one.",
+    cluster: "casual-top",
+    quote: "Sleeves felt tight when I raised my arms. Thinking of M."
+  }),
+  pad({
+    id: "w-top-7",
+    brand: "ONLY",
+    name: "Women Linen Shirt",
+    category: "western",
+    price: 1299,
+    mrp: 2499,
+    photo: "1469334031218-e382a71b716b",
+    sizes: APPAREL,
+    colors: ["Sky"],
+    description: "Linen shirt as the longer alternative to crops.",
+    material: "Linen blend",
+    fit: "Relaxed",
+    occasion: "Work, everyday",
+    fitNote: "Relaxed through the body. Stay with your usual size unless you want it oversized.",
+    cluster: "casual-top",
+    quote: "Office-safe length. Still deciding vs the ribbed crop."
+  }),
+  pad({
+    id: "w-top-8",
+    brand: "Vero Moda",
+    name: "Women Wrap Top",
+    category: "western",
+    price: 999,
+    mrp: 1999,
+    photo: "1485968579580-b6d095142e6e",
+    sizes: APPAREL,
+    colors: ["Olive"],
+    description: "Wrap top — bust gape is the usual doubt.",
+    material: "Viscose",
+    fit: "Wrap",
+    occasion: "Work, brunch",
+    fitNote: "Wrap styles vary with how you tie them. Check the inner hook so it does not gape.",
+    cluster: "casual-top",
+    quote: "Nice colour. Still deciding if wrap is safer than the square neck."
+  }),
+  pad({
+    id: "w-top-9",
+    brand: "Tokyo Talkies",
+    name: "Women Ruched Mesh Top",
+    category: "western",
+    price: 649,
+    mrp: 1299,
+    photo: "1572802419224-296b0aeee0d9",
+    sizes: APPAREL,
+    colors: ["Black"],
+    description: "Party top saved beside camis.",
+    material: "Mesh",
+    fit: "Slim",
+    occasion: "Party",
+    fitNote: "Mesh is close at the bust. If you are between sizes, pick the larger one.",
+    cluster: "casual-top",
+    quote: "Cute for a night out. Bust felt snug — comparing with the satin cami."
+  }),
+  pad({
+    id: "w-top-10",
+    brand: "Max",
+    name: "Women Everyday Cotton Top",
+    category: "western",
+    price: 449,
+    mrp: 899,
+    photo: "1487222477894-8943e31ef7b2",
+    sizes: APPAREL,
+    colors: ["Navy"],
+    description: "Budget everyday top on a crowded shortlist.",
+    material: "Cotton",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "Usually true to size. Check length if you prefer more coverage than a crop.",
+    cluster: "casual-top",
+    quote: "Simple and true. I keep it saved while I pick a nicer top."
+  }),
+  pad({
+    id: "w-jean-4",
+    brand: "Wrangler",
+    name: "Women Straight Jeans",
+    category: "western",
+    price: 2199,
+    mrp: 3999,
+    photo: "1559334417-a57bd929f003",
+    sizes: WAIST,
+    colors: ["Mid indigo"],
+    description: "Straight cut between skinny and wide-leg.",
+    material: "Denim with stretch",
+    fit: "Straight",
+    occasion: "Everyday",
+    fitNote: "Straight through the thigh. If you are between waists, take the larger size.",
+    cluster: "women-jeans",
+    quote: "Easier than 711. Still comparing with Levi's 501."
+  }),
+  pad({
+    id: "w-jean-5",
+    brand: "Pepe Jeans",
+    name: "Women Mom Jeans",
+    category: "western",
+    price: 1999,
+    mrp: 3799,
+    photo: "1659167099846-a0dbfc52aa2d",
+    sizes: WAIST,
+    colors: ["Light indigo"],
+    description: "Mom jean as a fourth cut on the shortlist.",
+    material: "Denim with stretch",
+    fit: "Mom",
+    occasion: "Everyday",
+    fitNote: "High rise. Check the waist — if you are between sizes, pick the size that matches your hip.",
+    cluster: "women-jeans",
+    quote: "Like the rise. Length is long — same hem worry as Levi's."
+  }),
+  pad({
+    id: "w-jean-6",
+    brand: "Spykar",
+    name: "Women Slim Jeans",
+    category: "western",
+    price: 1599,
+    mrp: 2999,
+    photo: "1541099647665-d2c4b584f554",
+    sizes: WAIST,
+    colors: ["Black"],
+    description: "Black slim jean for everyday and dinners.",
+    material: "Denim with stretch",
+    fit: "Slim",
+    occasion: "Everyday, dinner",
+    fitNote: "Slim through the thigh. If you wear regular jeans, consider one size up.",
+    cluster: "women-jeans",
+    quote: "Black is useful. Felt snug on day one like the 711."
+  }),
+  pad({
+    id: "w-jean-7",
+    brand: "Lee",
+    name: "Women Bootcut Jeans",
+    category: "western",
+    price: 2499,
+    mrp: 4299,
+    photo: "1559334417-a57bd929f003",
+    sizes: WAIST,
+    colors: ["Indigo"],
+    description: "Bootcut if skinny feels too tight.",
+    material: "Denim",
+    fit: "Bootcut",
+    occasion: "Everyday",
+    fitNote: "Easier through the calf. Match the waist, then check length.",
+    cluster: "women-jeans",
+    quote: "More room than skinny. Still deciding vs wide-leg."
+  }),
+  pad({
+    id: "w-jean-8",
+    brand: "Flying Machine",
+    name: "Women Relaxed Jeans",
+    category: "western",
+    price: 1399,
+    mrp: 2699,
+    photo: "1659167099846-a0dbfc52aa2d",
+    sizes: WAIST,
+    colors: ["Vintage wash"],
+    description: "Relaxed jean as a cheaper Levi's alternative.",
+    material: "Denim with stretch",
+    fit: "Relaxed",
+    occasion: "Everyday",
+    fitNote: "Relaxed through the hip. Stay with your usual waist unless you want them baggy.",
+    cluster: "women-jeans",
+    quote: "Fine for the price. I may still buy Levi's if I stop waiting."
+  }),
+  pad({
+    id: "w-jean-9",
+    brand: "H&M",
+    name: "Women Flare Jeans",
+    category: "western",
+    price: 1799,
+    mrp: 2999,
+    photo: "1541099647665-d2c4b584f554",
+    sizes: WAIST,
+    colors: ["Blue"],
+    description: "Flare jean for tops you already saved.",
+    material: "Denim with stretch",
+    fit: "Flare",
+    occasion: "Everyday, party",
+    fitNote: "Flare needs length. If you are under 5'4, check the hem.",
+    cluster: "women-jeans",
+    quote: "Love the flare. Too long on me — same as the wide-leg."
+  }),
+  pad({
+    id: "w-jean-10",
+    brand: "United Colors of Benetton",
+    name: "Women Cropped Jeans",
+    category: "western",
+    price: 2299,
+    mrp: 3999,
+    photo: "1559334417-a57bd929f003",
+    sizes: WAIST,
+    colors: ["Mid wash"],
+    description: "Cropped length if full-length hems are the doubt.",
+    material: "Denim with stretch",
+    fit: "Straight",
+    occasion: "Everyday",
+    fitNote: "Crop sits above the ankle. Check inseam if you prefer full length.",
+    cluster: "women-jeans",
+    quote: "No hem needed. Still comparing the cut with Wrangler straight."
+  }),
+  pad({
+    id: "w-sneaker-8",
+    brand: "Reebok",
+    name: "Women Club C Sneakers",
+    category: "footwear",
+    price: 4999,
+    mrp: 7999,
+    photo: "1600185365483-26d7a4cc7513",
+    sizes: UK,
+    colors: ["White"],
+    description: "Court sneaker on shortlists next to Adidas and Nike.",
+    material: "Leather",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "Usually true to size. Narrow feet may feel extra room at the toe.",
+    cluster: "white-sneaker",
+    quote: "Clean look. I still have Grand Court saved because it is cheaper."
+  }),
+  pad({
+    id: "w-sneaker-9",
+    brand: "Fila",
+    name: "Women Court Sneakers",
+    category: "footwear",
+    price: 2799,
+    mrp: 4999,
+    photo: "1560769629-975ec94e6a86",
+    sizes: UK,
+    colors: ["White"],
+    description: "Chunkier court shoe as a Nike alternative.",
+    material: "Leather look",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "Slightly roomy at the toe. If you are between sizes, try the smaller UK size.",
+    cluster: "white-sneaker",
+    quote: "Bulkier than Adidas. Comparing with New Balance 574."
+  }),
+  pad({
+    id: "w-sneaker-10",
+    brand: "Bata",
+    name: "Women White Sneakers",
+    category: "footwear",
+    price: 1299,
+    mrp: 1999,
+    photo: "1603808033192-082d6919d3e1",
+    sizes: UK,
+    colors: ["White"],
+    description: "Budget white pair saved while choosing a brand.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Everyday",
+    fitNote: "Softer sole, less structure. Check if you prefer a firmer court shoe.",
+    cluster: "white-sneaker",
+    quote: "Fine as a backup. I may still buy Puma if I stop waiting."
+  }),
+  pad({
+    id: "w-heel-4",
+    brand: "Metro",
+    name: "Women Block Heel Sandals",
+    category: "footwear",
+    price: 1499,
+    mrp: 2799,
+    photo: "1543163521-1bf539c55dd2",
+    sizes: UK,
+    colors: ["Nude"],
+    description: "Sturdier block heel for festive days.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Festive, work",
+    fitNote: "Nude heels often run small. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    quote: "More stable than Inc.5 mules. Still checking both for the same saree."
+  }),
+  pad({
+    id: "w-heel-5",
+    brand: "Tresmode",
+    name: "Women Kitten Heel Pumps",
+    category: "footwear",
+    price: 1899,
+    mrp: 3499,
+    photo: "1518049362265-d4a4573e0bfd",
+    sizes: UK,
+    colors: ["Beige"],
+    description: "Closed pump if sandals slip.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Work, festive",
+    fitNote: "Pumps can feel snug at the toe. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    quote: "Holds better than mules. Toe felt tight in UK 5."
+  }),
+  pad({
+    id: "w-heel-6",
+    brand: "Marc Loire",
+    name: "Women Strappy Heels",
+    category: "footwear",
+    price: 1199,
+    mrp: 2499,
+    photo: "1543163521-1bf539c55dd2",
+    sizes: UK,
+    colors: ["Gold"],
+    description: "Strappy heel for festive sets.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Party, festive",
+    fitNote: "Straps can pinch. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    quote: "Pretty with kurtas. Pinched after an hour — may exchange."
+  }),
+  pad({
+    id: "w-heel-7",
+    brand: "DressBerry",
+    name: "Women Block Heel Kolhapuris",
+    category: "footwear",
+    price: 999,
+    mrp: 1999,
+    photo: "1518049362265-d4a4573e0bfd",
+    sizes: UK,
+    colors: ["Tan"],
+    description: "Ethnic block heel for kurta sets.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Festive, work",
+    fitNote: "Kolhapuri straps vary. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    quote: "Matches two kurtas I saved. Strap felt loose at the heel."
+  }),
+  pad({
+    id: "w-heel-8",
+    brand: "Mochi",
+    name: "Women Wedge Sandals",
+    category: "footwear",
+    price: 1399,
+    mrp: 2599,
+    photo: "1543163521-1bf539c55dd2",
+    sizes: UK,
+    colors: ["Nude"],
+    description: "Wedge if a stiletto feels too high.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Festive, everyday",
+    fitNote: "Wedges often run true. If you are between sizes, stay with your usual UK size.",
+    cluster: "heels",
+    quote: "Easier to walk. Still deciding vs Catwalk kitten heels."
+  }),
+  pad({
+    id: "w-heel-9",
+    brand: "Bata",
+    name: "Women Comfort Block Heels",
+    category: "footwear",
+    price: 899,
+    mrp: 1699,
+    photo: "1518049362265-d4a4573e0bfd",
+    sizes: UK,
+    colors: ["Black"],
+    description: "Comfort block heel as a cheaper festive pair.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Work, festive",
+    fitNote: "Cushioned insole. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    quote: "Fine for work. I may still buy Metro for the wedding."
+  }),
+  pad({
+    id: "w-heel-10",
+    brand: "Carlton London",
+    name: "Women Pencil Heels",
+    category: "footwear",
+    price: 1699,
+    mrp: 3299,
+    photo: "1543163521-1bf539c55dd2",
+    sizes: UK,
+    colors: ["Nude"],
+    description: "Taller heel for evenings — height vs comfort is the doubt.",
+    material: "Synthetic",
+    fit: "Regular",
+    occasion: "Party, reception",
+    fitNote: "Pencil heels often run small. If you are between sizes, pick the larger UK size.",
+    cluster: "heels",
+    quote: "Look is right. Not sure I can stand through a reception."
+  })
+];
+
+/** Nothing in this store is marked down: the selling price is the MRP. */
+function atListPrice(items: Product[]): Product[] {
+  return items.map((item) => (item.mrp === item.price ? item : { ...item, mrp: item.price }));
+}
+
+export const PRODUCTS: Product[] = atListPrice(withLooks([...CATALOG, ...ROOM_PADS]));
 
 export function formatInr(value: number): string {
   return `₹${value.toLocaleString("en-IN")}`;
@@ -1675,7 +2839,10 @@ export function formatRatingCount(count: number): string {
 
 export function similarProducts(product: Product, limit = 8): Product[] {
   const sameCluster = PRODUCTS.filter(
-    (item) => item.cluster === product.cluster && item.id !== product.id
+    (item) =>
+      item.cluster === product.cluster &&
+      item.gender === product.gender &&
+      item.id !== product.id
   );
   const sameCategory = PRODUCTS.filter(
     (item) =>

@@ -14,7 +14,7 @@ export default defineConfig({
     }
   },
   test: {
-    include: ["tests/discovery/unit/**/*.test.ts"],
+    include: ["tests/discovery/unit/**/*.test.ts", "tests/storefront/**/*.test.ts"],
     environment: "node"
   }
 });

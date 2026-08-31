@@ -19,10 +19,11 @@ npm run phase2:rank
 
 Open [http://localhost:3000/studio](http://localhost:3000/studio):
 
-1. **Live voices** — public App Store / Play Store comments  
-2. **Shopper stories** — ranked themes + quotes  
-3. **Q1–Q10** — research-question coverage (gap or linked themes)  
-4. **What to focus on** — Phase 2 nomination (no guessed scores)
+1. **The room** — hang two similar saves, tap the body, keep one (price is off)
+2. **The bet** — why this room, scored in the open
+3. **Live voices** — public App Store / Play Store comments
+4. **Shopper stories** — ranked themes + quotes
+5. **Q1–Q10 / What to focus on / What we'd ask** — coverage, nomination, interview seeds + [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
 
 ## Structure
 

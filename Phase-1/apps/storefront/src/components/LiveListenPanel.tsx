@@ -1,35 +1,11 @@
 import { useEffect, useState } from "react";
+import { loadDiscovery, type DiscoveryPayload } from "../lib/fetchDiscovery";
 import {
   friendlySource,
   friendlySourceBlurb,
   friendlyWhen
 } from "../lib/friendlyLabels";
 import { publicReviewUrl, reviewLinkLabel, storeListingUrl } from "../lib/sourceUrls";
-
-interface Voice {
-  id: string;
-  text: string;
-  source: string;
-  rating: number | null;
-  gatheredAt: string;
-  url: string;
-}
-
-interface Stats {
-  rawCount: number;
-  normalizedCount: number;
-  droppedMinWords: number;
-  droppedIrrelevant: number;
-  droppedDuplicates: number;
-  validatedThemeCount: number;
-  sourceCoverage: Record<string, number>;
-  generatedAt: string;
-}
-
-interface Payload {
-  stats: Stats;
-  voices: Voice[];
-}
 
 const SOURCE_ORDER = ["play_store", "app_store", "reddit"];
 const VOICE_FILTERS = ["all", "play_store", "app_store"] as const;
@@ -45,7 +21,7 @@ const STEPS = [
   {
     n: "01",
     title: "Collect live reviews",
-    text: "We pull the latest public Myntra reviews from the App Store and Play Store, and listen for community threads."
+    text: "We pull the latest public Myntra reviews from the App Store and Play Store, using the same prompts as the live questionnaire."
   },
   {
     n: "02",
@@ -60,17 +36,16 @@ const STEPS = [
 ];
 
 export function LiveListenPanel() {
-  const [data, setData] = useState<Payload | null>(null);
+  const [data, setData] = useState<DiscoveryPayload | null>(null);
   const [error, setError] = useState("");
   const [voiceFilter, setVoiceFilter] = useState<VoiceFilter>("all");
 
   useEffect(() => {
-    fetch("/api/discovery")
-      .then((res) => {
-        if (!res.ok) throw new Error("Live reviews are not available right now.");
-        return res.json();
+    loadDiscovery()
+      .then((payload) => {
+        if (!payload) throw new Error("Live reviews are not available right now.");
+        setData(payload);
       })
-      .then(setData)
       .catch((err: Error) => setError(err.message));
   }, []);
 
@@ -93,8 +68,8 @@ export function LiveListenPanel() {
         <div>
           <h2 className="text-xl md:text-2xl font-bold">How we listen to shoppers</h2>
           <p className="text-myntra-muted mt-2 text-sm max-w-2xl">
-            Fit Insight is not a made-up list. It starts with public reviews we collect live, then
-            keeps only the comments that explain why a saved item still sits in the wishlist.
+            We collect public reviews live, then keep only comments that explain why a saved item
+            still sits in the wishlist. Quotes are copied from the source — not written by us.
           </p>
           {when && (
             <p className="text-[12px] text-myntra-muted mt-2">Last collected {when}</p>
@@ -141,12 +116,12 @@ export function LiveListenPanel() {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4">
               <Funnel n={stats.rawCount} label="Reviews collected" />
-              <Funnel n={stats.droppedMinWords} label="Too short to use" mute />
-              <Funnel n={stats.droppedIrrelevant} label="Not about saving or fit" mute />
-              <Funnel n={stats.normalizedCount} label="Kept for Fit Insight" />
-              <Funnel n={stats.validatedThemeCount} label="Clear patterns" />
+              <Funnel n={stats.droppedMinWords ?? 0} label="Too short to use" mute />
+              <Funnel n={stats.droppedIrrelevant ?? 0} label="Not about saving or fit" mute />
+              <Funnel n={stats.normalizedCount} label="About saving or waiting" />
+              <Funnel n={stats.validatedThemeCount ?? data.themes.length} label="Clear patterns" />
             </div>
-            {stats.droppedDuplicates > 0 && (
+            {(stats.droppedDuplicates ?? 0) > 0 && (
               <p className="text-[12px] text-myntra-muted mt-3">
                 {stats.droppedDuplicates} repeat comments were removed.
               </p>

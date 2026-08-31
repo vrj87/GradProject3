@@ -36,6 +36,7 @@ interface ThemeTemplate {
   summary: string;
   keywords: string[];
   researchQuestionIds: number[];
+  surveyQuestionIds: number[];
   barrierType: Theme["barrierType"];
   metricNode: Theme["metricNode"];
   segmentHints: Theme["segmentHints"];
@@ -51,6 +52,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Users stall on wishlisted items because they cannot tell if the size will fit.",
     keywords: ["fit", "size", "runs small", "runs large", "size chart", "tight", "loose"],
     researchQuestionIds: [2, 3, 7],
+    surveyQuestionIds: [8, 9, 10, 12, 13],
     barrierType: "fit",
     metricNode: "resolve",
     segmentHints: ["S2"],
@@ -65,6 +67,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Users treat the wishlist as a list to buy during EOSS or BFF.",
     keywords: ["sale", "eoss", "bff", "discount", "50%", "wait for sale"],
     researchQuestionIds: [1, 4, 8],
+    surveyQuestionIds: [7, 8, 11, 12],
     barrierType: "price",
     metricNode: "revisit",
     segmentHints: ["S3"],
@@ -79,6 +82,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Users like an item but are unsure when to wear it or what to pair it with.",
     keywords: ["occasion", "wedding", "office", "festival", "pair", "styling", "wear it"],
     researchQuestionIds: [3, 7, 10],
+    surveyQuestionIds: [8, 9, 10],
     barrierType: "style",
     metricNode: "resolve",
     segmentHints: ["S1", "S2"],
@@ -93,6 +97,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Users save many similar items and cannot narrow to one choice.",
     keywords: ["compare", "similar", "which one", "too many", "options", "decide between"],
     researchQuestionIds: [5, 2, 10],
+    surveyQuestionIds: [4, 7, 8, 11, 13],
     barrierType: "compare",
     metricNode: "decide",
     segmentHints: ["S4"],
@@ -107,6 +112,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Some saves are bookmarks or later-maybe items, not active purchase intent.",
     keywords: ["later", "bookmark", "maybe", "just saved", "moodboard", "inspiration"],
     researchQuestionIds: [1, 8, 9],
+    surveyQuestionIds: [3, 5, 7],
     barrierType: "bookmark",
     metricNode: "revisit",
     segmentHints: ["S1", "S4"],
@@ -121,6 +127,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Users wait for a friend or partner to approve occasion or high-ticket wear.",
     keywords: ["friend", "partner", "husband", "ask", "whatsapp", "share", "opinion"],
     researchQuestionIds: [6, 7, 3],
+    surveyQuestionIds: [11],
     barrierType: "social",
     metricNode: "resolve",
     segmentHints: ["S1"],
@@ -133,8 +140,9 @@ const TEMPLATES: ThemeTemplate[] = [
     id: "review-trust-gap",
     label: "ReviewTrustGap",
     summary: "Users leave Myntra to check YouTube or Instagram try-ons before buying.",
-    keywords: ["youtube", "instagram", "try on", "try-on", "reviews on", "checked reviews"],
+    keywords: ["youtube", "instagram", "try on", "try-on", "reviews on", "checked reviews", "customer photos", "google"],
     researchQuestionIds: [6, 7, 10],
+    surveyQuestionIds: [10, 11, 12],
     barrierType: "other",
     metricNode: "resolve",
     segmentHints: ["S2"],
@@ -149,6 +157,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Users postpone because the current price feels too high, independent of fit.",
     keywords: ["expensive", "costly", "overpriced", "not worth", "wait for price"],
     researchQuestionIds: [2, 4, 7],
+    surveyQuestionIds: [7, 8, 10, 12],
     barrierType: "price",
     metricNode: "resolve",
     segmentHints: ["S3"],
@@ -163,6 +172,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Easy returns lower risk but users still delay ordering from the wishlist.",
     keywords: ["return", "exchange", "try and buy", "try & buy", "send it back"],
     researchQuestionIds: [2, 4, 3],
+    surveyQuestionIds: [8, 10, 12],
     barrierType: "fit",
     metricNode: "resolve",
     segmentHints: ["S2"],
@@ -177,6 +187,7 @@ const TEMPLATES: ThemeTemplate[] = [
     summary: "Large wishlists lose salience; users forget what they saved.",
     keywords: ["forgot", "forget", "too many items", "clutter", "never look back", "old wishlist"],
     researchQuestionIds: [4, 8, 10],
+    surveyQuestionIds: [4, 5, 6],
     barrierType: "other",
     metricNode: "revisit",
     segmentHints: ["S4"],
@@ -184,6 +195,21 @@ const TEMPLATES: ThemeTemplate[] = [
     nonMonetaryFeasibility: "high",
     actionableInsight:
       "Prioritize a small cluster of still-relevant items so revisit leads to a decision, not another scroll."
+  },
+  {
+    id: "quality-uncertainty",
+    label: "QualityUncertainty",
+    summary: "Shoppers like a look but wait because fabric, finish, or durability still feels unknown.",
+    keywords: ["quality", "fabric", "material", "cheap looking", "see-through", "durability", "will it last"],
+    researchQuestionIds: [3, 7, 10],
+    surveyQuestionIds: [8, 10, 12],
+    barrierType: "other",
+    metricNode: "resolve",
+    segmentHints: ["S2"],
+    impactOnW2P: "medium",
+    nonMonetaryFeasibility: "high",
+    actionableInsight:
+      "Surface fabric and finish notes from reviews so quality doubt is resolved on the page, without a discount."
   }
 ];
 
@@ -207,6 +233,32 @@ function reviewMatchesTemplate(template: ThemeTemplate, review: NormalizedReview
   return template.keywords.some((keyword) => keywordMatch(lower, keyword));
 }
 
+function evidenceScore(template: ThemeTemplate, review: NormalizedReview): number {
+  const lower = review.text.toLowerCase();
+  let score = 0;
+  if (/\b(wishlist|wish list|shortlist|saved it|save for later|bookmark)\b/.test(lower)) score += 3;
+  if (/\b(wait|later|not sure|unsure|cannot tell|can't tell|before (i |I )?buy|stuck|hesitat|still deciding)\b/.test(lower)) {
+    score += 2;
+  }
+  if (template.keywords.some((keyword) => keywordMatch(lower, keyword))) score += 1;
+
+  if (template.id === "fit-size-anxiety") {
+    if (/\b(size chart|runs small|runs large|wrong size|will it fit|too tight|too loose|size is confusing)\b/.test(lower)) {
+      score += 3;
+    } else {
+      score -= 6;
+    }
+    if (/\b(perfect fit|excellent fit|good fit|great fit)\b/.test(lower) && score < 4) {
+      score -= 5;
+    }
+    if (/\b(denied returns|customer support|scam|seller)\b/.test(lower) && !/\b(size chart|wishlist)\b/.test(lower)) {
+      score -= 4;
+    }
+  }
+
+  return score;
+}
+
 function quotesForTemplate(
   template: ThemeTemplate,
   reviews: NormalizedReview[]
@@ -215,14 +267,28 @@ function quotesForTemplate(
   const usedSources = new Set<string>();
   const usedIds = new Set<string>();
 
-  const candidates = reviews.filter((review) => reviewMatchesTemplate(template, review));
+  const ranked = reviews
+    .filter((review) => reviewMatchesTemplate(template, review))
+    .map((review) => ({ review, score: evidenceScore(template, review) }))
+    .filter((row) => row.score > 0)
+    .sort((a, b) => b.score - a.score);
 
-  const prioritized = [
-    ...candidates.filter((review) => !usedSources.has(review.source)),
-    ...candidates
-  ];
+  const strong = ranked.filter((row) => row.score >= 3);
+  const pool = strong.length >= 2 ? strong : ranked;
 
-  for (const review of prioritized) {
+  const seenSource = new Set<string>();
+  const uniqueFirst: typeof pool = [];
+  const rest: typeof pool = [];
+  for (const row of pool) {
+    if (!seenSource.has(row.review.source)) {
+      uniqueFirst.push(row);
+      seenSource.add(row.review.source);
+    } else {
+      rest.push(row);
+    }
+  }
+
+  for (const { review } of [...uniqueFirst, ...rest]) {
     if (usedIds.has(review.id)) continue;
     hits.push({
       text: review.text.slice(0, 280),
@@ -241,7 +307,9 @@ function quotesForTemplate(
 function frequencyForTemplate(template: ThemeTemplate, reviews: NormalizedReview[]): number {
   const eligible = reviews.filter((review) => !review.excludedFromFrequency);
   if (eligible.length === 0) return 0;
-  const hits = eligible.filter((review) => reviewMatchesTemplate(template, review));
+  const hits = eligible.filter(
+    (review) => reviewMatchesTemplate(template, review) && evidenceScore(template, review) > 0
+  );
   return Number((hits.length / eligible.length).toFixed(3));
 }
 
@@ -253,6 +321,7 @@ export function ruleBasedThemes(reviews: NormalizedReview[]): Theme[] {
       label: template.label,
       summary: template.summary,
       researchQuestionIds: template.researchQuestionIds,
+      surveyQuestionIds: template.surveyQuestionIds,
       barrierType: template.barrierType,
       metricNode: template.metricNode,
       segmentHints: template.segmentHints,
@@ -287,6 +356,7 @@ ${researchRubricBlock()}
 
 Each theme object must include:
 id (kebab-case), label (PascalCase), summary, researchQuestionIds (1-10),
+surveyQuestionIds (Google Form 1-14 where the reviews speak to that prompt),
 barrierType (fit|style|compare|price|bookmark|social|other),
 metricNode (revisit|resolve|decide|act), segmentHints (S1-S4),
 quotes (2-3 objects: text MUST be copied verbatim from the review, reviewId, source, url?),
@@ -330,10 +400,11 @@ function sanitizeTheme(raw: Theme, reviewsById: Map<string, NormalizedReview>): 
     id: raw.id,
     label: raw.label,
     summary: raw.summary,
-    researchQuestionIds: (raw.researchQuestionIds ?? []).filter(
-      (id) => id >= 1 && id <= 10
-    ),
-    barrierType: raw.barrierType ?? "other",
+      researchQuestionIds: (raw.researchQuestionIds ?? []).filter(
+        (id) => id >= 1 && id <= 10
+      ),
+      surveyQuestionIds: (raw.surveyQuestionIds ?? []).filter((id) => id >= 1 && id <= 14),
+      barrierType: raw.barrierType ?? "other",
     metricNode: raw.metricNode ?? "resolve",
     segmentHints: raw.segmentHints ?? [],
     quotes,
@@ -367,6 +438,9 @@ function mergeThemes(existing: Theme[], incoming: Theme[]): Theme[] {
       summary: current.summary.length >= theme.summary.length ? current.summary : theme.summary,
       researchQuestionIds: [
         ...new Set([...current.researchQuestionIds, ...theme.researchQuestionIds])
+      ],
+      surveyQuestionIds: [
+        ...new Set([...(current.surveyQuestionIds ?? []), ...(theme.surveyQuestionIds ?? [])])
       ],
       quotes: mergedQuotes,
       estimatedFrequency: Math.max(current.estimatedFrequency, theme.estimatedFrequency),
@@ -432,6 +506,7 @@ function gapFillFromTemplates(
       label: template.label,
       summary: template.summary,
       researchQuestionIds: template.researchQuestionIds,
+      surveyQuestionIds: template.surveyQuestionIds,
       barrierType: template.barrierType,
       metricNode: template.metricNode,
       segmentHints: template.segmentHints,

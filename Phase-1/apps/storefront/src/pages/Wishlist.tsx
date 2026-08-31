@@ -1,7 +1,20 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { StudioFlow } from "../components/StudioFlow";
 import { addedDaysAgo } from "../data/demoWishlist";
-import { discount, formatInr, PRODUCTS, type Product } from "../data/products";
+import { formatInr, PRODUCTS, type Product } from "../data/products";
+import { loadDiscovery } from "../lib/fetchDiscovery";
+import { friendlyTheme } from "../lib/friendlyLabels";
+import {
+  blockerForProduct,
+  fitClarity,
+  pickByFitNotDiscount,
+  similarCount,
+  type DiscoveryTheme,
+  type RankRow
+} from "../lib/wishlistBlockers";
+import { publicReviewUrl, reviewLinkLabel } from "../lib/sourceUrls";
+import { STUDIO_SAVE_ID, studioRoom } from "../lib/studioFlow";
 import { useStore } from "../store";
 
 export function Wishlist() {
@@ -18,7 +31,26 @@ export function Wishlist() {
     () => items.filter((item) => compare.includes(item.id)),
     [items, compare]
   );
+  const [themes, setThemes] = useState<DiscoveryTheme[]>([]);
+  const [ranking, setRanking] = useState<RankRow[]>([]);
 
+  useEffect(() => {
+    loadDiscovery().then((payload) => {
+      if (!payload) return;
+      setThemes(payload.themes);
+      setRanking(payload.ranking);
+    });
+  }, []);
+
+  const topNonPrice = ranking.find((row) => !row.priceFlag);
+  const topTheme =
+    themes.find((theme) => theme.label === topNonPrice?.label || theme.id === topNonPrice?.themeId) ??
+    themes[0];
+  const kurtaCount = similarCount(items, "kurta-set");
+  const suggested = useMemo(
+    () => pickByFitNotDiscount(compared, addedDaysAgo),
+    [compared]
+  );
   function flash(message: string) {
     setToast(message);
     window.setTimeout(() => setToast(""), 2200);
@@ -49,7 +81,7 @@ export function Wishlist() {
 
   function confirmMove() {
     if (!picking || !size) return;
-    addToBag(picking.id, size);
+    addToBag(picking.id, size, "wishlist");
     removeFromWishlist(picking.id);
     setCompare((prev) => prev.filter((item) => item !== picking.id));
     flash("Item added to bag");
@@ -57,7 +89,7 @@ export function Wishlist() {
   }
 
   return (
-    <div className="bg-white min-h-[60vh]">
+    <div id={STUDIO_SAVE_ID} className="bg-white min-h-[60vh]">
       <div className="max-w-[1080px] mx-auto px-4 py-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h1 className="text-[16px] font-bold">
@@ -77,9 +109,39 @@ export function Wishlist() {
           )}
         </div>
 
+        {items.length > 0 && (
+          <div className="mt-4">
+            <StudioFlow current="save" tone="light" />
+          </div>
+        )}
+
+        {items.length > 0 && topTheme && (
+          <div className="mt-4 border border-myntra-pink bg-[#fff4f6] p-4">
+            <p className="text-[11px] font-bold tracking-[0.18em] text-myntra-pink">CREATIVITY · NOT A SALE</p>
+            <p className="font-bold mt-1">{friendlyTheme(topTheme.label)}</p>
+            <p className="text-[13px] text-myntra-muted mt-1">{topTheme.summary}</p>
+            {topTheme.quotes[0] && (
+              <p className="text-[13px] mt-2">“{topTheme.quotes[0].text}”</p>
+            )}
+            {kurtaCount >= 2 && (
+              <p className="text-[12px] mt-2">
+                You have {kurtaCount} similar festive sets. Compare fit notes — not the next sale.
+              </p>
+            )}
+            <div className="flex flex-wrap gap-4 mt-3">
+              <Link to={studioRoom(null, "hang")} className="text-[12px] font-bold text-myntra-pink">
+                HANG THEM IN THE ROOM →
+              </Link>
+              <Link to="/studio?view=focus" className="text-[12px] font-bold text-myntra-pink">
+                SEE HOW THIS WAS RANKED →
+              </Link>
+            </div>
+          </div>
+        )}
+
         {crowded && items.length > 0 && (
           <div className="mt-3 bg-[#fff4f6] border border-[#ffd4de] px-3 py-2 text-[13px]">
-            You have several similar festive sets saved. Compare up to 3, then move one to bag or remove the rest.
+            You have several similar festive sets saved. Compare up to 3 on fit and occasion, then move one to bag.
           </div>
         )}
 
@@ -134,25 +196,41 @@ export function Wishlist() {
                   <div className="font-bold text-[14px] truncate">{product.brand}</div>
                   <div className="text-myntra-muted text-[13px] truncate">{product.name}</div>
                   <div className="text-[13px] mt-1">
-                    <b>{formatInr(product.price)}</b>{" "}
-                    <span className="line-through text-myntra-muted text-[12px]">
-                      {formatInr(product.mrp)}
-                    </span>{" "}
-                    <span className="text-myntra-gold text-[12px]">({discount(product)}% OFF)</span>
+                    <b>{formatInr(product.price)}</b>
                   </div>
                   {addedDaysAgo(product.id) != null && (
                     <div className="text-[11px] text-myntra-muted mt-1">
-                      Saved {addedDaysAgo(product.id)} days ago
+                      Saved {addedDaysAgo(product.id)} days ago ·{" "}
+                      {30 - (addedDaysAgo(product.id) ?? 0) > 0
+                        ? `${30 - (addedDaysAgo(product.id) ?? 0)} days left to decide`
+                        : "past 30 days"}
                     </div>
                   )}
+                  {(() => {
+                    const blocker = blockerForProduct(product, themes, ranking);
+                    if (!blocker) return null;
+                    return (
+                      <p className="text-[11px] text-myntra-pink font-bold mt-2">
+                        Waiting on {friendlyTheme(blocker.label).toLowerCase()}
+                      </p>
+                    );
+                  })()}
                 </div>
-                <button
-                  type="button"
-                  className="w-full border-t border-myntra-border py-3 text-[13px] font-bold text-myntra-pink tracking-wide hover:bg-[#fff4f6]"
-                  onClick={() => openMove(product)}
-                >
-                  MOVE TO BAG
-                </button>
+                <div className="grid grid-cols-2 border-t border-myntra-border">
+                  <Link
+                    to={studioRoom(product.id, "hang")}
+                    className="py-3 text-center text-[12px] font-bold text-myntra-pink tracking-wide hover:bg-[#fff4f6]"
+                  >
+                    HANG
+                  </Link>
+                  <button
+                    type="button"
+                    className="border-l border-myntra-border py-3 text-[12px] font-bold text-myntra-pink tracking-wide hover:bg-[#fff4f6]"
+                    onClick={() => openMove(product)}
+                  >
+                    MOVE TO BAG
+                  </button>
+                </div>
               </article>
             ))}
           </div>
@@ -160,19 +238,62 @@ export function Wishlist() {
 
         {compared.length >= 2 && (
           <div className="mt-8 border border-myntra-border">
-            <div className="px-4 py-3 border-b border-myntra-border font-bold text-sm">
-              Compare ({compared.length})
+            <div className="px-4 py-3 border-b border-myntra-border">
+              <div className="font-bold text-sm">Compare ({compared.length})</div>
+              {suggested && (
+                <p className="text-[12px] mt-1">
+                  <span className="font-bold text-myntra-pink">CREATIVE PICK · NOT % OFF.</span>{" "}
+                  Suggested: <b>{suggested.brand}</b> — {fitClarity(suggested).reason.toLowerCase()}.
+                  Every look here is at one price, so the pick can only come from fit.
+                </p>
+              )}
             </div>
             <div className="grid md:grid-cols-3 divide-x divide-myntra-border">
-              {compared.map((product) => (
-                <div key={product.id} className="p-4 text-[13px]">
+              {compared.map((product) => {
+                const blocker = blockerForProduct(product, themes, ranking);
+                const quote = blocker?.quotes[0];
+                const isPick = suggested?.id === product.id;
+                const clarity = fitClarity(product);
+                return (
+                <div key={product.id} className={`p-4 text-[13px] ${isPick ? "bg-[#fff4f6]" : ""}`}>
+                  {isPick && (
+                    <p className="text-[11px] font-bold text-myntra-pink mb-2">SUGGESTED · SETTLE FIT</p>
+                  )}
                   <img src={product.image} alt="" className="w-full aspect-[3/4] object-cover mb-3" />
                   <div className="font-bold">{product.brand}</div>
                   <div className="text-myntra-muted">{product.name}</div>
                   <div className="mt-1">{formatInr(product.price)}</div>
                   <p className="mt-2"><b>Fit:</b> {product.fit}</p>
                   <p><b>Occasion:</b> {product.occasion}</p>
+                  <p className="text-[12px] mt-1">Size signal: {clarity.reason}</p>
                   <p className="text-myntra-muted mt-2">{product.fitNote}</p>
+                  {blocker && (
+                    <p className="mt-2 text-[12px]">
+                      <b>Shoppers wait on:</b> {friendlyTheme(blocker.label)}
+                    </p>
+                  )}
+                  {quote && (
+                    <p className="mt-2 text-[12px] border-l-2 border-myntra-pink pl-2">
+                      “{quote.text.slice(0, 160)}”
+                      {quote.url || quote.reviewId ? (
+                        <>
+                          {" "}
+                          <a
+                            href={publicReviewUrl({
+                              source: quote.source,
+                              url: quote.url,
+                              reviewId: quote.reviewId
+                            })}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-bold text-myntra-pink"
+                          >
+                            {reviewLinkLabel(quote.source)} →
+                          </a>
+                        </>
+                      ) : null}
+                    </p>
+                  )}
                   <button
                     type="button"
                     className="mt-3 w-full bg-myntra-pink text-white font-bold py-2 text-xs"
@@ -188,7 +309,8 @@ export function Wishlist() {
                     REMOVE
                   </button>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

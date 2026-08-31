@@ -66,6 +66,7 @@ export interface Theme {
   label: string;
   summary: string;
   researchQuestionIds: number[];
+  surveyQuestionIds?: number[];
   barrierType: BarrierType;
   metricNode: MetricNode;
   segmentHints: SegmentHint[];
@@ -142,7 +143,22 @@ export const WISHLIST_KEYWORDS = [
   "compare",
   "occasion",
   "eoss",
-  "bff"
+  "bff",
+  "saved for later",
+  "buy later",
+  "still deciding",
+  "didn't buy",
+  "did not buy",
+  "never bought",
+  "youtube",
+  "instagram",
+  "customer photos",
+  "size chart",
+  "will it fit",
+  "not sure about the quality",
+  "ask friends",
+  "inspiration",
+  "bookmark"
 ] as const;
 
 export const MONETARY_TERMS = [

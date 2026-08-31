@@ -1,9 +1,23 @@
 [
   {
-    "themeId": "fit-size-anxiety",
-    "label": "FitSizeAnxiety",
+    "themeId": "price-waiting",
+    "label": "PriceWaiting",
     "passed": true,
-    "confidence": "medium",
+    "confidence": "high",
+    "reasons": []
+  },
+  {
+    "themeId": "style-uncertainty",
+    "label": "StyleUncertainty",
+    "passed": true,
+    "confidence": "high",
+    "reasons": []
+  },
+  {
+    "themeId": "compare-difficulty",
+    "label": "CompareDifficulty",
+    "passed": true,
+    "confidence": "high",
     "reasons": []
   },
   {
@@ -14,43 +28,15 @@
     "reasons": []
   },
   {
-    "themeId": "return-fear",
-    "label": "ReturnFearDelay",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "poor-customer-support",
-    "label": "PoorCustomerSupport",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
     "themeId": "styling-occasion",
     "label": "StylingOccasionMismatch",
     "passed": true,
-    "confidence": "high",
+    "confidence": "medium",
     "reasons": []
   },
   {
     "themeId": "comparison-paralysis",
     "label": "ComparisonParalysis",
-    "passed": true,
-    "confidence": "medium",
-    "reasons": []
-  },
-  {
-    "themeId": "social-validation",
-    "label": "SocialValidation",
-    "passed": true,
-    "confidence": "high",
-    "reasons": []
-  },
-  {
-    "themeId": "wishlist-decay",
-    "label": "WishlistDecay",
     "passed": true,
     "confidence": "medium",
     "reasons": []
@@ -63,8 +49,36 @@
     "reasons": []
   },
   {
+    "themeId": "social-validation",
+    "label": "SocialValidation",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
     "themeId": "review-trust-gap",
     "label": "ReviewTrustGap",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "wishlist-decay",
+    "label": "WishlistDecay",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "fit-size-anxiety",
+    "label": "FitSizeAnxiety",
+    "passed": true,
+    "confidence": "medium",
+    "reasons": []
+  },
+  {
+    "themeId": "return-fear",
+    "label": "ReturnFearDelay",
     "passed": true,
     "confidence": "medium",
     "reasons": []

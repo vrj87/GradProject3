@@ -2,43 +2,38 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeFitInsight } from "../components/HomeFitInsight";
 import { ProductCard } from "../components/ProductCard";
-import { PRODUCTS, discount } from "../data/products";
+import { PRODUCTS } from "../data/products";
+import { STUDIO_ENTRY } from "../lib/studioFlow";
 import { useStore } from "../store";
 
 const BANNERS = [
   {
     img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&q=80",
-    kicker: "Myntra Studio · Live collection",
-    title: "Live shopper voices",
-    sub: "We collect public App Store and Play Store reviews, keep the ones about fit, and turn them into Fit Insight.",
-    to: "/studio",
-    cta: "SEE LIVE VOICES"
-  },
-  {
-    img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
-    kicker: "End Of Season Sale",
-    title: "Flat 50–80% off",
-    sub: "Wishlist now. Buy when the fit feels right.",
-    to: "/shop/women"
+    kicker: "Studio",
+    title: "Name the doubt. Keep one hanger.",
+    sub: "Two similar saves share one body. Tap bust, length, or foot. Size from notes. No coupon.",
+    to: STUDIO_ENTRY,
+    cta: "OPEN THE ROOM"
   },
   {
     img: "https://images.unsplash.com/photo-1756483510831-34a18c266b93?w=1600&q=80",
     kicker: "Wedding Season",
     title: "Ethnic sets for every function",
-    sub: "Save a few, compare fit, then pick one.",
-    to: "/shop/women?cat=ethnic"
+    sub: "Kurta sets, sarees, and guest looks — not sneakers from another rack.",
+    to: "/shop/women?occ=wedding",
+    cta: "SHOP WEDDING"
   },
   {
     img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1600&q=80",
     kicker: "Sneaker Edit",
     title: "White sneakers, side by side",
-    sub: "Check size notes before you move to bag.",
-    to: "/shop/women?cat=footwear"
+    sub: "Hang the pair in Studio after you save two. Price is off.",
+    to: "/shop/women?q=sneaker",
+    cta: "SHOP SNEAKERS"
   }
 ];
 
 const CATS = [
-  { label: "Studio", to: "/studio", img: "https://images.unsplash.com/photo-1768033976371-0e4ef195dfa2?w=600&q=80", badge: "NEW" },
   { label: "Women", to: "/shop/women", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&q=80" },
   { label: "Men", to: "/shop/men", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80" },
   { label: "Kids", to: "/shop/kids", img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600&q=80" },
@@ -51,10 +46,12 @@ export function Home() {
   const [slide, setSlide] = useState(0);
   const { wishlist } = useStore();
   const banner = BANNERS[slide];
-  const deals = [...PRODUCTS].sort((a, b) => discount(b) - discount(a)).slice(0, 8);
+  const mostRated = [...PRODUCTS].sort((a, b) => b.ratingCount - a.ratingCount).slice(0, 8);
   const ethnic = PRODUCTS.filter((item) => item.gender === "women" && item.category === "ethnic").slice(0, 8);
   const western = PRODUCTS.filter((item) => item.gender === "women" && item.category === "western").slice(0, 8);
-  const sneakers = PRODUCTS.filter((item) => item.cluster.includes("sneaker") || item.cluster.includes("run")).slice(0, 8);
+  const sneakers = PRODUCTS.filter(
+    (item) => item.gender === "women" && item.cluster.includes("sneaker")
+  ).slice(0, 8);
   const men = PRODUCTS.filter((item) => item.gender === "men").slice(0, 8);
   const kids = PRODUCTS.filter((item) => item.gender === "kids").slice(0, 8);
   const home = PRODUCTS.filter((item) => item.gender === "home").slice(0, 8);
@@ -93,23 +90,43 @@ export function Home() {
       <HomeFitInsight />
 
       <section className="max-w-[1200px] mx-auto px-4 py-10">
+        <h2 className="text-center font-bold tracking-[0.22em] text-myntra-pink text-[14px] mb-6">
+          ONLY HERE · STUDIO
+        </h2>
+        <Link
+          to={STUDIO_ENTRY}
+          className="relative min-h-[200px] overflow-hidden group block"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1200&q=80"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
+          <div className="relative z-10 h-full flex flex-col justify-end p-5 text-white min-h-[200px]">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-myntra-pink">ONE MVP</p>
+            <p className="font-bold text-2xl mt-1">Save · Hang two · Keep one · See the bet</p>
+            <p className="text-sm text-white/85 mt-1 max-w-sm">
+              Name the doubt on one body, keep one hanger. Why this room has the scored bet.
+            </p>
+            <span className="inline-block mt-3 bg-myntra-pink text-white font-bold px-4 py-2 text-[12px] w-fit">
+              OPEN THE ROOM
+            </span>
+          </div>
+        </Link>
+      </section>
+
+      <section className="max-w-[1200px] mx-auto px-4 pb-10">
         <h2 className="text-center font-bold tracking-[0.22em] text-myntra-muted text-[14px] mb-6">
           SHOP BY CATEGORY
         </h2>
-        <div className="grid grid-cols-3 md:grid-cols-7 gap-3">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
           {CATS.map((cat) => (
             <Link key={cat.label} to={cat.to} className="group">
               <div className="relative aspect-[3/4] overflow-hidden">
                 <img src={cat.img} alt="" className="h-full w-full object-cover group-hover:scale-105 transition duration-300" />
-                {"badge" in cat && cat.badge && (
-                  <span className="absolute top-2 left-2 bg-myntra-pink text-white text-[9px] font-bold px-1.5 py-0.5">
-                    {cat.badge}
-                  </span>
-                )}
               </div>
-              <div className={`mt-2 text-center text-[12px] font-bold ${cat.label === "Studio" ? "text-myntra-pink" : ""}`}>
-                {cat.label}
-              </div>
+              <div className="mt-2 text-center text-[12px] font-bold">{cat.label}</div>
             </Link>
           ))}
         </div>
@@ -132,12 +149,12 @@ export function Home() {
       </section>
 
       {saved.length > 0 && (
-        <ProductRow title="FROM YOUR WISHLIST" to="/wishlist" items={saved} />
+        <ProductRow title="FROM YOUR WISHLIST" to={STUDIO_ENTRY} items={saved} />
       )}
-      <ProductRow title="DEAL OF THE DAY" to="/shop/women" items={deals} light />
+      <ProductRow title="MOST REVIEWED" to="/shop/women" items={mostRated} light />
       <ProductRow title="ETHNIC WEAR" to="/shop/women?cat=ethnic" items={ethnic} />
       <ProductRow title="TRENDING IN WESTERN" to="/shop/women?cat=western" items={western} light />
-      <ProductRow title="SNEAKERS & SPORTS" to="/shop/women?cat=footwear" items={sneakers} />
+      <ProductRow title="SNEAKERS & SPORTS" to="/shop/women?q=sneaker" items={sneakers} />
       <ProductRow title="TRENDING IN MEN" to="/shop/men" items={men} light />
       <ProductRow title="KIDS' FAVOURITES" to="/shop/kids" items={kids} />
       <ProductRow title="HOME & LIVING" to="/shop/home" items={home} light />

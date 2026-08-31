@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { discount, formatInr, formatRatingCount, type Product } from "../data/products";
+import { ProductImage } from "./ProductImage";
+import { formatInr, formatRatingCount, type Product } from "../data/products";
 import { useStore } from "../store";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -10,14 +11,9 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="group relative bg-white">
       <div className="relative aspect-[3/4] overflow-hidden bg-myntra-bg">
         <Link to={`/product/${product.id}`} className="block h-full">
-          <img
-            src={product.image}
-            alt={product.name}
+          <ProductImage
+            product={product}
             className="h-full w-full object-cover group-hover:scale-[1.03] transition duration-300"
-            onError={(event) => {
-              event.currentTarget.src =
-                "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80";
-            }}
           />
         </Link>
         {product.badge && (
@@ -49,11 +45,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="font-bold text-[14px] leading-tight">{product.brand}</div>
         <div className="text-myntra-muted text-[13px] truncate mt-0.5">{product.name}</div>
         <div className="text-[13px] mt-1.5">
-          <b>{formatInr(product.price)}</b>{" "}
-          <span className="line-through text-myntra-muted text-[12px]">
-            {formatInr(product.mrp)}
-          </span>{" "}
-          <span className="text-myntra-gold text-[12px] font-bold">({discount(product)}% OFF)</span>
+          <b>{formatInr(product.price)}</b>
         </div>
       </Link>
     </article>

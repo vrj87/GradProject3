@@ -1,34 +1,69 @@
-import { FormEvent, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PRODUCTS } from "../data/products";
+import { matchesShopQuery } from "../lib/decidePiles";
+import { STUDIO_ENTRY, onStudioNavClick } from "../lib/studioFlow";
 import { useStore } from "../store";
 
-const NAV = [
+const FEATURES = [{ label: "Studio", to: STUDIO_ENTRY }];
+
+const SHOP_NAV = [
   { label: "Men", to: "/shop/men" },
   { label: "Women", to: "/shop/women" },
   { label: "Kids", to: "/shop/kids" },
   { label: "Home & Living", to: "/shop/home" },
-  { label: "Beauty", to: "/shop/beauty" },
-  { label: "Studio", to: "/studio" }
+  { label: "Beauty", to: "/shop/beauty" }
 ];
+
+const PROFILE_LINKS = [
+  { label: "Studio", to: STUDIO_ENTRY },
+  { label: "Overview", to: "/profile" },
+  { label: "Orders", to: "/orders" },
+  { label: "Wishlist", to: "/wishlist" },
+  { label: "Bag", to: "/bag" }
+];
+
+const hoverOnly = "[@media(hover:hover)]:hover:text-myntra-pink";
+const hoverNav =
+  "[@media(hover:hover)]:hover:border-myntra-pink [@media(hover:hover)]:hover:text-myntra-pink";
 
 export function Header() {
   const { wishlist, bag } = useStore();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileLock = useRef(false);
+
+  useEffect(() => {
+    setMenu(false);
+    setOpen(false);
+    setProfileOpen(false);
+    profileLock.current = true;
+    const unlock = window.setTimeout(() => {
+      profileLock.current = false;
+    }, 400);
+    return () => window.clearTimeout(unlock);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!profileOpen) return;
+    const close = () => setProfileOpen(false);
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [profileOpen]);
+
+  function isActive(to: string) {
+    const path = to.split("?")[0];
+    return pathname === path || pathname.startsWith(`${path}/`);
+  }
 
   const suggestions = useMemo(() => {
     if (query.trim().length < 2) return [];
     const q = query.toLowerCase();
-    return PRODUCTS.filter(
-      (item) =>
-        item.name.toLowerCase().includes(q) ||
-        item.brand.toLowerCase().includes(q) ||
-        item.category.includes(q) ||
-        item.occasion.toLowerCase().includes(q)
-    ).slice(0, 6);
+    return PRODUCTS.filter((item) => matchesShopQuery(item, q)).slice(0, 6);
   }, [query]);
 
   function onSearch(event: FormEvent) {
@@ -54,17 +89,33 @@ export function Header() {
         <Link to="/" className="shrink-0 font-bold text-[22px] md:text-[28px] tracking-tight text-myntra-pink leading-none">
           Myntra
         </Link>
-        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-bold uppercase tracking-wide h-full">
-          {NAV.map((item) => (
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-[13px] lg:text-[14px] font-bold uppercase tracking-wide h-full shrink-0">
+          {FEATURES.map((item) => (
             <Link
               key={item.label}
               to={item.to}
-              className="relative h-full flex items-center border-b-4 border-transparent hover:border-myntra-pink hover:text-myntra-pink"
+              onClick={onStudioNavClick}
+              className={`relative h-full flex items-center border-b-4 px-0.5 ${
+                isActive(item.to)
+                  ? "border-myntra-pink text-myntra-pink"
+                  : `border-transparent text-myntra-pink ${hoverNav}`
+              }`}
             >
               {item.label}
-              {item.label === "Studio" && (
-                <span className="absolute -top-0.5 -right-5 text-[9px] text-[#ff3f6c] font-bold">NEW</span>
-              )}
+              <span className="ml-1 text-[9px] font-bold normal-case tracking-normal">NEW</span>
+            </Link>
+          ))}
+          {SHOP_NAV.map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              className={`relative h-full flex items-center border-b-4 whitespace-nowrap ${
+                isActive(item.to)
+                  ? "border-myntra-pink text-myntra-pink"
+                  : `border-transparent ${hoverNav}`
+              }`}
+            >
+              {item.label}
             </Link>
           ))}
         </nav>
@@ -101,22 +152,53 @@ export function Header() {
           )}
         </form>
         <div className="hidden md:flex items-center gap-7 text-[12px] font-bold">
-          <div className="relative group">
-            <Link to="/profile" className="text-center hover:text-myntra-pink block">
+          <div
+            className="relative"
+            onMouseEnter={() => {
+              if (!profileLock.current) setProfileOpen(true);
+            }}
+            onMouseLeave={() => {
+              profileLock.current = false;
+              setProfileOpen(false);
+            }}
+            onPointerDown={(event) => event.stopPropagation()}
+          >
+            <Link
+              to="/profile"
+              className={`text-center block ${
+                isActive("/profile") || isActive("/orders") ? "text-myntra-pink" : hoverOnly
+              }`}
+              onClick={() => setProfileOpen(false)}
+            >
               <UserIcon />
               <div className="mt-0.5">Profile</div>
             </Link>
-            <div className="hidden group-hover:block absolute right-0 top-full pt-2 z-50">
-              <div className="bg-white border border-myntra-border shadow-card w-44 text-[13px] font-normal py-2">
-                <Link to="/profile" className="block px-4 py-2 hover:bg-myntra-bg hover:font-bold">Overview</Link>
-                <Link to="/orders" className="block px-4 py-2 hover:bg-myntra-bg hover:font-bold">Orders</Link>
-                <Link to="/wishlist" className="block px-4 py-2 hover:bg-myntra-bg hover:font-bold">Wishlist</Link>
-                <Link to="/bag" className="block px-4 py-2 hover:bg-myntra-bg hover:font-bold">Bag</Link>
-                <Link to="/studio" className="block px-4 py-2 hover:bg-myntra-bg hover:font-bold">Studio</Link>
+            {profileOpen && (
+              <div className="absolute right-0 top-full pt-2 z-50">
+                <div className="bg-white border border-myntra-border shadow-card w-44 text-[13px] font-normal py-2">
+                  {PROFILE_LINKS.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => {
+                        setProfileOpen(false);
+                        if (link.to.startsWith("/studio")) onStudioNavClick();
+                      }}
+                      className={`block px-4 py-2 hover:bg-myntra-bg ${
+                        isActive(link.to) ? "font-bold text-myntra-pink" : ""
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
-          <Link to="/wishlist" className="text-center hover:text-myntra-pink relative">
+          <Link
+            to="/wishlist"
+            className={`text-center relative ${isActive("/wishlist") ? "text-myntra-pink" : hoverOnly}`}
+          >
             <HeartIcon filled={wishlist.length > 0} />
             <div className="mt-0.5">Wishlist</div>
             {wishlist.length > 0 && (
@@ -125,7 +207,10 @@ export function Header() {
               </span>
             )}
           </Link>
-          <Link to="/bag" className="text-center hover:text-myntra-pink relative">
+          <Link
+            to="/bag"
+            className={`text-center relative ${isActive("/bag") ? "text-myntra-pink" : hoverOnly}`}
+          >
             <BagIcon />
             <div className="mt-0.5">Bag</div>
             {bagCount > 0 && (
@@ -150,11 +235,33 @@ export function Header() {
               </button>
             </div>
             <nav className="flex flex-col text-[15px] font-bold uppercase">
-              {NAV.map((item) => (
+              <p className="text-[11px] tracking-[0.18em] text-myntra-pink mb-1">ONLY HERE</p>
+              {FEATURES.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => {
+                    setMenu(false);
+                    onStudioNavClick();
+                  }}
+                  className="py-3 border-b border-myntra-border text-myntra-pink flex items-center justify-between"
+                >
+                  {item.label}
+                  <span className="text-[9px] font-bold">NEW</span>
+                </Link>
+              ))}
+              <p className="text-[11px] tracking-[0.18em] text-myntra-muted mt-4 mb-1">SHOP</p>
+              {SHOP_NAV.map((item) => (
                 <Link key={item.label} to={item.to} onClick={() => setMenu(false)} className="py-3 border-b border-myntra-border">
                   {item.label}
                 </Link>
               ))}
+              <Link to="/wishlist" onClick={() => setMenu(false)} className="py-3 border-b border-myntra-border">
+                Wishlist
+              </Link>
+              <Link to="/bag" onClick={() => setMenu(false)} className="py-3 border-b border-myntra-border">
+                Bag
+              </Link>
               <Link to="/orders" onClick={() => setMenu(false)} className="py-3 border-b border-myntra-border">
                 Orders
               </Link>

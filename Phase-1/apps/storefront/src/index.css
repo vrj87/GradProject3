@@ -67,6 +67,138 @@ textarea {
   padding-bottom: calc(4.25rem + env(safe-area-inset-bottom));
 }
 
+.look-card {
+  view-transition-name: var(--look-vt, none);
+}
+
+.hanger-hook {
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, white 10%, transparent), transparent);
+}
+
+.hanger-hook::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 28px;
+  height: 14px;
+  border: 2px solid color-mix(in oklab, #c5a059 75%, white);
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  transform: translateX(-50%);
+}
+
+.hanger-wick {
+  display: block;
+  height: 3px;
+  margin-top: 9px;
+  background: #ff3f6c;
+}
+
+.fit-spotlight {
+  background: radial-gradient(
+    circle 30% at var(--spot-x) var(--spot-y),
+    transparent 0%,
+    color-mix(in oklab, #1a1216 74%, transparent) 72%
+  );
+  transition: background 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.look-drop {
+  animation: look-fall 320ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  pointer-events: none;
+}
+
+.look-drop-target {
+  outline: 2px dashed #ff3f6c;
+  outline-offset: 3px;
+}
+
+.doubt-hotspot {
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.doubt-hotspot[aria-pressed="true"] {
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+.room-pair {
+  container-type: inline-size;
+  scroll-margin-top: 5.5rem;
+}
+
+.fit-popover {
+  border: 0;
+  box-shadow: 0 12px 40px color-mix(in oklab, black 18%, transparent);
+}
+
+.fit-popover::backdrop {
+  background: color-mix(in oklab, black 32%, transparent);
+}
+
+.fit-popover:popover-open {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease,
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+}
+
+@starting-style {
+  .fit-popover:popover-open {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes look-fall {
+  to {
+    transform: translateY(28px) rotate(6deg);
+    opacity: 0;
+  }
+}
+
+.order-live {
+  animation: order-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes order-pulse {
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in oklab, #ff3f6c 25%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .look-drop {
+    animation: none;
+    opacity: 0.35;
+  }
+
+  .order-live {
+    animation: none;
+  }
+
+  .doubt-hotspot,
+  .fit-spotlight,
+  .fit-popover:popover-open {
+    transition: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 @media (min-width: 768px) {
   .pb-nav {
     padding-bottom: 0;

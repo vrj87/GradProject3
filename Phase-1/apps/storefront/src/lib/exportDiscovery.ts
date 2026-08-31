@@ -49,5 +49,5 @@ export function downloadText(content: string, filename: string, mime: string): v
 }
 
 export function scrapeDownloadUrl(kind: "raw" | "normalized"): string {
-  return `/api/discovery/download/${kind}`;
+  return kind === "raw" ? "/discovery/raw-reviews.json" : "/discovery/normalized-reviews.json";
 }

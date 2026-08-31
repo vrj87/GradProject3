@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useStore } from "../store";
+import { STUDIO_ENTRY, onStudioNavClick } from "../lib/studioFlow";
 
 export function MobileBottomNav() {
   const { pathname } = useLocation();
@@ -8,10 +9,10 @@ export function MobileBottomNav() {
 
   const items = [
     { to: "/", label: "Home", match: pathname === "/" },
-    { to: "/studio", label: "Studio", match: pathname.startsWith("/studio") },
+    { to: STUDIO_ENTRY, label: "Studio", match: pathname.startsWith("/studio") },
     { to: "/wishlist", label: "Wishlist", match: pathname.startsWith("/wishlist"), count: wishlist.length },
     { to: "/bag", label: "Bag", match: pathname.startsWith("/bag"), count: bagCount },
-    { to: "/profile", label: "Profile", match: pathname === "/profile" || pathname === "/orders" }
+    { to: "/profile", label: "Profile", match: pathname.startsWith("/profile") || pathname.startsWith("/orders") }
   ];
 
   return (
@@ -21,6 +22,7 @@ export function MobileBottomNav() {
           <Link
             key={item.to}
             to={item.to}
+            onClick={item.label === "Studio" ? onStudioNavClick : undefined}
             className={`relative flex flex-col items-center justify-center text-[10px] font-bold ${item.match ? "text-myntra-pink" : "text-myntra-muted"}`}
           >
             <span className="text-base leading-none mb-0.5">{icon(item.label)}</span>
