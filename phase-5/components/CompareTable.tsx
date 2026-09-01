@@ -1,6 +1,7 @@
 "use client";
 
 import { inr } from "@/lib/format";
+import type { ProductRecord } from "@/lib/schemas";
 import { ProductImage } from "./ProductImage";
 import type { CompareMatrix, WishlistEntry } from "./types";
 
@@ -18,19 +19,26 @@ function scoreBar(score: number) {
 export function CompareTable({
   matrix,
   entries,
+  products = [],
   onClose,
   onPick
 }: {
   matrix: CompareMatrix;
   entries: WishlistEntry[];
+  products?: ProductRecord[];
   onClose: () => void;
-  onPick: (entry: WishlistEntry) => void;
+  onPick: (productId: string) => void;
 }) {
-  const byProduct = new Map(entries.map((entry) => [entry.productId, entry]));
-  const columns = matrix.itemIds.map((id) => byProduct.get(id)).filter(Boolean) as WishlistEntry[];
-  const winner = matrix.recommendation.itemId
-    ? byProduct.get(matrix.recommendation.itemId)
-    : undefined;
+  const byWishlist = new Map(entries.map((entry) => [entry.productId, entry]));
+  const byCatalog = new Map(products.map((product) => [product.id, product]));
+  const columns = matrix.itemIds
+    .map((id) => {
+      const product = byWishlist.get(id)?.product ?? byCatalog.get(id);
+      return product ? { id, product } : null;
+    })
+    .filter((column): column is { id: string; product: ProductRecord } => Boolean(column));
+  const winnerId = matrix.recommendation.itemId;
+  const winner = columns.find((column) => column.id === winnerId);
 
   return (
     <div className="fixed inset-0 z-40 overflow-y-auto bg-black/40 p-4 sm:p-8">
@@ -50,19 +58,19 @@ export function CompareTable({
             <thead>
               <tr>
                 <th className="w-40 p-2 text-left align-bottom label">Dimension</th>
-                {columns.map((entry) => (
-                  <th key={entry.id} className="p-2 text-left align-bottom">
+                {columns.map((column) => (
+                  <th key={column.id} className="p-2 text-left align-bottom">
                     <ProductImage
-                      src={entry.product.imageUrl}
-                      alt={`${entry.product.brand} ${entry.product.name}`}
+                      src={column.product.imageUrl}
+                      alt={`${column.product.brand} ${column.product.name}`}
                       className="mb-2 h-16 w-12 rounded-md"
                     />
                     <span className="block text-xs text-[var(--color-muted)]">
-                      {entry.product.brand}
+                      {column.product.brand}
                     </span>
-                    <span className="block font-semibold">{entry.product.name}</span>
+                    <span className="block font-semibold">{column.product.name}</span>
                     <span className="block text-xs text-[var(--color-muted)]">
-                      {inr(entry.product.priceInr)}
+                      {inr(column.product.priceInr)}
                     </span>
                   </th>
                 ))}
@@ -72,10 +80,10 @@ export function CompareTable({
               {matrix.dimensions.map((dimension) => (
                 <tr key={dimension.name} className="border-t border-[var(--color-line)]">
                   <th className="p-2 text-left align-top font-semibold">{dimension.name}</th>
-                  {columns.map((entry) => {
-                    const cell = dimension.scores.find((score) => score.itemId === entry.productId);
+                  {columns.map((column) => {
+                    const cell = dimension.scores.find((score) => score.itemId === column.id);
                     return (
-                      <td key={entry.id} className="space-y-1 p-2 align-top">
+                      <td key={column.id} className="space-y-1 p-2 align-top">
                         <div className="flex items-center gap-2">
                           <span className="font-bold">{cell?.score ?? "—"}</span>
                           <span className="text-xs text-[var(--color-muted)]">/ 5</span>
@@ -99,7 +107,7 @@ export function CompareTable({
 
         <div className="flex flex-wrap items-center gap-2">
           {winner && (
-            <button className="btn-primary" onClick={() => onPick(winner)}>
+            <button className="btn-primary" onClick={() => onPick(winner.id)}>
               Move {winner.product.name} to bag
             </button>
           )}

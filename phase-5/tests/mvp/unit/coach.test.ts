@@ -6,7 +6,9 @@ import { hasIncentiveLanguage } from "@/lib/guardrails";
 import { SYSTEM_PROMPT, availableProvider, describeProviders } from "@/lib/llm";
 import { buildStyleOccasion } from "@/lib/style-occasion";
 import { relevantThemes } from "@/lib/themes";
+import { ValueRequestSchema } from "@/lib/schemas";
 import { buildValueConfidence } from "@/lib/value-confidence";
+import { monthlyEstimateStats } from "@/lib/wear-estimate";
 import type { DiscoveryTheme } from "@/lib/artefacts";
 import type { ProductRecord } from "@/lib/schemas";
 
@@ -73,6 +75,16 @@ describe("value confidence", () => {
     });
     expect(value.wearsAssumed).toBe(12);
     expect(value.wearBasis).toMatch(/your own estimate/);
+  });
+
+  it("accepts a typed string for wears per month, the way the input sends it", () => {
+    const parsed = ValueRequestSchema.parse({
+      userId: "user-priya",
+      productId: "p-kurta-silk",
+      occasionsPerMonth: "2"
+    });
+    expect(parsed.occasionsPerMonth).toBe(2);
+    expect(monthlyEstimateStats(4199, 2).wearsAssumed).toBe(24);
   });
 });
 

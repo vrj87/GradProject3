@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { hasIncentiveLanguage, incentiveMatches } from "./guardrails";
+import { OCCASIONS_PER_MONTH_MAX, parseOccasionsPerMonth } from "./wear-estimate";
 
 export const CATEGORIES = ["ethnic", "western", "footwear", "accessories"] as const;
 export const FIT_HINTS = ["runs_small", "runs_large", "true_to_size", "unknown"] as const;
@@ -149,7 +150,14 @@ export const ValueRequestSchema = z.object({
   productId: z.string().min(1),
   wishlistItemId: z.string().optional(),
   /** Occasions the shopper expects to wear it for; drives the wear estimate. */
-  occasionsPerMonth: z.number().min(0).max(30).optional()
+  occasionsPerMonth: z.preprocess(
+    (value) => {
+      if (value === undefined || value === null || value === "") return undefined;
+      const parsed = parseOccasionsPerMonth(value);
+      return parsed === undefined ? value : parsed;
+    },
+    z.number().min(0).max(OCCASIONS_PER_MONTH_MAX).optional()
+  )
 });
 
 export const IngestRequestSchema = z

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { inr } from "@/lib/format";
+import { monthlyEstimateStats, OCCASIONS_PER_MONTH_MAX, parseOccasionsPerMonth } from "@/lib/wear-estimate";
 import { ProductImage } from "./ProductImage";
 import type { AnalyzeResponse, ValueResponse, WishlistEntry } from "./types";
 
@@ -61,12 +62,16 @@ export function CoachPanel({
   const [occasions, setOccasions] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [recalcBusy, setRecalcBusy] = useState(false);
   const [resolved, setResolved] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     setBusy(true);
     setError(null);
+    setValue(null);
+    setOccasions("");
+    setResolved(false);
 
     (async () => {
       await fetch("/api/events", {
@@ -98,22 +103,55 @@ export function CoachPanel({
   }, [userId, entry.id, entry.productId]);
 
   async function loadValue(occasionsPerMonth?: number) {
-    setBusy(true);
+    const quiet = occasionsPerMonth !== undefined;
+    if (quiet) setRecalcBusy(true);
+    else setBusy(true);
     setError(null);
-    const response = await fetch("/api/coach/value", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        userId,
-        productId: entry.productId,
-        wishlistItemId: entry.id,
-        occasionsPerMonth
-      })
+    try {
+      const response = await fetch("/api/coach/value", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          productId: entry.productId,
+          wishlistItemId: entry.id,
+          ...(occasionsPerMonth === undefined ? {} : { occasionsPerMonth })
+        })
+      });
+      const body = await response.json();
+      if (!response.ok) {
+        const issue = Array.isArray(body.issues) ? body.issues[0]?.message : null;
+        setError(issue ?? body.error ?? "Value read unavailable.");
+        return;
+      }
+      setValue(body);
+    } catch {
+      setError("Value read unavailable.");
+    } finally {
+      setBusy(false);
+      setRecalcBusy(false);
+    }
+  }
+
+  function applyTypedEstimate() {
+    const parsed = parseOccasionsPerMonth(occasions);
+    if (parsed === undefined || parsed < 0 || parsed > OCCASIONS_PER_MONTH_MAX) {
+      setError(`Enter how many times a month you would wear it, up to ${OCCASIONS_PER_MONTH_MAX}.`);
+      return;
+    }
+    setValue((current) => {
+      if (!current) return current;
+      const stats = monthlyEstimateStats(current.value.priceInr, parsed);
+      return {
+        ...current,
+        value: {
+          ...current.value,
+          ...stats,
+          headline: `${inr(current.value.priceInr)} works out to roughly ${inr(stats.costPerWearInr)} a wear across ${stats.wearsAssumed} wears, using your own estimate.`
+        }
+      };
     });
-    const body = await response.json();
-    if (!response.ok) setError(body.error ?? "Value read unavailable.");
-    else setValue(body);
-    setBusy(false);
+    void loadValue(parsed);
   }
 
   function selectTab(next: Tab) {
@@ -268,25 +306,34 @@ export function CoachPanel({
               <Bullets items={value.value.whatWouldChangeIt} />
             </Section>
 
-            <div className="card space-y-2 p-3">
+            <form
+              className="card space-y-2 p-3"
+              onSubmit={(event) => {
+                event.preventDefault();
+                applyTypedEstimate();
+              }}
+            >
               <p className="label">Your own estimate</p>
               <div className="flex items-center gap-2">
                 <input
+                  type="number"
+                  min={0}
+                  max={31}
+                  step="any"
                   value={occasions}
                   onChange={(event) => setOccasions(event.target.value)}
                   inputMode="decimal"
                   placeholder="Wears per month"
                   className="w-40 rounded-lg border border-[var(--color-line)] px-3 py-1.5 text-sm"
                 />
-                <button
-                  className="btn-ghost"
-                  disabled={busy || occasions.trim() === ""}
-                  onClick={() => void loadValue(Number(occasions))}
-                >
-                  Recalculate
+                <button className="btn-ghost" disabled={recalcBusy || occasions.trim() === ""} type="submit">
+                  {recalcBusy ? "Recalculating…" : "Recalculate"}
                 </button>
               </div>
-            </div>
+              <p className="text-xs text-[var(--color-muted)]">
+                Times you would wear it in a typical month — not a yearly total.
+              </p>
+            </form>
 
             <p className="text-xs italic text-[var(--color-muted)]">{value.value.disclaimer}</p>
           </>

@@ -7,6 +7,7 @@ import {
   type ProductRecord,
   type ValueConfidenceSummary
 } from "./schemas";
+import { monthlyEstimateStats } from "./wear-estimate";
 
 /**
  * The surface Phase 4 identified as the largest evidenced gap: 4/9 respondents
@@ -40,11 +41,8 @@ const UNKNOWN_OCCASION = 6;
 
 function estimateWears(product: ProductRecord, occasionsPerMonth?: number): WearEstimate {
   if (occasionsPerMonth !== undefined) {
-    const wears = Math.max(1, Math.round(occasionsPerMonth * 12));
-    return {
-      wears,
-      basis: `your own estimate of ${occasionsPerMonth} wear${occasionsPerMonth === 1 ? "" : "s"} a month over a year`
-    };
+    const stats = monthlyEstimateStats(product.priceInr, occasionsPerMonth);
+    return { wears: stats.wearsAssumed, basis: stats.wearBasis };
   }
 
   const breadth = occasionBreadth(product);

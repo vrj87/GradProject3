@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { DoubtBody } from "../components/DoubtBody";
 import { FittingLook } from "../components/FittingLook";
 import { ProductImage } from "../components/ProductImage";
+import { RoomCoachCompare } from "../components/RoomCoachCompare";
 import { PRODUCTS, type Product } from "../data/products";
 import {
   CLUSTER_LABEL,
@@ -25,7 +26,6 @@ import {
 } from "../lib/fittingRoom";
 import { matchingReview, suggestSize } from "../lib/sizeAdvice";
 import {
-  STUDIO_COACH,
   STUDIO_HANG_ID,
   STUDIO_KEEP_ID,
   STUDIO_ROOM_ID,
@@ -75,14 +75,16 @@ function nowCoach({
     return {
       n: "2",
       title: "Keep the hanger you would wear",
-      detail: "Same zone is lit on both looks. KEEP THIS LOOK. The other falls off the hook."
+      detail:
+        "Same zone is lit on both looks. KEEP THIS LOOK, or ask the coach to compare these two on fit, wear, and worth."
     };
   }
   if (paired) {
     return {
       n: "2",
       title: "Name the doubt on one body",
-      detail: "Tap bust, waist, length, or foot on the silhouette. Both garments spotlight that zone."
+      detail:
+        "Tap bust, waist, length, or foot on the silhouette. Both garments spotlight that zone. The coach can compare this pair if you are still stuck."
     };
   }
   return {
@@ -120,6 +122,7 @@ export function Decide() {
   const [bagged, setBagged] = useState(false);
   const [droppingId, setDroppingId] = useState<string | null>(null);
   const [keptId, setKeptId] = useState<string | null>(null);
+  const [coachOpen, setCoachOpen] = useState(false);
 
   const active =
     groups.find((group) => group.id === pileKey) ??
@@ -161,6 +164,7 @@ export function Decide() {
     setDroppingId(null);
     setKeptId(null);
     setBagged(false);
+    setCoachOpen(false);
     // pile / occasion / deep-link only — do not reset the rack after a bag.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pileKey, night, focusId, roomGender]);
@@ -237,15 +241,31 @@ export function Decide() {
     });
   }
 
+  function scrollToRoomCoach() {
+    window.setTimeout(() => {
+      document.getElementById("studio-room-coach")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+    }, 80);
+  }
+
+  function askCoachOnPair() {
+    setCoachOpen(true);
+    scrollToRoomCoach();
+  }
+
   /** Back to a pair with the look that stayed, when the shopper wants one more round. */
-  function hangAnother() {
+  function hangAnother(openCoach = false) {
     if (!nextChallenger) return;
     withViewTransition(() => {
       tapPulse();
       setKeptId(null);
       setZone(null);
+      if (openCoach) setCoachOpen(true);
     });
-    window.setTimeout(scrollToKeepStep, 60);
+    if (openCoach) scrollToRoomCoach();
+    else window.setTimeout(scrollToKeepStep, 60);
   }
 
   function hangOn(slot: "left" | "right", id: string) {
@@ -469,6 +489,33 @@ export function Decide() {
                     </p>
                   </div>
                 )}
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={askCoachOnPair}
+                    className="bg-myntra-pink text-white font-bold px-5 py-2.5 text-sm tracking-wide"
+                  >
+                    ASK THE COACH ABOUT THESE TWO
+                  </button>
+                  <p className="text-[12px] text-white/70 max-w-md">
+                    Will it fit, where I&apos;d wear it, and is it worth it — stays on this pair, in this room.
+                  </p>
+                </div>
+                {coachOpen && (
+                  <RoomCoachCompare
+                    left={left}
+                    right={right}
+                    zone={zone}
+                    usual={usual}
+                    between={between}
+                    peers={hanging}
+                    onKeep={(id) => {
+                      setCoachOpen(false);
+                      keep(id);
+                    }}
+                    onClose={() => setCoachOpen(false)}
+                  />
+                )}
               </section>
             )}
 
@@ -563,14 +610,20 @@ export function Decide() {
                       <button
                         type="button"
                         className="font-bold text-[12px] text-myntra-pink"
-                        onClick={hangAnother}
+                        onClick={() => hangAnother()}
                       >
                         HANG IT AGAINST {nextChallenger.brand.toUpperCase()} →
                       </button>
                     )}
-                    <Link to={STUDIO_COACH} className="font-bold text-[12px] text-myntra-pink self-center">
-                      ASK THE COACH ON THIS SHORTLIST →
-                    </Link>
+                    {winner && nextChallenger && (
+                      <button
+                        type="button"
+                        className="font-bold text-[12px] text-myntra-pink self-center"
+                        onClick={() => hangAnother(true)}
+                      >
+                        ASK THE COACH ABOUT THESE TWO
+                      </button>
+                    )}
                   </div>
                   <p className="text-[11px] text-myntra-muted mt-3">
                     Order now places it straight away at MRP. Taking it off means you would only buy

@@ -57,6 +57,7 @@ export interface ValueResponse {
 
 export interface CompareResponse {
   matrix: CompareMatrix;
+  products?: ProductRecord[];
   meta: GenerationMeta;
 }
 

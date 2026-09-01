@@ -3,7 +3,7 @@ import { StudioCoach } from "../components/StudioCoach";
 import { StudioFlow } from "../components/StudioFlow";
 import { WhyStudio } from "../components/WhyStudio";
 import {
-  STUDIO_COACH,
+  STUDIO_KEEP_ID,
   STUDIO_TABS,
   STUDIO_WHY,
   activateFlowStep,
@@ -112,9 +112,19 @@ export function Studio() {
       {surface === "why" && <WhyStudio section={view} />}
       {surface === "room" && (
         <div className="bg-[#1a1216] text-center pb-8 flex flex-col gap-2">
-          <Link to={STUDIO_COACH} className="text-[12px] font-bold text-myntra-pink">
-            THE COACH · FINISH THE CALL →
-          </Link>
+          <button
+            type="button"
+            className="text-[12px] font-bold text-myntra-pink"
+            onClick={() => {
+              activateFlowStep("keep");
+              document.getElementById(STUDIO_KEEP_ID)?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+            }}
+          >
+            ASK THE COACH ON THE PAIR ABOVE →
+          </button>
           <Link
             to={STUDIO_WHY}
             onClick={() => activateFlowStep("bet")}

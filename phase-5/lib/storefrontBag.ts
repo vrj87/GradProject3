@@ -25,6 +25,24 @@ export const COACH_TO_STOREFRONT: Record<string, { productId: string; size: stri
   "p-earrings-jhumka": { productId: "w-ear-1", size: "OS" }
 };
 
+/** Storefront hanger ids → coach catalog ids, so the room can hand a pair over. */
+export function coachIdFromStorefront(id: string): string | undefined {
+  if (COACH_TO_STOREFRONT[id]) return id;
+  const found = Object.entries(COACH_TO_STOREFRONT).find(([, mapped]) => mapped.productId === id);
+  return found?.[0];
+}
+
+export function resolvePairIds(raw: string | null | undefined): string[] {
+  if (!raw) return [];
+  const ids: string[] = [];
+  for (const token of raw.replace(/%2C/gi, ",").split(",")) {
+    const mapped = coachIdFromStorefront(token.trim());
+    if (mapped && !ids.includes(mapped)) ids.push(mapped);
+    if (ids.length === 3) break;
+  }
+  return ids;
+}
+
 export interface CoachBagSnapshot {
   brand: string;
   name: string;

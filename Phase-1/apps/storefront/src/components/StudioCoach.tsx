@@ -4,7 +4,8 @@ import { COACH_ORIGIN, coachEmbedSrc } from "../lib/studioFlow";
 
 export function StudioCoach() {
   const [params] = useSearchParams();
-  const src = coachEmbedSrc(params.get("user"));
+  const pair = params.get("pair")?.split(",").map((id) => id.trim()).filter(Boolean) ?? [];
+  const src = coachEmbedSrc(params.get("user"), pair.length >= 2 ? pair : null);
   const [status, setStatus] = useState<"checking" | "up" | "down">("checking");
 
   useEffect(() => {

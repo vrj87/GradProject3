@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { daysSince, inr } from "@/lib/format";
-import { notifyStorefrontBag, storefrontBagHref } from "@/lib/storefrontBag";
+import { notifyStorefrontBag, resolvePairIds, storefrontBagHref } from "@/lib/storefrontBag";
 import { CoachPanel } from "./CoachPanel";
 import { CompareTable } from "./CompareTable";
 import { ProductImage } from "./ProductImage";
@@ -17,11 +17,14 @@ const TRIGGER_COPY: Record<string, string> = {
 
 export function ShortlistRoom({
   personas,
-  initialUserId
+  initialUserId,
+  initialPair
 }: {
   personas: Array<{ id: string; name: string; segmentTags: string }>;
   initialUserId: string;
+  initialPair?: string;
 }) {
+  const pairKey = initialPair ?? "";
   const [userId, setUserId] = useState(initialUserId);
   const [data, setData] = useState<WishlistResponse | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
@@ -31,15 +34,18 @@ export function ShortlistRoom({
   const [bagHref, setBagHref] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [url, setUrl] = useState("");
+  const autoPair = useRef<string | null>(null);
 
   const load = useCallback(async () => {
     const response = await fetch(`/api/wishlist?userId=${userId}`);
     const body = await response.json();
     if (response.ok) {
       setData(body);
-      setSelected([]);
       setOpenItemId(null);
-      setCompare(null);
+      if (!pairKey) {
+        setSelected([]);
+        setCompare(null);
+      }
     } else {
       setStatus(body.error ?? "Could not load the shortlist.");
     }
@@ -67,20 +73,38 @@ export function ShortlistRoom({
     });
   }
 
-  async function runCompare() {
-    if (!data) return;
+  async function runCompareWithIds(itemIds: string[]) {
+    if (itemIds.length < 2) return;
     setBusy(true);
     setStatus(null);
     const response = await fetch("/api/coach/compare", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ userId, itemIds: selectedEntries.map((entry) => entry.productId) })
+      body: JSON.stringify({ userId, itemIds })
     });
     const body = await response.json();
     if (response.ok) setCompare(body);
     else setStatus(body.error ?? "Compare failed.");
     setBusy(false);
   }
+
+  async function runCompare() {
+    await runCompareWithIds(selectedEntries.map((entry) => entry.productId));
+  }
+
+  useEffect(() => {
+    if (!data || !pairKey || autoPair.current === pairKey) return;
+    const ids = resolvePairIds(pairKey);
+    if (ids.length < 2) return;
+    autoPair.current = pairKey;
+    const matched = ids
+      .map((productId) => data.items.find((item) => item.productId === productId)?.id)
+      .filter((id): id is string => Boolean(id));
+    if (matched.length >= 2) setSelected(matched.slice(0, 3));
+    void runCompareWithIds(ids);
+    // Room-handed pair: compare once when the shortlist first loads.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, pairKey, userId]);
 
   async function moveToBag(entry: WishlistEntry) {
     const response = await fetch("/api/events", {
@@ -105,6 +129,21 @@ export function ShortlistRoom({
     setOpenItemId(null);
     setCompare(null);
     await load();
+  }
+
+  async function pickCompared(productId: string) {
+    const entry = entries.find((item) => item.productId === productId);
+    if (entry) {
+      await moveToBag(entry);
+      return;
+    }
+    const product = compare?.products?.find((item) => item.id === productId);
+    if (!product) return;
+    notifyStorefrontBag(product);
+    const embedded = typeof window !== "undefined" && window.parent !== window;
+    setBagHref(storefrontBagHref(product, !embedded));
+    setStatus(`${product.name} is in your bag.`);
+    setCompare(null);
   }
 
   async function drop(entry: WishlistEntry) {
@@ -409,8 +448,9 @@ export function ShortlistRoom({
         <CompareTable
           matrix={compare.matrix}
           entries={entries}
+          products={compare.products}
           onClose={() => setCompare(null)}
-          onPick={(entry) => void moveToBag(entry)}
+          onPick={(productId) => void pickCompared(productId)}
         />
       )}
     </div>

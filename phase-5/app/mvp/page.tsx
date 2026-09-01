@@ -6,9 +6,9 @@ export const dynamic = "force-dynamic";
 export default async function MvpPage({
   searchParams
 }: {
-  searchParams: Promise<{ user?: string; embed?: string }>;
+  searchParams: Promise<{ user?: string; embed?: string; pair?: string }>;
 }) {
-  const { user: requested, embed } = await searchParams;
+  const { user: requested, embed, pair } = await searchParams;
   const embedded = embed === "1";
   let personas: Array<{ id: string; name: string; segmentTags: string }> = [];
   let dbError: string | null = null;
@@ -51,7 +51,7 @@ export default async function MvpPage({
         </header>
       )}
 
-      <ShortlistRoom personas={personas} initialUserId={initialUserId} />
+      <ShortlistRoom personas={personas} initialUserId={initialUserId} initialPair={pair} />
     </div>
   );
 }

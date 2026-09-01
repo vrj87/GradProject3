@@ -122,15 +122,17 @@ export function isCoachBagMessage(data: unknown): data is CoachBagMessage {
   );
 }
 
-export function studioCoach(userId?: string | null): string {
+export function studioCoach(userId?: string | null, pair?: readonly string[] | null): string {
   const params = new URLSearchParams({ view: "coach" });
   if (userId) params.set("user", userId);
+  if (pair && pair.length >= 2) params.set("pair", pair.slice(0, 3).join(","));
   return `${STUDIO_PATH}?${params.toString()}`;
 }
 
-export function coachEmbedSrc(userId?: string | null): string {
+export function coachEmbedSrc(userId?: string | null, pair?: readonly string[] | null): string {
   const params = new URLSearchParams({ embed: "1" });
   if (userId) params.set("user", userId);
+  if (pair && pair.length >= 2) params.set("pair", pair.slice(0, 3).join(","));
   return `${COACH_ORIGIN}/mvp?${params.toString()}`;
 }
 

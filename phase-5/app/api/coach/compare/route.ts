@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       type: "compare_completed",
       meta: { itemIds: input.itemIds, winner: result.matrix.recommendation.itemId }
     });
-    return ok({ matrix: result.matrix, meta: result.meta, eligibility });
+    return ok({ matrix: result.matrix, products: result.products, meta: result.meta, eligibility });
   } catch (error) {
     if (error instanceof CoachError) return bad(error.message, error.status);
     if (error instanceof ZodError) return fromZod(error, 422);

@@ -170,13 +170,26 @@ export async function valueConfidence(input: {
     peers,
     occasionsPerMonth: input.occasionsPerMonth
   });
-  const refined = await refine({
-    value: base,
-    schema: ValueConfidenceSummarySchema,
-    instruction:
-      "Rewrite only headline, wearBasis, qualitySignals, peerContext.note and whatWouldChangeIt for readability. Never mention discounts, sales or waiting for a price. Keep every id and number identical.",
-    evidenceIds: base.evidenceReviewIds
-  });
+  // Recalculate must return the new numbers immediately. An LLM rewrite can take
+  // seconds and makes the shopper think Recalculate did nothing.
+  const refined =
+    input.occasionsPerMonth === undefined
+      ? await refine({
+          value: base,
+          schema: ValueConfidenceSummarySchema,
+          instruction:
+            "Rewrite only headline, wearBasis, qualitySignals, peerContext.note and whatWouldChangeIt for readability. Never mention discounts, sales or waiting for a price. Keep every id and number identical.",
+          evidenceIds: base.evidenceReviewIds
+        })
+      : {
+          value: base,
+          meta: {
+            provider: "rule-based" as const,
+            model: "phase5-review-synthesis",
+            latencyMs: 0,
+            evidenceIds: base.evidenceReviewIds
+          }
+        };
 
   await recordSession({
     userId: input.userId,

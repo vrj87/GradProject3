@@ -56,7 +56,13 @@ describe("studio MVP paths", () => {
     expect(flowFromView("coach")).toBe("keep");
     expect(studioView("coach")).toBe(STUDIO_COACH);
     expect(studioCoach("user-sale-watcher")).toBe("/studio?view=coach&user=user-sale-watcher");
+    expect(studioCoach(null, ["w-kurta-1", "w-kurta-2"])).toBe(
+      "/studio?view=coach&pair=w-kurta-1%2Cw-kurta-2"
+    );
     expect(coachEmbedSrc("user-priya")).toBe("http://localhost:3100/mvp?embed=1&user=user-priya");
+    expect(coachEmbedSrc(null, ["w-kurta-1", "w-kurta-2"])).toBe(
+      "http://localhost:3100/mvp?embed=1&pair=w-kurta-1%2Cw-kurta-2"
+    );
     expect(
       isCoachBagMessage({
         source: "shortlist-coach",
