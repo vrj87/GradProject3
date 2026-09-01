@@ -18,6 +18,7 @@
     "discovery:refresh": "npm run refresh --workspace=@myntra/discovery-pipeline",
     "discovery:scrape": "npm run scrape --workspace=@myntra/discovery-pipeline",
     "dev": "npm run dev --workspace=@myntra/storefront",
+    "survey": "npm run survey --workspace=@myntra/discovery-pipeline",
     "dev:report": "npm run dev --workspace=@myntra/discovery-pipeline",
     "test": "vitest run",
     "test:watch": "vitest"

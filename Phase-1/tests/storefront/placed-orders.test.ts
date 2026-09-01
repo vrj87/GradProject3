@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ORDERS } from "../../apps/storefront/src/data/orders";
 import { addedDaysAgo } from "../../apps/storefront/src/data/demoWishlist";
+import { productForOrder } from "../../apps/storefront/src/lib/orderProduct";
 import {
   RETURN_WINDOW_DAYS,
   W2P_WINDOW_DAYS,
@@ -20,6 +21,7 @@ import {
   autoTracks,
   catchUpOrder,
   catchUpOrders,
+  mergeOrderLists,
   msUntilNextStep,
   nextStepLine,
   requestExchange,
@@ -216,6 +218,26 @@ describe("the parcel tracks itself", () => {
     expect(eventIso(late, "Delivered")).toBe(at(DELIVERY_SCHEDULE_MS.Delivered!).toISOString());
   });
 
+  it("keeps the order after days have passed — catch-up never deletes it", () => {
+    const placed = [roomOrder()];
+    const later = catchUpOrders(placed, at(3 * 86_400_000));
+    expect(later).toHaveLength(1);
+    expect(later[0]?.id).toBe(placed[0]?.id);
+    expect(later[0]?.status).toBe("Delivered");
+  });
+
+  it("unions two browsers' order lists without dropping either", () => {
+    const a = roomOrder();
+    const b = {
+      ...roomOrder(),
+      id: "4412-other-0001",
+      productId: "w-sneaker-1",
+      placedIso: at(1_000).toISOString()
+    };
+    const merged = mergeOrderLists([a], [b]);
+    expect(merged.map((order) => order.id).sort()).toEqual([a.id, b.id].sort());
+  });
+
   it("only moves one hop at a time as each offset lands", () => {
     expect(catchUpOrder(roomOrder(), at(9_000)).status).toBe("Packed");
     expect(catchUpOrder(roomOrder(), at(21_000)).status).toBe("Shipped");
@@ -269,3 +291,31 @@ describe("legacy orders", () => {
     expect(trackingSteps(cancelled!).map((step) => step.label)).not.toContain("Delivered");
   });
 });
+
+describe("order history display", () => {
+  it("keeps a coach snapshot on the order so it still lists without a catalogue SKU", () => {
+    const [order] = buildOrders(
+      [
+        {
+          productId: "coach:p-kurta-silk",
+          size: "M",
+          qty: 1,
+          fromWishlist: true,
+          snapshot: {
+            brand: "Soch",
+            name: "Blended Silk Kurta Set",
+            image: "https://example.com/silk.jpg",
+            price: 4199
+          }
+        }
+      ],
+      NOW
+    );
+    expect(order?.snapshot?.name).toBe("Blended Silk Kurta Set");
+    const product = productForOrder(order!);
+    expect(product.brand).toBe("Soch");
+    expect(product.name).toBe("Blended Silk Kurta Set");
+    expect(product.price).toBe(4199);
+  });
+});
+

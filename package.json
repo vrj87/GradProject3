@@ -1,7 +1,7 @@
 {
   "name": "gradproject3",
   "private": true,
-  "description": "Myntra W2P 30d — Phase-1 (1a–1d) and phase-2",
+  "description": "Myntra W2P 30d — Phase-1 (1a–1d), phase-2, phase-4, phase-5",
   "scripts": {
     "phase1:1a": "npm run 1a --prefix Phase-1",
     "phase1:1b": "npm run 1b --prefix Phase-1",
@@ -11,7 +11,14 @@
     "phase1:dev": "npm run dev --prefix Phase-1",
     "phase2:rank": "npm run rank --prefix phase-2",
     "phase2:test": "npm test --prefix phase-2",
+    "phase3:survey": "npm run survey --prefix Phase-1",
+    "phase4:lock": "npm run lock --prefix phase-4",
+    "phase4:test": "npm test --prefix phase-4",
+    "phase5:setup": "npm run backend:setup --prefix phase-5",
+    "phase5:dev": "npm run dev --prefix phase-5",
+    "phase5:test": "npm test --prefix phase-5",
+    "backend:setup": "npm run backend:setup --prefix phase-5",
     "dev": "npm run dev --prefix Phase-1",
-    "test": "npm test --prefix Phase-1 && npm test --prefix phase-2"
+    "test": "npm test --prefix Phase-1 && npm test --prefix phase-2 && npm test --prefix phase-4 && npm test --prefix phase-5"
   }
 }

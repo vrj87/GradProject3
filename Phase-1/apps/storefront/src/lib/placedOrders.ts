@@ -64,6 +64,12 @@ export interface OrderLine {
   size: string;
   qty: number;
   fromWishlist?: boolean;
+  snapshot?: {
+    brand: string;
+    name: string;
+    image?: string;
+    price: number;
+  };
 }
 
 export interface PlacedOrder {
@@ -79,6 +85,7 @@ export interface PlacedOrder {
   events: OrderEvent[];
   reason?: string;
   exchangeSize?: string;
+  snapshot?: OrderLine["snapshot"];
 }
 
 export function orderId(now: Date, index: number): string {
@@ -102,6 +109,7 @@ export function buildOrders(
     fromWishlist: Boolean(line.fromWishlist),
     status: "Placed",
     payment,
+    snapshot: line.snapshot,
     events: [
       {
         label: "Order placed",
@@ -248,6 +256,24 @@ export function catchUpOrders(orders: PlacedOrder[], now = new Date()): PlacedOr
     return moved;
   });
   return changed ? next : orders;
+}
+
+function orderProgress(order: PlacedOrder): number {
+  return order.events.length * 1_000 + new Date(order.placedIso).getTime();
+}
+
+/** Union two browsers' histories. Same id keeps the copy that has moved further. */
+export function mergeOrderLists(left: PlacedOrder[], right: PlacedOrder[]): PlacedOrder[] {
+  const byId = new Map<string, PlacedOrder>();
+  for (const order of [...left, ...right]) {
+    const existing = byId.get(order.id);
+    if (!existing || orderProgress(order) >= orderProgress(existing)) {
+      byId.set(order.id, order);
+    }
+  }
+  return [...byId.values()].sort(
+    (a, b) => new Date(b.placedIso).getTime() - new Date(a.placedIso).getTime()
+  );
 }
 
 export function canCancel(order: PlacedOrder): boolean {

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AccountNav } from "../components/AccountNav";
 import { STATUS_COLOR } from "../components/OrderCard";
 import { OrderTracker } from "../components/OrderTracker";
 import { ProductImage } from "../components/ProductImage";
 import { ORDERS } from "../data/orders";
-import { PRODUCTS, formatInr } from "../data/products";
+import { formatInr } from "../data/products";
+import { productForOrder } from "../lib/orderProduct";
 import {
   CANCEL_REASONS,
   RETURN_REASONS,
@@ -40,10 +41,14 @@ export function OrderDetail() {
   const [reason, setReason] = useState("");
   const [newSize, setNewSize] = useState("");
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [id]);
+
   const live = orders.find((order) => order.id === id);
   const legacy = ORDERS.find((order) => order.id === id);
   const order = live ?? (legacy ? adaptLegacy(legacy) : null);
-  const product = order ? PRODUCTS.find((item) => item.id === order.productId) : null;
+  const product = order ? productForOrder(order) : null;
   const moving = Boolean(order && autoTracks(order));
   const now = useTick(1000, moving);
 

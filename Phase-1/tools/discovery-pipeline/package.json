@@ -10,6 +10,7 @@
     "refresh": "tsx src/cli.ts refresh",
     "collapse": "tsx src/cli.ts collapse",
     "scrape": "tsx src/cli.ts scrape",
+    "survey": "tsx src/survey.ts",
     "dev": "tsx src/serve.ts"
   },
   "dependencies": {

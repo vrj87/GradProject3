@@ -1,0 +1,34 @@
+{
+  "name": "twelve-hour-scrape",
+  "nodes": [
+    {
+      "name": "Every 12 hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": { "rule": { "interval": [{ "field": "hours", "hoursInterval": 12 }] } }
+    },
+    {
+      "name": "Run discovery:refresh",
+      "type": "n8n-nodes-base.executeCommand",
+      "parameters": {
+        "command": "npm run phase1:refresh",
+        "note": "Runs locally or on Actions. A Vercel function cannot write Phase-1/data/discovery."
+      }
+    },
+    {
+      "name": "Callback",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "{{$env.NEXT_PUBLIC_APP_URL}}/api/workflows/discovery-refresh",
+        "headerParameters": {
+          "parameters": [{ "name": "x-webhook-secret", "value": "{{$env.N8N_WEBHOOK_SECRET}}" }]
+        },
+        "jsonBody": "{ \"status\": \"succeeded\", \"runId\": \"{{$now.toISO()}}\" }"
+      }
+    }
+  ],
+  "connections": {
+    "Every 12 hours": { "main": [[{ "node": "Run discovery:refresh" }]] },
+    "Run discovery:refresh": { "main": [[{ "node": "Callback" }]] }
+  }
+}

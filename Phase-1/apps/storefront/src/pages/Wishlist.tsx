@@ -117,7 +117,7 @@ export function Wishlist() {
 
         {items.length > 0 && topTheme && (
           <div className="mt-4 border border-myntra-pink bg-[#fff4f6] p-4">
-            <p className="text-[11px] font-bold tracking-[0.18em] text-myntra-pink">CREATIVITY · NOT A SALE</p>
+            <p className="text-[11px] font-bold tracking-[0.18em] text-myntra-pink">WHY THESE SAVES WAIT</p>
             <p className="font-bold mt-1">{friendlyTheme(topTheme.label)}</p>
             <p className="text-[13px] text-myntra-muted mt-1">{topTheme.summary}</p>
             {topTheme.quotes[0] && (
@@ -242,7 +242,6 @@ export function Wishlist() {
               <div className="font-bold text-sm">Compare ({compared.length})</div>
               {suggested && (
                 <p className="text-[12px] mt-1">
-                  <span className="font-bold text-myntra-pink">CREATIVE PICK · NOT % OFF.</span>{" "}
                   Suggested: <b>{suggested.brand}</b> — {fitClarity(suggested).reason.toLowerCase()}.
                   Every look here is at one price, so the pick can only come from fit.
                 </p>

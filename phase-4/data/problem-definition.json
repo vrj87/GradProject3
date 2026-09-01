@@ -1,0 +1,329 @@
+{
+  "northStar": "Wishlist-to-Purchase within 30 days (W2P 30d)",
+  "constraint": "No monetary incentive as the core lever",
+  "headline": "The Stalled Shortlister cannot finish a judgement inside the wishlist — neither which of these, nor is it worth the price — so intent parks on a sale that may never arrive.",
+  "fields": {
+    "targetSegment": {
+      "field": "Target user segment",
+      "statement": "The Stalled Shortlister — a shopper who saves several items they genuinely like, returns to the list, and leaves without deciding because nothing in the list helps them finish a judgement. 5/9 convert sometimes or less, 6/9 compare inside the app, and confidence that a saved item is right for them averages 2.89 (range 0–6). Fit-led S2 gives way to compare-led S4, with fit secondary.",
+      "evidence": [
+        {
+          "source": "survey",
+          "ref": "Q5",
+          "detail": "5/9 buy from saves sometimes or less"
+        },
+        {
+          "source": "survey",
+          "ref": "Q11",
+          "detail": "6/9 compare in-app, 8/9 read reviews or photos"
+        },
+        {
+          "source": "survey",
+          "ref": "Q9",
+          "detail": "confidence mean 2.89, minimum 0"
+        },
+        {
+          "source": "survey",
+          "ref": "Q3 ∩ Q5",
+          "detail": "2/9 match the strict staller definition (r03, r07)"
+        }
+      ],
+      "caveats": [
+        "In-segment n = 2 against a target of 5. Segment-specific claims rest on 2 people and are labelled throughout. This is the weakest part of the lock.",
+        "S3 sale-watchers stay a control persona, not the audience."
+      ]
+    },
+    "productOutcome": {
+      "field": "Product outcome",
+      "statement": "Shortlist-to-decision rate — the share of saved items that reach an explicit decision, bought or deliberately dropped, within 30 days of being saved. That is the decide node, not resolve: 8/9 of respondents show an unfinished decide job against 7/9 for resolve. Uncertainty resolution rate is the secondary outcome. A deliberate removal counts as success, so the metric cannot be moved by pressure tactics.",
+      "evidence": [
+        {
+          "source": "survey",
+          "ref": "Q11 in-app comparison, Q7 save-to-compare, Q13 comparison or price-verdict help",
+          "detail": "decide: 8/9"
+        },
+        {
+          "source": "survey",
+          "ref": "Q10 fit/size/appearance or quality/material doubt, Q13 quality or review help",
+          "detail": "resolve: 7/9"
+        },
+        {
+          "source": "phase2",
+          "ref": "metric-tree.json",
+          "detail": "Revisit × uncertainty resolution × decision completion decompose W2P 30d"
+        }
+      ],
+      "caveats": [
+        "Thin margin: decide leads resolve by 1 respondent. The case for decide rests on the unlock-versus-help evidence in the root cause, not on this share alone, and the two nodes are close enough that the secondary outcome must ship alongside the primary rather than after it.",
+        "Guardrail: return rate must not rise, and removal-heavy cohorts must not convert worse than untouched ones."
+      ]
+    },
+    "rootCause": {
+      "field": "Root cause",
+      "statement": "A wishlist captures interest but offers no way to finish a judgement — neither \"which of these is right for me\" nor \"is this worth what it costs\". With no judgement aid available, the only decision tool the app offers is a falling price, so intent parks on a sale that may never arrive inside 30 days. Price is the symptom of a missing capability, not a demand for money.",
+      "evidence": [
+        {
+          "source": "survey",
+          "ref": "Q8 vs Q11",
+          "detail": "5/9 name price as the main blocker, but only 2/9 actually wait for a sale and 1/9 do nothing else"
+        },
+        {
+          "source": "survey",
+          "ref": "Q12 → Q13",
+          "detail": "all 4 discount-seekers (r01, r03, r05, r07) ask for information when offered help; 3 ask specifically to understand whether the price is good"
+        },
+        {
+          "source": "survey",
+          "ref": "Q11",
+          "detail": "4/4 of the discount-seekers research or compare before buying anyway — the non-tautological half of the finding"
+        },
+        {
+          "source": "survey",
+          "ref": "Q13",
+          "detail": "top request for help is \"Understanding whether the price is good\" (4/9)"
+        }
+      ],
+      "caveats": [
+        "Challenged in segment: 2/2 in-segment respondents chose a discount as the unlock.",
+        "Mitigated by the same respondents: 2/2 of them asked for a price verdict on Q13.",
+        "Unresolved by instrument design: price was never held constant. Until brief questions 3 and 4 are asked as written, a real price constraint cannot be separated from the easiest available answer.",
+        "The constraint conflict is navigable but not resolved."
+      ]
+    },
+    "workarounds": {
+      "field": "Existing workarounds",
+      "statement": "Shoppers already finish the judgement outside the wishlist: read customer reviews (8/9), look at customer photos (7/9), compare with other products on the same app (6/9), check size/fit reviews (5/9). 4 of the reported behaviours leave the app entirely, and easy returns are used as a substitute for deciding.",
+      "evidence": [
+        {
+          "source": "survey",
+          "ref": "Q11",
+          "detail": "Read customer reviews 8/9 · Look at customer photos 7/9 · Compare with other products on the same app 6/9 · Check size/fit reviews 5/9 · Check Instagram/YouTube 2/9 · Wait for a sale 2/9 · Ask friends/family 1/9 · Check other shopping apps 1/9 · Search for the product on Google 1/9"
+        },
+        {
+          "source": "discovery",
+          "ref": "return-fear",
+          "detail": "\"I can always return it\" delays the order — frequency 0.383"
+        },
+        {
+          "source": "discovery",
+          "ref": "review-trust-gap",
+          "detail": "Shoppers leave for YouTube and Instagram try-ons before buying"
+        }
+      ],
+      "caveats": [
+        "Every workaround is a judgement made outside the product, which is why they read as evidence of the missing capability rather than as satisfied need."
+      ]
+    },
+    "userValue": {
+      "field": "User value",
+      "statement": "Closure. A defensible choice — knowing why this one and not the other two — and a defensible price, which 5/9 ask for and nothing currently answers. Fewer open loops: no second app, no group chat, no video detour before ordering. Confidence is the mechanism; the felt benefit is finishing.",
+      "evidence": [
+        {
+          "source": "survey",
+          "ref": "Q13 + Q12",
+          "detail": "5/9 ask for a value verdict on either question"
+        },
+        {
+          "source": "survey",
+          "ref": "Q9",
+          "detail": "confidence mean 2.89 — the doubt is real before the purchase, not after"
+        }
+      ],
+      "caveats": [
+        "Framing matters: an AI that announces which items are worth buying scores only 2.89 (min 0), so the value must be delivered as evidence, not as a verdict from the app."
+      ]
+    },
+    "businessValue": {
+      "field": "Business value",
+      "statement": "W2P 30d rises through decision completion rather than margin: every point of shortlist-to-decision rate is a purchase that would otherwise have decayed, bought at full price. Margin is protected because the intervention is information, and nothing trains shoppers to wait for the next sale. Return-rate exposure falls where fit doubt is resolved before ordering, and demand shifts out of sale windows if waiting is a default rather than a preference.",
+      "evidence": [
+        {
+          "source": "survey",
+          "ref": "Q11",
+          "detail": "2/9 wait for a sale today — the volume that could move into non-sale weeks"
+        },
+        {
+          "source": "discovery",
+          "ref": "return-fear",
+          "detail": "try-and-buy used as the decision, frequency 0.383"
+        },
+        {
+          "source": "phase2",
+          "ref": "nomination.json",
+          "detail": "price levers were already excluded upstream: Price-drop / sale alerts (monetary — excluded by assignment constraint)"
+        }
+      ],
+      "caveats": [
+        "All four claims are conditional on the root cause being right, and the root cause states how it can be shown wrong."
+      ]
+    }
+  },
+  "segmentContract": {
+    "name": "Stalled Shortlister",
+    "previousName": "P1 Wishlist Staller",
+    "thresholds": {
+      "windowDays": 30,
+      "minRecentSaves": 2,
+      "maxPurchasedInWindow": 1,
+      "minSameCategory": 2
+    },
+    "derivation": [
+      "Window stays 30 days: W2P 30d is the north-star metric, so eligibility is measured on the same clock.",
+      "Save floor lowered from 3 to 2: the modal bucket is \"1–5\" (6/9), and a three-item floor would exclude most of the population.",
+      "Comparison signal set to 2 items in one category: two comparable options are enough to be stuck between them, and 6/9 compare inside the app.",
+      "At most one purchase in the window: the segment is defined by the stall, and 5/9 convert sometimes or less.",
+      "Opt-out is checked first, before any wishlist data is read."
+    ],
+    "controlPersona": "S3 sale-watchers — held as a control, never the coach audience. 1/9 wait for a sale and do nothing else.",
+    "implementedIn": "apps/mvp/lib/segment.ts (Phase 5a)",
+    "interfaceOnly": true,
+    "source": "// Generated by phase-4. Contract only — Phase 5a implements this against real user data.\nexport function matchesStalledShortlister(user: User): boolean {\n  if (user.optedOut) return false;\n\n  const recent = user.wishlistItems.filter((i) => i.addedWithinDays(30));\n  if (recent.length < 2) return false;\n\n  const purchased = recent.filter((i) => i.purchasedWithinDays(30));\n  if (purchased.length > 1) return false;\n\n  const byCategory = groupByCategory(recent);\n  return Object.values(byCategory).some((count) => count >= 2);\n}\n"
+  },
+  "decisionTree": {
+    "verdicts": [
+      {
+        "branch": "proceed-as-specified",
+        "fired": false,
+        "terminal": false,
+        "because": [
+          "Confirmed: a non-monetary decide blocker covers 8/9 respondents.",
+          "In-segment price dominance is in play — 2/2 chose a discount, so this branch cannot be taken cleanly."
+        ]
+      },
+      {
+        "branch": "price-dominant",
+        "fired": true,
+        "terminal": false,
+        "because": [
+          "2/2 in-segment respondents named a discount as the unlock.",
+          "Price was never held constant, so a real constraint cannot be separated from the easiest available answer.",
+          "Non-terminal: all 4 discount-seekers research or compare anyway, and 5/9 ask for a value verdict."
+        ]
+      },
+      {
+        "branch": "fork",
+        "fired": true,
+        "terminal": false,
+        "because": [
+          "Phase 2 nominated resolve; the questionnaire ranks decide first (8/9 vs 7/9).",
+          "Phase 5 scope is rewritten to the higher-ranked node before any coach contracts."
+        ]
+      }
+    ],
+    "outcome": "proceed-rescoped",
+    "incentiveMvpAllowed": false,
+    "primaryNode": "decide",
+    "secondaryNode": "resolve",
+    "requiredSurfaces": [
+      "Decision completion on a shortlist (decide)",
+      "Fit and quality evidence at the moment of doubt (resolve)",
+      "Value confidence — \"is this a fair price, and should I decide now?\" (5/9 ask for it, nothing ships it)"
+    ],
+    "forbidden": [
+      "Discounts or coupons on wishlisted items",
+      "Price-drop alerts as the core lever",
+      "EOSS or sale-window nudges",
+      "Scarcity or urgency pressure to force a decision",
+      "Price-drop / sale alerts (monetary — excluded by assignment constraint)",
+      "PriceWaiting (price-flagged, rank 2)",
+      "WishlistAsSaleWaitlist (price-flagged, rank 12)"
+    ],
+    "rescopeInstruction": "Read Phase 5 decide-first rather than resolve-first, and add the value-confidence surface. No incentive of any kind.",
+    "constraintConflict": {
+      "present": true,
+      "statement": "4/9 name a discount as the single unlock (2/2 in segment), while the brief forbids monetary incentives as the core lever.",
+      "navigableBecause": "All 4 of them research or compare before buying, 3 ask specifically to understand whether the price is good, and value confidence is information rather than money."
+    }
+  },
+  "evolutionChain": {
+    "steps": [
+      {
+        "stage": "Business metric",
+        "via": "assignment",
+        "value": "Wishlist-to-Purchase within 30 days (W2P 30d)"
+      },
+      {
+        "stage": "Product outcomes",
+        "via": "decompose (Phase 2)",
+        "value": "Revisit × uncertainty resolution × decision completion"
+      },
+      {
+        "stage": "Themes / ranked opportunities",
+        "via": "AI discovery (Phase 1 — 895 raw → 150 normalized, 12 themes)",
+        "value": "FitSizeAnxiety 0.873 · PriceWaiting 0.830 (price-flagged) · ComparisonParalysis 0.820 · StyleUncertainty 0.817 … +8 more"
+      },
+      {
+        "stage": "Validation",
+        "via": "primary research (Phase 3 — n = 9)",
+        "value": "stall, low confidence (mean 2.89), comparison and review-reliance CONFIRMED · fit-as-leading-barrier CHALLENGED (1/9 unlock) · clutter premise CHALLENGED (modal bucket \"1–5\") · AI-verdict NOT SUPPORTED (mean 2.89) · NEW: value confidence requested by 5/9"
+      },
+      {
+        "stage": "Problem",
+        "via": "problem definition (Phase 4)",
+        "value": "The Stalled Shortlister cannot finish a judgement inside the wishlist, so intent parks on a sale. Price is the symptom of a missing judgement aid."
+      },
+      {
+        "stage": "MVP direction",
+        "via": "solution direction (input to Phase 5, not a Phase 4 output)",
+        "value": "Decision completion on a shortlist (decide) + Fit and quality evidence at the moment of doubt (resolve) + Value confidence — \"is this a fair price, and should I decide now?\" (5/9 ask for it, nothing ships it) — Read Phase 5 decide-first rather than resolve-first, and add the value-confidence surface. No incentive of any kind."
+      }
+    ],
+    "complete": true
+  },
+  "quotes": {
+    "participantVerbatimAvailable": false,
+    "reason": "The Phase 3 instrument was a closed-option form with no free-text field, so it produced counts rather than sentences. Presenting a fixture line as a participant quote would misrepresent the research.",
+    "liveCount": 2,
+    "illustrativeCount": 28,
+    "liveQuotes": [
+      {
+        "text": "from the last 1 month the service and product are getting worst in myntra.they send wrong size or damaged product and they hold the return pick up. they are showing nonsense. makeup products are always damaged I got. no return and exchange properly. don't buy from Myntra this is ",
+        "reviewId": "playstore-83ec5f7a-5e0f-45e6-966a-49bddbfffa9e",
+        "source": "play_store",
+        "url": "https://play.google.com/store/apps/details?id=com.myntra.android&reviewId=83ec5f7a-5e0f-45e6-966a-49bddbfffa9e&hl=en_IN"
+      },
+      {
+        "text": "Anonymous. This is by far one of the worst shopping experiences I have ever had. The app is completely unprofessional, customer service is useless, and the overall quality is extremely poor. They misguided me about the delivery timeline, and due to my visa delay, I was unable to ",
+        "reviewId": "appstore-gb-2-13508351477",
+        "source": "app_store",
+        "url": "https://apps.apple.com/gb/app/myntra-fashion-shopping-app/id907394059?see-all=reviews"
+      }
+    ]
+  },
+  "falsification": [
+    {
+      "claim": "Price is a symptom, not the cause",
+      "falsifiedBy": "Asking brief questions 3 and 4 as written, with price explicitly frozen, and price still dominating in segment"
+    },
+    {
+      "claim": "decide outranks resolve",
+      "falsifiedBy": "In-segment shoppers naming fit information as the unlock more often than comparison or value help"
+    },
+    {
+      "claim": "Deliberate removals are a success",
+      "falsifiedBy": "Removal-heavy cohorts showing lower W2P 30d than untouched cohorts"
+    },
+    {
+      "claim": "Value confidence is wanted (5/9)",
+      "falsifiedBy": "Shoppers ignoring a fair-price explanation while still converting on discounts"
+    },
+    {
+      "claim": "The segment exists at useful size",
+      "falsifiedBy": "Targeted recruiting failing to find stalled shortlisters beyond r03, r07"
+    }
+  ],
+  "exitCriteria": {
+    "sixFieldsFilled": true,
+    "evolutionChainComplete": true,
+    "decisionTreeRecorded": true,
+    "incentiveMvpAvoided": true,
+    "met": true,
+    "unmet": []
+  },
+  "readyForPhase5": true,
+  "caveats": [
+    "In-segment n = 2 against a target of 5. The lock is usable but segment claims are thin.",
+    "Brief questions 3 and 4 ask what blocks a purchase with price held constant. The form never froze price, and Q12 offered 'Price drop/discount' as an option, so a stated price barrier cannot be separated from the easiest available answer. No free-text field means there are no participant verbatims to quote."
+  ],
+  "generatedAt": "2026-09-01T15:40:11.388Z"
+}

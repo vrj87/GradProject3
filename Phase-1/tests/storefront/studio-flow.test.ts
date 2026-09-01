@@ -1,13 +1,18 @@
 import { describe, expect, it } from "vitest";
 import {
+  STUDIO_COACH,
   STUDIO_ENTRY,
   STUDIO_FLOW,
   STUDIO_TABS,
   STUDIO_VIEWS,
   STUDIO_WHY,
+  coachEmbedSrc,
   flowFromView,
   hrefForFlowStep,
+  isCoachBagMessage,
+  isCoachOrigin,
   isStudioView,
+  studioCoach,
   studioRoom,
   studioSurface,
   studioView
@@ -46,7 +51,21 @@ describe("studio MVP paths", () => {
     expect(studioView("room")).toBe(STUDIO_ENTRY);
     expect(STUDIO_FLOW.map((step) => step.id)).toEqual(["save", "hang", "keep", "bet"]);
     expect(STUDIO_VIEWS[0]?.id).toBe("room");
-    expect(STUDIO_TABS.map((tab) => tab.id)).toEqual(["room", "why"]);
+    expect(STUDIO_TABS.map((tab) => tab.id)).toEqual(["room", "coach", "why"]);
+    expect(studioSurface("coach")).toBe("coach");
+    expect(flowFromView("coach")).toBe("keep");
+    expect(studioView("coach")).toBe(STUDIO_COACH);
+    expect(studioCoach("user-sale-watcher")).toBe("/studio?view=coach&user=user-sale-watcher");
+    expect(coachEmbedSrc("user-priya")).toBe("http://localhost:3100/mvp?embed=1&user=user-priya");
+    expect(
+      isCoachBagMessage({
+        source: "shortlist-coach",
+        type: "add-to-bag",
+        productId: "w-kurta-1",
+        size: "M"
+      })
+    ).toBe(true);
+    expect(isCoachOrigin("http://localhost:3100")).toBe(true);
   });
 
   it("keeps occasion on hang and keep links", () => {

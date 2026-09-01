@@ -1,0 +1,102 @@
+// Phase 5 data model. SQLite has no enum or native JSON column, so unions are
+// stored as strings and structured payloads as JSON text with `Json` suffixes.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id
+  name          String
+  email         String   @unique
+  /// Comma-separated discovery segments, e.g. "S2,S4".
+  segmentTags   String   @default("")
+  wishlistCount Int      @default(0)
+  optedOut      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  wishlistItems WishlistItem[]
+  sessions      CoachSession[]
+  events        CoachEvent[]
+}
+
+model Product {
+  id            String   @id
+  sourceUrl     String?
+  name          String
+  brand         String
+  /// ethnic | western | footwear | accessories
+  category      String
+  priceInr      Int
+  sizeChartText String?
+  imageUrl      String?
+  /// ReviewRecord[]
+  reviewsJson   String   @default("[]")
+  createdAt     DateTime @default(now())
+
+  wishlistItems WishlistItem[]
+}
+
+model WishlistItem {
+  id           String    @id @default(cuid())
+  userId       String
+  productId    String
+  addedAt      DateTime  @default(now())
+  category     String
+  cartAddedAt  DateTime?
+  purchasedAt  DateTime?
+  /// Phase 4 counts a deliberate drop as a completed decision, so it is stored.
+  removedAt    DateTime?
+  /// active | cart_added | purchased | removed
+  status       String    @default("active")
+  /// Enforces the "one prompt per item per 3 days" cap from 5c flow C.
+  lastPromptAt DateTime?
+
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product  Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sessions CoachSession[]
+  events   CoachEvent[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model CoachSession {
+  id                 String   @id @default(cuid())
+  userId             String
+  wishlistItemId     String?
+  /// fit | style | compare | value
+  type               String
+  inputJson          String
+  outputJson         String
+  /// { provider, model, latencyMs, evidenceIds }
+  generationMetaJson String   @default("{}")
+  createdAt          DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wishlistItem WishlistItem? @relation(fields: [wishlistItemId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([type])
+}
+
+model CoachEvent {
+  id             String   @id @default(cuid())
+  userId         String
+  wishlistItemId String?
+  /// See lib/events.ts COACH_EVENTS
+  type           String
+  metaJson       String   @default("{}")
+  createdAt      DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wishlistItem WishlistItem? @relation(fields: [wishlistItemId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([type])
+}

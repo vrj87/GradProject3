@@ -1,0 +1,56 @@
+{
+  "verdicts": [
+    {
+      "branch": "proceed-as-specified",
+      "fired": false,
+      "terminal": false,
+      "because": [
+        "Confirmed: a non-monetary decide blocker covers 8/9 respondents.",
+        "In-segment price dominance is in play — 2/2 chose a discount, so this branch cannot be taken cleanly."
+      ]
+    },
+    {
+      "branch": "price-dominant",
+      "fired": true,
+      "terminal": false,
+      "because": [
+        "2/2 in-segment respondents named a discount as the unlock.",
+        "Price was never held constant, so a real constraint cannot be separated from the easiest available answer.",
+        "Non-terminal: all 4 discount-seekers research or compare anyway, and 5/9 ask for a value verdict."
+      ]
+    },
+    {
+      "branch": "fork",
+      "fired": true,
+      "terminal": false,
+      "because": [
+        "Phase 2 nominated resolve; the questionnaire ranks decide first (8/9 vs 7/9).",
+        "Phase 5 scope is rewritten to the higher-ranked node before any coach contracts."
+      ]
+    }
+  ],
+  "outcome": "proceed-rescoped",
+  "incentiveMvpAllowed": false,
+  "primaryNode": "decide",
+  "secondaryNode": "resolve",
+  "requiredSurfaces": [
+    "Decision completion on a shortlist (decide)",
+    "Fit and quality evidence at the moment of doubt (resolve)",
+    "Value confidence — \"is this a fair price, and should I decide now?\" (5/9 ask for it, nothing ships it)"
+  ],
+  "forbidden": [
+    "Discounts or coupons on wishlisted items",
+    "Price-drop alerts as the core lever",
+    "EOSS or sale-window nudges",
+    "Scarcity or urgency pressure to force a decision",
+    "Price-drop / sale alerts (monetary — excluded by assignment constraint)",
+    "PriceWaiting (price-flagged, rank 2)",
+    "WishlistAsSaleWaitlist (price-flagged, rank 12)"
+  ],
+  "rescopeInstruction": "Read Phase 5 decide-first rather than resolve-first, and add the value-confidence surface. No incentive of any kind.",
+  "constraintConflict": {
+    "present": true,
+    "statement": "4/9 name a discount as the single unlock (2/2 in segment), while the brief forbids monetary incentives as the core lever.",
+    "navigableBecause": "All 4 of them research or compare before buying, 3 ask specifically to understand whether the price is good, and value confidence is information rather than money."
+  }
+}

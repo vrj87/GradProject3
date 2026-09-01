@@ -1,0 +1,29 @@
+{
+  "name": "discovery-refresh-callback",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "discovery-refresh",
+        "httpMethod": "POST",
+        "note": "n8n receives the pipeline result and forwards it to the MVP with the shared secret."
+      }
+    },
+    {
+      "name": "Forward to MVP",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "{{$env.NEXT_PUBLIC_APP_URL}}/api/workflows/discovery-refresh",
+        "headerParameters": {
+          "parameters": [{ "name": "x-webhook-secret", "value": "{{$env.N8N_WEBHOOK_SECRET}}" }]
+        },
+        "jsonBody": "={{ JSON.stringify($json) }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Forward to MVP" }]] }
+  }
+}

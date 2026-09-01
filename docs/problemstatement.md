@@ -359,7 +359,12 @@ Missing any of the eight brief topics fails Part 3 ([edge-cases.md](./edge-cases
 
 ### 4.1 Required fields (assignment)
 
-Fill these in `docs/problem-definition.md` after interviews. The blocks below are a **working sketch to falsify**, not the locked problem.
+> **Status: locked in [problem-definition.md](./problem-definition.md).** The sketch below was
+> falsified in two places and is kept for the record: fit is *secondary* (1/9 name fit information
+> as the unlock), and the primary outcome moved from Resolve to **Decide**. Read the lock, not this
+> table.
+
+The blocks below are the **original working sketch**, not the locked problem.
 
 | Field | Working sketch (replace after Phase 3) |
 |-------|----------------------------------------|
@@ -376,18 +381,33 @@ Fill these in `docs/problem-definition.md` after interviews. The blocks below ar
 
 Required by the brief. Update the TBD lines after each phase; do not skip steps.
 
+Filled from the delivered artefacts. The authoritative copy lives in
+[problem-definition.md](./problem-definition.md) §8.
+
 ```
 Business Metric: W2P 30d
     ↓ decompose (Phase 2)
 Product Outcomes: Revisit × Uncertainty Resolution × Decision Completion
-    ↓ AI discovery (Phase 1 — fill from themes.json)
-Themes / ranked opportunities: TBD
-    ↓ primary research (Phase 3 — fill from synthesis)
-Validation: TBD
+    ↓ AI discovery (Phase 1 — 895 raw → 150 normalized → 12 themes)
+Themes ranked: FitSizeAnxiety 0.873 · PriceWaiting 0.830 (price-flagged) ·
+  ComparisonParalysis 0.820 · StyleUncertainty / CompareDifficulty /
+  StylingOccasion 0.817 · ReturnFear 0.717 · WishlistDecay 0.653 ·
+  ReviewTrustGap 0.650 · BookmarkVsIntent 0.493 · SocialValidation 0.490 ·
+  WishlistAsSaleWaitlist 0.390 (price-flagged)
+    ↓ primary research (Phase 3 — questionnaire, n = 9)
+Validation: stall, low confidence (mean 2.89), comparison, review-reliance
+  CONFIRMED · fit-as-leading-barrier CHALLENGED (1/9 unlock) · clutter premise
+  CHALLENGED (6/9 hold 1–5) · AI-verdict NOT SUPPORTED (mean 2.89) ·
+  NEW: "is this price fair?" is the top request for help (4/9)
     ↓ problem definition (Phase 4)
-Problem: TBD
+Problem: The Stalled Shortlister cannot finish a judgement inside the
+  wishlist — neither "which of these" nor "is it worth the price" — so intent
+  parks on a sale. Price is the symptom of a missing judgement aid, not a
+  demand for money.
     ↓ solution direction (input to Phase 5 — not a Phase 4 output)
-MVP direction: TBD (see decision tree)
+MVP direction: decision completion on a shortlist (built) + fit/quality
+  evidence at the moment of doubt (built) + value confidence (NOT BUILT).
+  Discounts excluded by constraint and by choice.
 ```
 
 The brief’s example: research might show fit confidence for one segment and price uncertainty for another. **Which problem we pursue is a Phase 4 output.**
@@ -407,6 +427,12 @@ THEN do not build an incentive MVP; document constraint conflict;
 ELSE IF occasion, social, or another node ranks higher
 THEN rewrite Phase 5 scope to that problem before any coach contracts
 ```
+
+**Recorded outcome: proceed, re-scoped, explicitly without an incentive.** Branches 2 and 3 fired
+together; branch 1 did not fire cleanly because in-segment price dominance is unresolved (2/2 chose
+a discount, n = 2, and price was never held constant). Decide outranks Resolve, so Phase 5 is read
+decision-completion-first, with **value confidence** as the new non-monetary surface. Full working
+in [problem-definition.md](./problem-definition.md) §7.
 
 Architecture and edge cases **do not** lock coach APIs, Prisma coach tables, or Vercel topology until this tree says proceed.
 
@@ -507,7 +533,7 @@ Demo instrumentation uses simulated cart/purchase flags and must be labeled as *
 | **1-slider in deck** (how the engine works) | Pending | Inside PDF |
 | **[PDF] 10-slide deck** | Pending | TBD |
 | **[Link] Deployed MVP** | Pending | [Production URL TBD](#) |
-| **Interview notes / survey** | Form live; responses pending | [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · responses TBD |
+| **Interview notes / survey** | Delivered — n = 9, 28–31 Aug 2026 | [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [published responses](http://localhost:3000/survey) · [notes](./research/interview-notes/README.md) |
 
 ### 6.5 Deck content map (10 slides max)
 

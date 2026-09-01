@@ -1,5 +1,7 @@
 export * from "./types.js";
 export * from "./survey.js";
+export * from "./surveyResponses.js";
+export * from "./xlsx.js";
 export * from "./hash.js";
 export * from "./normalize.js";
 export * from "./chunk.js";

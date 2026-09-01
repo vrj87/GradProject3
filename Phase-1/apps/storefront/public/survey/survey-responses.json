@@ -1,0 +1,502 @@
+[
+  {
+    "id": "r01",
+    "submittedAt": "2026-08-28T17:19:40.000Z",
+    "answers": {
+      "1": [
+        "Myntra"
+      ],
+      "2": [
+        "Once every 2–3 months"
+      ],
+      "3": [
+        "No"
+      ],
+      "4": [
+        "1–5"
+      ],
+      "5": [
+        "Almost never"
+      ],
+      "6": [
+        "1–3 months ago"
+      ],
+      "7": [
+        "I want to wait for a better price"
+      ],
+      "8": [
+        "It was too expensive"
+      ],
+      "9": [
+        "3"
+      ],
+      "10": [
+        "Price/value",
+        "Material/fabric",
+        "Whether the price will fall"
+      ],
+      "11": [
+        "Read customer reviews"
+      ],
+      "12": [
+        "Price drop/discount"
+      ],
+      "13": [
+        "Understanding whether the price is good"
+      ],
+      "14": [
+        "3"
+      ]
+    }
+  },
+  {
+    "id": "r02",
+    "submittedAt": "2026-08-28T17:33:08.000Z",
+    "answers": {
+      "1": [
+        "Myntra",
+        "Nykaa Fashion"
+      ],
+      "2": [
+        "Once every 2–3 months"
+      ],
+      "3": [
+        "Yes"
+      ],
+      "4": [
+        "1–5"
+      ],
+      "5": [
+        "Almost always"
+      ],
+      "6": [
+        "3–6 months ago"
+      ],
+      "7": [
+        "I like the product but don't want to buy it immediately",
+        "I want to wait for a better price"
+      ],
+      "8": [
+        "I wasn't sure about the quality"
+      ],
+      "9": [
+        "2"
+      ],
+      "10": [
+        "Price/value",
+        "Size",
+        "Quality",
+        "Material/fabric"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Compare with other products on the same app"
+      ],
+      "12": [
+        "Better fit/size information"
+      ],
+      "13": [
+        "Understanding whether the price is good"
+      ],
+      "14": [
+        "2"
+      ]
+    }
+  },
+  {
+    "id": "r03",
+    "submittedAt": "2026-08-29T03:14:27.000Z",
+    "answers": {
+      "1": [
+        "Myntra",
+        "Amazon",
+        "Flipkart"
+      ],
+      "2": [
+        "A few times a year"
+      ],
+      "3": [
+        "Yes"
+      ],
+      "4": [
+        "1–5"
+      ],
+      "5": [
+        "Sometimes"
+      ],
+      "6": [
+        "1–3 months ago"
+      ],
+      "7": [
+        "I like the product but don't want to buy it immediately",
+        "I want to wait for a better price",
+        "I want to compare it with other products",
+        "I want to check reviews later"
+      ],
+      "8": [
+        "It was too expensive"
+      ],
+      "9": [
+        "2"
+      ],
+      "10": [
+        "Price/value",
+        "How it will look on me",
+        "Durability"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Check size/fit reviews"
+      ],
+      "12": [
+        "Price drop/discount"
+      ],
+      "13": [
+        "Understanding whether the price is good"
+      ],
+      "14": [
+        "2"
+      ]
+    }
+  },
+  {
+    "id": "r04",
+    "submittedAt": "2026-08-29T05:24:44.000Z",
+    "answers": {
+      "1": [
+        "Myntra"
+      ],
+      "2": [
+        "Once every 2–3 months"
+      ],
+      "3": [
+        "Yes"
+      ],
+      "4": [
+        "1–5"
+      ],
+      "5": [
+        "Almost always"
+      ],
+      "6": [
+        "Within the last month"
+      ],
+      "7": [
+        "I genuinely intend to buy it later"
+      ],
+      "8": [
+        "It was too expensive"
+      ],
+      "9": [
+        "6"
+      ],
+      "10": [
+        "Price/value"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Check size/fit reviews",
+        "Compare with other products on the same app"
+      ],
+      "12": [
+        "Better reviews/ratings"
+      ],
+      "13": [
+        "Finding the best product among my wishlist"
+      ],
+      "14": [
+        "5"
+      ]
+    }
+  },
+  {
+    "id": "r05",
+    "submittedAt": "2026-08-29T05:31:05.000Z",
+    "answers": {
+      "1": [
+        "Amazon"
+      ],
+      "2": [
+        "Once a month"
+      ],
+      "3": [
+        "No"
+      ],
+      "4": [
+        "1–5"
+      ],
+      "5": [
+        "Sometimes"
+      ],
+      "6": [
+        "3–6 months ago"
+      ],
+      "7": [
+        "I like the product but don't want to buy it immediately"
+      ],
+      "8": [
+        "I was waiting for the right occasion"
+      ],
+      "9": [
+        "4"
+      ],
+      "10": [
+        "Whether I actually need it"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Compare with other products on the same app",
+        "Check Instagram/YouTube"
+      ],
+      "12": [
+        "Price drop/discount"
+      ],
+      "13": [
+        "Comparing it with alternatives"
+      ],
+      "14": [
+        "2"
+      ]
+    }
+  },
+  {
+    "id": "r06",
+    "submittedAt": "2026-08-29T05:41:12.000Z",
+    "answers": {
+      "1": [
+        "AJIO",
+        "Amazon",
+        "Flipkart"
+      ],
+      "2": [
+        "Once every 2–3 months"
+      ],
+      "3": [
+        "No"
+      ],
+      "4": [
+        "I don't remember"
+      ],
+      "5": [
+        "Almost never"
+      ],
+      "6": [
+        "3–6 months ago"
+      ],
+      "7": [
+        "I genuinely intend to buy it later"
+      ],
+      "8": [
+        "I was still deciding"
+      ],
+      "9": [
+        "0"
+      ],
+      "10": [
+        "Nothing in particular"
+      ],
+      "11": [
+        "Wait for a sale"
+      ],
+      "12": [
+        "Easier returns/exchanges"
+      ],
+      "13": [
+        "Understanding reviews better"
+      ],
+      "14": [
+        "0"
+      ]
+    }
+  },
+  {
+    "id": "r07",
+    "submittedAt": "2026-08-29T05:48:06.000Z",
+    "answers": {
+      "1": [
+        "Myntra"
+      ],
+      "2": [
+        "Multiple times a month"
+      ],
+      "3": [
+        "Yes"
+      ],
+      "4": [
+        "More than 50"
+      ],
+      "5": [
+        "Sometimes"
+      ],
+      "6": [
+        "Within the last week"
+      ],
+      "7": [
+        "I genuinely intend to buy it later",
+        "I like the product but don't want to buy it immediately",
+        "I want to wait for a better price",
+        "I want to compare it with other products",
+        "I want to remember the product",
+        "I am unsure whether I actually want it"
+      ],
+      "8": [
+        "I was waiting for a discount"
+      ],
+      "9": [
+        "3"
+      ],
+      "10": [
+        "Price/value",
+        "Size",
+        "How it will look on me",
+        "Whether I can find something better"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Check size/fit reviews",
+        "Compare with other products on the same app"
+      ],
+      "12": [
+        "Price drop/discount"
+      ],
+      "13": [
+        "Understanding whether the price is good"
+      ],
+      "14": [
+        "4"
+      ]
+    }
+  },
+  {
+    "id": "r08",
+    "submittedAt": "2026-08-29T06:13:44.000Z",
+    "answers": {
+      "1": [
+        "Myntra",
+        "Amazon",
+        "Flipkart"
+      ],
+      "2": [
+        "Multiple times a month"
+      ],
+      "3": [
+        "Yes"
+      ],
+      "4": [
+        "More than 50"
+      ],
+      "5": [
+        "Almost always"
+      ],
+      "6": [
+        "Within the last week"
+      ],
+      "7": [
+        "I like the product but don't want to buy it immediately",
+        "I want to wait for a better price",
+        "I want to compare it with other products",
+        "I want to check reviews later"
+      ],
+      "8": [
+        "I wasn't sure about the quality"
+      ],
+      "9": [
+        "3"
+      ],
+      "10": [
+        "Price/value",
+        "Fit",
+        "Quality"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Check size/fit reviews",
+        "Compare with other products on the same app"
+      ],
+      "12": [
+        "Better quality information"
+      ],
+      "13": [
+        "Understanding product quality"
+      ],
+      "14": [
+        "5"
+      ]
+    }
+  },
+  {
+    "id": "r09",
+    "submittedAt": "2026-08-31T13:01:24.000Z",
+    "answers": {
+      "1": [
+        "Myntra"
+      ],
+      "2": [
+        "Once every 2–3 months"
+      ],
+      "3": [
+        "Yes"
+      ],
+      "4": [
+        "1–5"
+      ],
+      "5": [
+        "Often"
+      ],
+      "6": [
+        "Within the last month"
+      ],
+      "7": [
+        "I genuinely intend to buy it later",
+        "I like the product but don't want to buy it immediately",
+        "I want to wait for a better price",
+        "I want to compare it with other products",
+        "I want to remember the product",
+        "I want to check reviews later",
+        "I add products for inspiration",
+        "I add products while casually browsing"
+      ],
+      "8": [
+        "It was too expensive"
+      ],
+      "9": [
+        "3"
+      ],
+      "10": [
+        "Price/value",
+        "Size",
+        "Fit",
+        "Quality",
+        "Durability",
+        "Whether the price will fall",
+        "Return/exchange experience"
+      ],
+      "11": [
+        "Read customer reviews",
+        "Look at customer photos",
+        "Check size/fit reviews",
+        "Compare with other products on the same app",
+        "Search for the product on Google",
+        "Check Instagram/YouTube",
+        "Check other shopping apps",
+        "Ask friends/family",
+        "Wait for a sale"
+      ],
+      "12": [
+        "Knowing whether I should buy now or wait"
+      ],
+      "13": [
+        "Finding the best product among my wishlist"
+      ],
+      "14": [
+        "3"
+      ]
+    }
+  }
+]

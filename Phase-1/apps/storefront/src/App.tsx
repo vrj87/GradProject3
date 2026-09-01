@@ -11,6 +11,7 @@ import { ProductPage } from "./pages/Product";
 import { Profile } from "./pages/Profile";
 import { Shop } from "./pages/Shop";
 import { Studio } from "./pages/Studio";
+import { Survey } from "./pages/Survey";
 import { Wishlist } from "./pages/Wishlist";
 
 function DecideToStudio() {
@@ -36,6 +37,7 @@ export function App() {
           <Route path="/decide" element={<DecideToStudio />} />
           <Route path="/bag" element={<Bag />} />
           <Route path="/studio" element={<Studio />} />
+          <Route path="/survey" element={<Survey />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/profile" element={<Profile />} />

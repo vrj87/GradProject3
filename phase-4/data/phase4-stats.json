@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-09-01T15:40:11.388Z",
+  "respondents": 9,
+  "inSegment": 2,
+  "inSegmentTarget": 5,
+  "inSegmentTargetMet": false,
+  "nominationNode": "resolve",
+  "surveyTopNode": "decide",
+  "forkedFromNomination": true,
+  "outcome": "proceed-rescoped",
+  "incentiveMvpAllowed": false,
+  "priceHeldConstant": false,
+  "monetaryUnlocks": 4,
+  "monetaryUnlocksWhoResearch": 4,
+  "valueConfidenceDemand": 5,
+  "exitCriteriaMet": true,
+  "readyForPhase5": true,
+  "caveatCount": 2
+}

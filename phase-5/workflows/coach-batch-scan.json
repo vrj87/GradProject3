@@ -1,0 +1,22 @@
+{
+  "name": "coach-batch-scan",
+  "nodes": [
+    {
+      "name": "Daily",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": { "rule": { "interval": [{ "field": "days", "daysInterval": 1 }] } }
+    },
+    {
+      "name": "Flag day 3 / 7 / 14 items",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "{{$env.NEXT_PUBLIC_APP_URL}}/api/wishlist?userId=user-priya",
+        "note": "Age triggers are computed in-app (lib/age-triggers.ts) with a 3-day cap. This workflow only re-reads them; it never sends push or email, and it never mentions a sale."
+      }
+    }
+  ],
+  "connections": {
+    "Daily": { "main": [[{ "node": "Flag day 3 / 7 / 14 items" }]] }
+  }
+}

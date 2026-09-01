@@ -1,0 +1,438 @@
+{
+  "respondents": 9,
+  "window": {
+    "from": "2026-08-28T17:19:40.000Z",
+    "to": "2026-08-31T13:01:24.000Z"
+  },
+  "unlockSwitch": {
+    "monetary": {
+      "ids": [
+        "r01",
+        "r03",
+        "r05",
+        "r07"
+      ],
+      "count": 4,
+      "of": 9,
+      "label": "named a discount as the unlock (Q12)"
+    },
+    "switchedToInformation": {
+      "ids": [
+        "r01",
+        "r03",
+        "r05",
+        "r07"
+      ],
+      "count": 4,
+      "of": 4,
+      "label": "of those asked for information when offered help (Q13)"
+    },
+    "askedPriceJudgement": {
+      "ids": [
+        "r01",
+        "r03",
+        "r07"
+      ],
+      "count": 3,
+      "of": 4,
+      "label": "of those asked to understand whether the price is good"
+    },
+    "researchesAnyway": {
+      "ids": [
+        "r01",
+        "r03",
+        "r05",
+        "r07"
+      ],
+      "count": 4,
+      "of": 4,
+      "label": "of those research or compare before buying (Q11)"
+    },
+    "perRespondent": [
+      {
+        "id": "r01",
+        "unlock": "Price drop/discount",
+        "help": "Understanding whether the price is good",
+        "researches": true
+      },
+      {
+        "id": "r03",
+        "unlock": "Price drop/discount",
+        "help": "Understanding whether the price is good",
+        "researches": true
+      },
+      {
+        "id": "r05",
+        "unlock": "Price drop/discount",
+        "help": "Comparing it with alternatives",
+        "researches": true
+      },
+      {
+        "id": "r07",
+        "unlock": "Price drop/discount",
+        "help": "Understanding whether the price is good",
+        "researches": true
+      }
+    ],
+    "allSwitched": true,
+    "allResearch": true,
+    "tautologyNote": "Q13 offers no discount, so a switch is partly forced by the option list. The non-tautological evidence is researchesAnyway, taken from Q11 where waiting for a sale is offered."
+  },
+  "statedVsRevealed": {
+    "statedPriceBarrier": {
+      "ids": [
+        "r01",
+        "r03",
+        "r04",
+        "r07",
+        "r09"
+      ],
+      "count": 5,
+      "of": 9,
+      "label": "name price as the main reason (Q8)"
+    },
+    "waitsForSale": {
+      "ids": [
+        "r06",
+        "r09"
+      ],
+      "count": 2,
+      "of": 9,
+      "label": "actually wait for a sale (Q11)"
+    },
+    "readsReviews": {
+      "ids": [
+        "r01",
+        "r02",
+        "r03",
+        "r04",
+        "r05",
+        "r07",
+        "r08",
+        "r09"
+      ],
+      "count": 8,
+      "of": 9,
+      "label": "read reviews or customer photos (Q11)"
+    },
+    "comparesInApp": {
+      "ids": [
+        "r02",
+        "r04",
+        "r05",
+        "r07",
+        "r08",
+        "r09"
+      ],
+      "count": 6,
+      "of": 9,
+      "label": "compare inside the app (Q11)"
+    },
+    "saleWaitOnly": {
+      "ids": [
+        "r06"
+      ],
+      "count": 1,
+      "of": 9,
+      "label": "wait for a sale and do nothing else (Q11)"
+    },
+    "divergence": true
+  },
+  "fitChallenge": {
+    "discoveryRank": 1,
+    "discoveryScore": 0.873,
+    "discoveryFrequency": 0.367,
+    "leadingBarrier": {
+      "ids": [],
+      "count": 0,
+      "of": 9,
+      "label": "name fit as the main reason (Q8)"
+    },
+    "namedAsUnlock": {
+      "ids": [
+        "r02"
+      ],
+      "count": 1,
+      "of": 9,
+      "label": "name fit information as the unlock (Q12)"
+    },
+    "heldAsDoubt": {
+      "ids": [
+        "r02",
+        "r03",
+        "r07",
+        "r08",
+        "r09"
+      ],
+      "count": 5,
+      "of": 9,
+      "label": "hold a size, fit, or appearance doubt (Q10)"
+    },
+    "challenged": true
+  },
+  "segment": {
+    "usesWishlist": {
+      "ids": [
+        "r02",
+        "r03",
+        "r04",
+        "r07",
+        "r08",
+        "r09"
+      ],
+      "count": 6,
+      "of": 9,
+      "label": "use a wishlist (Q3)"
+    },
+    "stalls": {
+      "ids": [
+        "r01",
+        "r03",
+        "r05",
+        "r06",
+        "r07"
+      ],
+      "count": 5,
+      "of": 9,
+      "label": "convert sometimes or less (Q5)"
+    },
+    "inSegment": {
+      "ids": [
+        "r03",
+        "r07"
+      ],
+      "count": 2,
+      "of": 9,
+      "label": "match the staller definition"
+    },
+    "target": 5,
+    "targetMet": false,
+    "priceDominantInSegment": true,
+    "inSegmentMonetaryUnlock": {
+      "ids": [
+        "r03",
+        "r07"
+      ],
+      "count": 2,
+      "of": 2,
+      "label": "in-segment respondents chose a discount (Q12)"
+    },
+    "inSegmentPriceJudgementHelp": {
+      "ids": [
+        "r03",
+        "r07"
+      ],
+      "count": 2,
+      "of": 2,
+      "label": "in-segment respondents asked for a price verdict (Q13)"
+    }
+  },
+  "valueConfidence": {
+    "priceJudgementHelp": {
+      "ids": [
+        "r01",
+        "r02",
+        "r03",
+        "r07"
+      ],
+      "count": 4,
+      "of": 9,
+      "label": "ask to understand whether the price is good (Q13)"
+    },
+    "buyNowOrWait": {
+      "ids": [
+        "r09"
+      ],
+      "count": 1,
+      "of": 9,
+      "label": "ask to know whether to buy now or wait (Q12)"
+    },
+    "topHelpAnswer": {
+      "answer": "Understanding whether the price is good",
+      "count": 4
+    },
+    "demand": {
+      "ids": [
+        "r01",
+        "r02",
+        "r03",
+        "r07",
+        "r09"
+      ],
+      "count": 5,
+      "of": 9,
+      "label": "ask for a value verdict on either question"
+    },
+    "built": false
+  },
+  "saveVolume": {
+    "buckets": [
+      {
+        "answer": "1–5",
+        "count": 6
+      },
+      {
+        "answer": "More than 50",
+        "count": 2
+      },
+      {
+        "answer": "I don't remember",
+        "count": 1
+      }
+    ],
+    "modalBucket": "1–5",
+    "modalCeiling": 5,
+    "majorityAtOrBelowFive": true
+  },
+  "nodes": [
+    {
+      "node": "decide",
+      "respondents": {
+        "ids": [
+          "r01",
+          "r02",
+          "r03",
+          "r04",
+          "r05",
+          "r07",
+          "r08",
+          "r09"
+        ],
+        "count": 8,
+        "of": 9,
+        "label": "show an unfinished comparison or value judgement"
+      },
+      "reason": "Q11 in-app comparison, Q7 save-to-compare, Q13 comparison or price-verdict help"
+    },
+    {
+      "node": "resolve",
+      "respondents": {
+        "ids": [
+          "r01",
+          "r02",
+          "r03",
+          "r06",
+          "r07",
+          "r08",
+          "r09"
+        ],
+        "count": 7,
+        "of": 9,
+        "label": "hold a fit or quality doubt"
+      },
+      "reason": "Q10 fit/size/appearance or quality/material doubt, Q13 quality or review help"
+    },
+    {
+      "node": "revisit",
+      "respondents": {
+        "ids": [
+          "r07",
+          "r08",
+          "r09"
+        ],
+        "count": 3,
+        "of": 9,
+        "label": "carry a large or low-intent list"
+      },
+      "reason": "Q4 more than 50 saves, or Q7 inspiration and browsing saves"
+    }
+  ],
+  "surveyTopNode": "decide",
+  "workarounds": [
+    {
+      "behaviour": "Read customer reviews",
+      "count": 8,
+      "of": 9,
+      "offApp": false
+    },
+    {
+      "behaviour": "Look at customer photos",
+      "count": 7,
+      "of": 9,
+      "offApp": false
+    },
+    {
+      "behaviour": "Compare with other products on the same app",
+      "count": 6,
+      "of": 9,
+      "offApp": false
+    },
+    {
+      "behaviour": "Check size/fit reviews",
+      "count": 5,
+      "of": 9,
+      "offApp": false
+    },
+    {
+      "behaviour": "Check Instagram/YouTube",
+      "count": 2,
+      "of": 9,
+      "offApp": true
+    },
+    {
+      "behaviour": "Wait for a sale",
+      "count": 2,
+      "of": 9,
+      "offApp": false
+    },
+    {
+      "behaviour": "Ask friends/family",
+      "count": 1,
+      "of": 9,
+      "offApp": true
+    },
+    {
+      "behaviour": "Check other shopping apps",
+      "count": 1,
+      "of": 9,
+      "offApp": true
+    },
+    {
+      "behaviour": "Search for the product on Google",
+      "count": 1,
+      "of": 9,
+      "offApp": true
+    }
+  ],
+  "confidence": {
+    "id": 9,
+    "text": "How confident were you that the wishlisted product would be right for you?",
+    "values": [
+      3,
+      2,
+      2,
+      6,
+      4,
+      0,
+      3,
+      3,
+      3
+    ],
+    "mean": 2.89,
+    "min": 0,
+    "max": 6
+  },
+  "aiVerdict": {
+    "id": 14,
+    "text": "If an AI assistant could analyse your wishlist and tell you which products are worth buying and why, how useful would it be?",
+    "values": [
+      3,
+      2,
+      2,
+      5,
+      2,
+      0,
+      4,
+      5,
+      3
+    ],
+    "mean": 2.89,
+    "min": 0,
+    "max": 5
+  },
+  "instrument": {
+    "priceHeldConstant": false,
+    "freeTextCollected": false,
+    "note": "Brief questions 3 and 4 ask what blocks a purchase with price held constant. The form never froze price, and Q12 offered 'Price drop/discount' as an option, so a stated price barrier cannot be separated from the easiest available answer. No free-text field means there are no participant verbatims to quote."
+  }
+}

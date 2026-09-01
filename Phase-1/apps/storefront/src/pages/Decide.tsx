@@ -25,6 +25,7 @@ import {
 } from "../lib/fittingRoom";
 import { matchingReview, suggestSize } from "../lib/sizeAdvice";
 import {
+  STUDIO_COACH,
   STUDIO_HANG_ID,
   STUDIO_KEEP_ID,
   STUDIO_ROOM_ID,
@@ -567,6 +568,9 @@ export function Decide() {
                         HANG IT AGAINST {nextChallenger.brand.toUpperCase()} →
                       </button>
                     )}
+                    <Link to={STUDIO_COACH} className="font-bold text-[12px] text-myntra-pink self-center">
+                      ASK THE COACH ON THIS SHORTLIST →
+                    </Link>
                   </div>
                   <p className="text-[11px] text-myntra-muted mt-3">
                     Order now places it straight away at MRP. Taking it off means you would only buy

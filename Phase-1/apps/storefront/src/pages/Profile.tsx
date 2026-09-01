@@ -3,7 +3,8 @@ import { AccountNav } from "../components/AccountNav";
 import { addedDaysAgo } from "../data/demoWishlist";
 import { ORDERS } from "../data/orders";
 import { PRODUCTS, formatInr } from "../data/products";
-import { w2pCount } from "../lib/placedOrders";
+import { productForOrder } from "../lib/orderProduct";
+import { adaptLegacy, w2pCount } from "../lib/placedOrders";
 import { STUDIO_ENTRY } from "../lib/studioFlow";
 import { useStore } from "../store";
 
@@ -53,12 +54,9 @@ export function Profile() {
   ).sort((a, b) => b[1].length - a[1].length);
 
   const bought = w2pCount(orders);
-  const recentOrders = ORDERS.slice(0, 3)
-    .map((order) => ({
-      order,
-      product: PRODUCTS.find((item) => item.id === order.productId)
-    }))
-    .filter((row) => row.product);
+  const recentOrders = [...orders, ...ORDERS.map(adaptLegacy)]
+    .map((order) => ({ order, product: productForOrder(order) }))
+    .slice(0, 6);
 
   return (
     <div className="bg-myntra-bg min-h-[60vh]">
@@ -181,16 +179,16 @@ export function Profile() {
               </Link>
             </div>
             <p className="px-5 pt-3 text-[12px] text-myntra-muted">
-              Past buys you already decided on — none of these are on the current wishlist.
+              Placed orders stay here, including after they are delivered.
             </p>
             <div className="grid sm:grid-cols-3 gap-3 p-5">
               {recentOrders.map(({ order, product }) => (
-                <Link key={order.id} to={`/product/${product!.id}`} className="flex gap-2">
-                  <img src={product!.image} alt="" className="w-12 h-16 object-cover" />
+                <Link key={order.id} to={`/orders/${order.id}`} className="flex gap-2">
+                  <img src={product.image} alt="" className="w-12 h-16 object-cover" />
                   <div className="min-w-0 text-[12px]">
-                    <div className="font-bold truncate">{product!.brand}</div>
-                    <div className="text-myntra-muted truncate">{product!.name}</div>
-                    <div className="mt-1">{formatInr(product!.price)}</div>
+                    <div className="font-bold truncate">{product.brand}</div>
+                    <div className="text-myntra-muted truncate">{product.name}</div>
+                    <div className="mt-1">{formatInr(product.price)}</div>
                     <div className="text-myntra-muted">{order.status}</div>
                   </div>
                 </Link>

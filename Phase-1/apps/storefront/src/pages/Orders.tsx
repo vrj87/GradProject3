@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AccountNav } from "../components/AccountNav";
 import { OrderCard } from "../components/OrderCard";
 import { ORDERS } from "../data/orders";
-import { PRODUCTS, type Product } from "../data/products";
+import { type Product } from "../data/products";
+import { productForOrder } from "../lib/orderProduct";
 import {
   ORDER_FILTERS,
   adaptLegacy,
@@ -23,12 +24,13 @@ export function Orders() {
   const [params] = useSearchParams();
   const justPlaced = (params.get("placed") ?? "").split(",").filter(Boolean);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
+
   const all = useMemo<Array<{ order: PlacedOrder; product: Product }>>(() => {
     const rows = [...orders, ...ORDERS.map(adaptLegacy)];
-    return rows.flatMap((order) => {
-      const product = PRODUCTS.find((item) => item.id === order.productId);
-      return product ? [{ order, product }] : [];
-    });
+    return rows.map((order) => ({ order, product: productForOrder(order) }));
   }, [orders]);
 
   const rows = all.filter(({ order, product }) => {
@@ -84,7 +86,7 @@ export function Orders() {
           <div className="bg-white border border-myntra-border p-4 mb-3">
             <h1 className="text-[16px] font-bold">All Orders</h1>
             <p className="text-[12px] text-myntra-muted mt-1">
-              {all.length} orders · {active} in transit ·{" "}
+              {all.length} orders · {active} in transit · delivered orders stay in this list.{" "}
               {counted > 0
                 ? `${counted} from your wishlist inside 30 days, bought without a coupon`
                 : "none from your current wishlist yet"}

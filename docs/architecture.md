@@ -286,76 +286,158 @@ npm run phase2:rank       # from repo root
 
 ---
 
-## Phase 3 — Primary research (Part 3)
+## Phase 3 — Primary research (Part 3) — **done**
 
-**Goal:** 5–6 interviews; structured artefacts for Phase 4.  
-**Depends on:** Phase 2 nomination + guide seeded from `themes.json`.  
-**Build this phase:** Docs only.
+**Goal:** Primary evidence and structured artefacts for Phase 4.  
+**Depends on:** Phase 2 nomination + instrument seeded from `themes.json`.  
+**Delivered as:** a **structured questionnaire**, n = 9, fielded 28–31 Aug 2026 — not moderated
+interviews. The trade-off is deliberate and documented: wider reach and no moderator bias, but no
+ability to probe a "why".
 
 ```mermaid
 flowchart LR
   Themes[themes.json]
   Guide[interview-guide.md]
+  Form[GoogleForm_14Q]
+  Export[survey_response_xlsx]
+  Artefacts[survey_summary_json]
   Notes[interview-notes]
   Matrix[validation-matrix.md]
   Synthesis[synthesis.md]
-  Themes --> Guide --> Notes --> Matrix --> Synthesis
+  Themes --> Guide --> Form --> Export --> Artefacts
+  Artefacts --> Notes --> Matrix --> Synthesis
 ```
 
-| File | Content |
-|------|---------|
-| `docs/research/interview-guide.md` | Protocol from problemstatement Phase 3 |
-| `docs/research/screener.md` | Criteria + disqualifiers |
-| `docs/research/interview-notes/` | Anonymized notes |
-| `docs/research/validation-matrix.md` | Confirmed / challenged / new |
-| `docs/research/synthesis.md` | Themes ↔ interview reconciliation |
+| File | Content | State |
+|------|---------|-------|
+| `docs/research/interview-guide.md` | Instrument, protocol, coverage of the eight brief questions | done |
+| `docs/research/screener.md` | Criteria, disqualifiers, who actually answered | done |
+| `docs/research/interview-notes/` | 9 anonymized records, **generated** from the export | done |
+| `docs/research/validation-matrix.md` | Confirmed / challenged / not supported / new | done |
+| `docs/research/synthesis.md` | Themes ↔ response reconciliation + exit status | done |
+| `Phase-1/data/survey/survey-{responses,summary}.json` | Computed artefacts | done |
+| `docs/grad3 survey response.xlsx` | Raw form export | done |
 
-**Out of scope:** Inventing participant quotes; playground UI (Phase 5).  
-**Exit criteria:** n ≥ 5 in-segment; eight brief questions covered; matrix non-empty.
+### Analysis contract
+
+No count in Phase 3 is transcribed by hand. `npm run survey` reads the workbook with a
+dependency-free reader (`discovery-core/src/xlsx.ts`), normalizes it
+(`surveyResponses.ts`), and writes the artefacts, the anonymized records, and the storefront's
+public copy. Re-running it after new responses **contradicts** the write-ups rather than quietly
+agreeing with them. Unit tests cover the reader, the column mapping, and the classifiers.
+
+Results are published at `/survey` in the storefront, because the response sheet is private to
+the form owner and linking it would show most reviewers an access screen.
+
+**Out of scope:** Inventing participant quotes (structurally impossible here — records are
+generated); playground UI (Phase 5).
+
+**Exit criteria — met, with one shortfall:** instrument fielded, screener recorded, 9 anonymized
+records, matrix non-empty, eight brief questions covered (6 fully, 2 partially). **n ≥ 5
+in-segment is not met — 2 of 9 match the P1 staller definition**, so segment-specific claims are
+labelled as resting on two people throughout.
+
+### Findings Phase 4 must carry
+
+1. **Confirmed:** saves stall (9/9 have an unbought save), confidence is low (Q9 mean 2.89),
+   comparison is the unfinished job (three independent signals), decisions run on other shoppers'
+   reviews and photos (8/9, 7/9).
+2. **Challenged:** fit is *secondary*, not the leading barrier — 5/9 cite fit/size/appearance
+   doubt but only 1/9 names fit information as the unlock. The Phase 2 nomination
+   (*FitSizeAnxiety → resolve*) overstates its rank.
+3. **Price leads the stated barrier** (5/9 on Q8, 7/9 on Q10) — which puts the **price-dominant**
+   branch of the Phase 4 decision tree in play. Note the instrument did not hold price constant,
+   so this cannot separate a real price constraint from an easy answer; see `synthesis.md` §3a.
+4. **New and unbuilt:** "is this price fair?" is the top request for help (4/9 on Q13, where no
+   option is a discount) — a **non-monetary** reading of a price complaint.
+5. **Not supported:** an AI-verdict framing (Q14 mean 2.89, one flat zero).
 
 ---
 
-## Phase 4 — Problem definition (Part 4)
+## Phase 4 — Problem definition (Part 4) — **done**
 
 **Goal:** Lock the problem the brief requires.  
-**Depends on:** Phase 1 + Phase 3.  
+**Depends on:** Phase 1 + Phase 3 — both complete.  
+**Locked in:** [`docs/problem-definition.md`](./problem-definition.md).  
+**Reconciliation performed:** the nomination arrived as *FitSizeAnxiety → resolve*; the
+questionnaire ranks fit **second** and price **first**. The lock therefore moves the primary
+outcome from **Resolve** to **Decide**, reframes price as the *symptom* of a missing judgement aid,
+and names **value confidence** as the unbuilt non-monetary surface. The pivotal evidence is that
+all four respondents who named a discount as their unlock (Q12) asked for **information** on Q13,
+three of them specifically for "understanding whether the price is good" — including both
+in-segment respondents.  
 **Build this phase:**
 
 | Artefact | Location |
 |----------|----------|
-| Problem definition | `docs/problem-definition.md` |
-| Segment contract (interface only) | Spec in this section; `apps/mvp/lib/segment.ts` is **implemented in Phase 5a** |
+| Problem definition (prose lock) | `docs/problem-definition.md` |
+| Problem definition (generated) | `phase-4/data/problem-definition.json` — six fields with evidence refs |
+| Decision-tree verdict | `phase-4/data/decision-tree.json` — branch by branch |
+| Computed signals | `phase-4/data/signals.json` — per-respondent working |
+| Reviewer report | `phase-4/data/report.html` |
+| Segment contract (interface only) | `phase-4/data/segment-contract.json` + `segment.contract.ts`; `apps/mvp/lib/segment.ts` is **implemented in Phase 5a** |
 
-**Planned eligibility (implement only after lock) — P1 Wishlist Staller:**
+**Analysis contract.** Phase 4 is a program, not a document: `phase-4/` reads Phases 1–3 artefacts
+and derives the lock (`npm run phase4:lock`). No count in the prose is typed by hand, and the
+decision tree is executable — it returns `stop` on data where the discount-seekers show no
+non-monetary behaviour, which `phase-4/tests/decision-tree.test.ts` proves against a price-bound
+sample. `incentiveMvpAllowed` is typed `false` so no branch can enable an incentive MVP.
+
+**Locked eligibility — the Stalled Shortlister** (was *P1 Wishlist Staller*; both thresholds
+lowered from 3 to 2 because 6/9 respondents hold only 1–5 saves in total, so a three-item floor
+would exclude most of the real population):
+
+Both thresholds are **derived, not chosen** — `phase-4/src/segment.ts` lowers the floor while the
+modal save bucket tops out at five, and raises it back to three otherwise. The generated source is
+the copy Phase 5a implements:
 
 ```typescript
-function matchesP1Segment(user: User): boolean {
+function matchesStalledShortlister(user: User): boolean {
   if (user.optedOut) return false;
-  const recentWishlist = user.wishlistItems.filter(i => i.addedWithinDays(30));
-  if (recentWishlist.length < 3) return false;
-  const purchasedFromWishlist = recentWishlist.filter(i => i.purchasedWithinDays(30));
-  if (purchasedFromWishlist.length > 1) return false;
-  const categoryCounts = groupByCategory(recentWishlist);
-  const hasComparisonSignal = Object.values(categoryCounts).some(c => c >= 3);
-  return hasComparisonSignal;
+  const recent = user.wishlistItems.filter(i => i.addedWithinDays(30));
+  if (recent.length < 2) return false;
+  const purchased = recent.filter(i => i.purchasedWithinDays(30));
+  if (purchased.length > 1) return false;
+  const byCategory = groupByCategory(recent);
+  return Object.values(byCategory).some(c => c >= 2);
 }
 ```
 
-Revise if interviews change the segment. Sale-watchers remain a **control** persona, not the primary coach audience.
+Sale-watchers remain a **control** persona, not the primary coach audience.
 
 **Out of scope:** Shipping MVP; locking coach prompts.  
-**Exit criteria:** All six Part 4 fields + evolution chain in `problem-definition.md`. Decision tree recorded:
+**Exit criteria — met:** all six Part 4 fields, the evolution chain, and the decision tree are
+recorded in [`problem-definition.md`](./problem-definition.md).
 
-- **Proceed (Resolve/Decide, non-monetary)** → Phase 5 as specified below  
-- **Fork** → rewrite Phase 5 before any 5a–5f work  
-- **Price-dominant** → do not implement an incentive MVP
+**Decision tree outcome: proceed, re-scoped, explicitly without an incentive.** Two branches fired
+together and converge on the same instruction:
+
+- **Price-dominant** fired in its non-terminal form — no incentive MVP, constraint conflict
+  documented, and the evidenced non-monetary problem is decision completion plus value confidence.
+- **Fork** also fired — **Decide** outranks **Resolve**, so Phase 5 scope below is read
+  decision-completion-first rather than fit-first.
+- **Proceed as originally specified** did *not* fire cleanly: in-segment price dominance is
+  unresolved (2/2 chose a discount, n = 2, price never held constant).
+
+**What this changes for Phase 5:** the comparison ritual already shipped in the storefront serves
+the primary job. **Value confidence — "is this a fair price, and should I decide now?" using
+non-monetary signals only — does not exist yet and is the largest evidenced gap.** The
+"AI picks your wishlist winners" framing is dropped (Q14 mean 2.89, one flat zero). Discounts,
+coupons, price-drop alerts, and urgency nudges are forbidden.
 
 ---
 
-## Phase 5 — MVP (Part 5) — only if Phase 4 says proceed
+## Phase 5 — MVP (Part 5) — **done, in `phase-5/`**
 
-**Goal:** Publicly testable experience that addresses the **locked** problem. Default below assumes Confidence Coach (fit / style / compare, no discounts).  
-**Depends on:** Phase 4 = proceed.  
+**Goal:** Publicly testable experience that addresses the **locked** problem — decision completion
+on a shortlist (primary), fit/quality doubt resolution (secondary), and **value confidence**
+(new). No discounts anywhere.  
+**Depends on:** Phase 4 = proceed, re-scoped. Read every capability below decision-first, not
+fit-first.  
+**Lives in:** `phase-5/` — same folder convention as `phase-2/` and `phase-4/`. The tree below
+used `apps/mvp`; the implementation is the sibling folder. Phase 1's storefront stays
+on :3000; this MVP runs on :3100 and is also the Studio tab **The coach**
+(`/studio?view=coach` embeds `/mvp?embed=1`).  
 **Out of scope:** Real Myntra OAuth, push, payments, coupons.
 
 ### Phase 5 stack (this phase only)
@@ -375,31 +457,28 @@ Revise if interviews change the segment. Sale-watchers remain a **control** pers
 
 ```
 GradProject3/
-├── apps/
-│   ├── mvp/                        # :3000
-│   │   ├── app/
-│   │   ├── components/
-│   │   ├── lib/                    # coach, segment, ingest, compare, llm
-│   │   └── prisma/
-│   └── collect/                    # :3001 (from Phase 1)
-├── packages/discovery-core/
-├── tools/discovery-pipeline/
-├── data/discovery/
-├── workflows/
-├── scripts/
+├── Phase-1/                        # discovery + storefront :3000
+├── phase-2/
+├── phase-4/
+├── phase-5/                        # MVP :3100
+│   ├── app/                        # /mvp /dashboard /playground /demo/user/[id]
+│   ├── components/
+│   ├── lib/                        # coach, segment, ingest, compare, value, llm
+│   ├── prisma/
+│   ├── tests/mvp/unit/
+│   └── workflows/                  # n8n JSON, optional
 ├── docs/
-└── tests/
-    ├── mvp/unit/
-    └── discovery/unit/
+└── ...
 ```
 
-**Scripts added:** `npm run dev`, `npm run db:seed`, `npm run backend:setup`.
+**Scripts added:** `npm run phase5:dev`, `npm run phase5:setup` (alias `backend:setup`), `npm run phase5:test`.
 
 ---
 
 ### 5a — Next.js shell + Prisma + seed
 
-**Build:** `apps/mvp` pages shell; Prisma models **User, WishlistItem, Product** only; seed personas.
+**Build:** `phase-5` pages shell; Prisma models **User, WishlistItem, Product** (CoachSession /
+CoachEvent added in 5c/5d); seed personas.
 
 **Demo users:**
 
@@ -409,7 +488,8 @@ GradProject3/
 | `user-sale-watcher` | S3 control | Waiting for EOSS — coach blocked |
 | `user-decided` | Conversion control | Recent cart-add from wishlist |
 
-**Pages:** `/` → `/mvp`; `/playground` (deck hub — discovery artefacts, problem, research); `/demo/user/[id]`.
+**Pages:** `/` → `/mvp`; `/playground`; `/dashboard`. `/demo/user/[id]` redirects to `/mvp?user=`.
+Studio on :3000 hosts the same room at `/studio?view=coach` (`embed=1` hides Phase 5 chrome).
 
 **APIs introduced:** `GET /api/products`, `GET/POST /api/wishlist`, `DELETE /api/wishlist/:id`, `GET /api/health`, `GET /api/problem-definition`, `GET /api/discovery` (reads Phase 1 JSON), `GET /api/discovery/status`, `GET /api/research/questions`.
 
@@ -661,6 +741,7 @@ Webhook routes require `x-webhook-secret`.
 |--------|------|-------------|
 | POST | `/api/coach/analyze` | Fit and/or style |
 | POST | `/api/coach/compare` | 2–3 items |
+| POST | `/api/coach/value` | Value confidence (non-monetary) |
 | GET | `/api/coach/sessions` | History |
 | POST | `/api/events` | Engagement, resolution, cart |
 | GET | `/api/dashboard` | Funnel |
@@ -724,11 +805,15 @@ npm run dev                # http://localhost:3000
 cd ../phase-2
 npm run rank
 
-# Phase 5 (only after Phase 4 lock)
+# Phase 5
+cd phase-5
+npm install
+cp .env.example .env
 npm run backend:setup
+npm run dev                # http://localhost:3100/mvp
 ```
 
-**Local URLs after Phase 5:** `/playground` · `/mvp` · `/dashboard` · `/demo/user/user-priya` · `/discovery`
+**Local URLs after Phase 5:** `/playground` · `/mvp` · `/dashboard` · `/demo/user/user-priya` · `/api/health`
 
 ---
 

@@ -4,7 +4,7 @@ import { STUDIO_ENTRY, STUDIO_WHY } from "../lib/studioFlow";
 const PILLARS = [
   {
     id: "creativity",
-    kicker: "Creativity",
+    kicker: "The room",
     title: "One body, two hangers — name the doubt, then keep a look",
     vs: "Instead of recs + a discount",
     points: [
@@ -65,7 +65,7 @@ export function ScoreHighlights({ compact = false }: { compact?: boolean }) {
     <div className="bg-myntra-bg min-h-[60vh]">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <p className="text-[11px] font-bold tracking-[0.18em] text-myntra-pink">WHAT CHANGED IN THIS BET</p>
-        <h2 className="text-xl font-bold mt-1">Creativity, metrics, and a problem we have not locked</h2>
+        <h2 className="text-xl font-bold mt-1">The room, the math, and a problem we have not locked</h2>
         <p className="text-myntra-muted mt-2 text-sm max-w-2xl">
           Generic “recommend it and discount it” is the easy answer and fails the brief. Below is
           what we built instead — and how a save is allowed to become a purchase.
@@ -90,7 +90,7 @@ export function ScoreHighlights({ compact = false }: { compact?: boolean }) {
         </div>
 
         <div className="bg-white border border-myntra-pink p-5 mt-8">
-          <p className="text-[11px] font-bold tracking-[0.18em] text-myntra-pink">CREATIVE LEVER IN THE SHOP</p>
+          <p className="text-[11px] font-bold tracking-[0.18em] text-myntra-pink">IN THE SHOP</p>
           <p className="font-bold text-lg mt-1">The Fitting Room is the shopper ritual — not a coupon tap</p>
           <p className="text-sm text-myntra-muted mt-2 max-w-3xl">
             You do not fill a form, and you do not compare a grid of SKUs. You hang two similar

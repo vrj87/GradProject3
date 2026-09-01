@@ -83,7 +83,7 @@ export function Phase2Panel() {
         </p>
         <div className="grid sm:grid-cols-3 gap-3 mt-5">
           <div className="bg-white border border-myntra-pink p-3">
-            <p className="text-[10px] font-bold tracking-[0.16em] text-myntra-pink">CREATIVITY</p>
+            <p className="text-[10px] font-bold tracking-[0.16em] text-myntra-pink">THE ROOM</p>
             <p className="text-[13px] font-bold mt-1">Fitting Room — no coupon in the score or the MVP</p>
           </div>
           <div className="bg-white border border-myntra-border p-3">

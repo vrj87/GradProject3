@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SURVEY_FORM_URL, SURVEY_RESPONSES_URL } from "../lib/researchLinks";
 
 export function SurveyBanner({ compact = false }: { compact?: boolean }) {
@@ -13,8 +14,8 @@ export function SurveyBanner({ compact = false }: { compact?: boolean }) {
       </h2>
       <p className={`text-sm mt-2 max-w-2xl ${compact ? "text-myntra-muted" : "text-white/85"}`}>
         Fit, sale-waiting, compare, quality, and what people check before they buy. Public reviews
-        are kept only when they speak to those prompts. Form replies are still coming in — we will
-        not invent them.
+        are kept only when they speak to those prompts. The replies are published exactly as they
+        came in, including the ones that argue with us.
       </p>
       <div className="flex flex-wrap gap-3 mt-4">
         <a
@@ -29,24 +30,16 @@ export function SurveyBanner({ compact = false }: { compact?: boolean }) {
         >
           TAKE THE 4–5 MIN SURVEY →
         </a>
-        {SURVEY_RESPONSES_URL ? (
-          <a
-            href={SURVEY_RESPONSES_URL}
-            target="_blank"
-            rel="noreferrer"
-            className={
-              compact
-                ? "text-[12px] font-bold text-myntra-pink self-center"
-                : "text-[13px] font-bold text-white self-center"
-            }
-          >
-            SEE RESPONSES →
-          </a>
-        ) : (
-          <span className={`text-[12px] self-center ${compact ? "text-myntra-muted" : "text-white/70"}`}>
-            Response sheet will be linked when replies arrive.
-          </span>
-        )}
+        <Link
+          to={SURVEY_RESPONSES_URL}
+          className={
+            compact
+              ? "text-[12px] font-bold text-myntra-pink self-center"
+              : "text-[13px] font-bold text-white self-center"
+          }
+        >
+          SEE RESPONSES →
+        </Link>
       </div>
     </div>
   );

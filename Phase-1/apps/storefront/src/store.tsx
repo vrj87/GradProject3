@@ -7,12 +7,18 @@ import {
   type ReactNode
 } from "react";
 import { DEMO_WISHLIST_IDS, DEMO_WISHLIST_SEED } from "./data/demoWishlist";
+import {
+  isCoachBagMessage,
+  isCoachOrigin,
+  type CoachBagSnapshot
+} from "./lib/studioFlow";
 import { PRODUCTS, type Product } from "./data/products";
 import {
   advanceOrder,
   buildOrders,
   cancelOrder,
   catchUpOrders,
+  mergeOrderLists,
   requestExchange,
   requestReturn,
   type PaymentMethod,
@@ -24,6 +30,7 @@ export interface BagItem {
   size: string;
   qty: number;
   fromWishlist?: boolean;
+  snapshot?: CoachBagSnapshot;
 }
 
 interface Store {
@@ -32,7 +39,12 @@ interface Store {
   orders: PlacedOrder[];
   toggleWishlist: (id: string) => void;
   removeFromWishlist: (id: string) => void;
-  addToBag: (id: string, size: string, origin?: "wishlist" | "shop") => void;
+  addToBag: (
+    id: string,
+    size: string,
+    origin?: "wishlist" | "shop",
+    snapshot?: CoachBagSnapshot
+  ) => void;
   updateQty: (id: string, size: string, qty: number) => void;
   removeFromBag: (id: string, size: string) => void;
   moveToWishlist: (id: string, size: string) => void;
@@ -62,14 +74,84 @@ function load<T>(key: string, fallback: T): T {
   }
 }
 
+function mergeBagLine(
+  prev: BagItem[],
+  id: string,
+  size: string,
+  origin: "wishlist" | "shop",
+  snapshot?: CoachBagSnapshot
+): BagItem[] {
+  const existing = prev.find((item) => item.productId === id && item.size === size);
+  if (existing) {
+    return prev.map((item) =>
+      item.productId === id && item.size === size
+        ? {
+            ...item,
+            qty: item.qty + 1,
+            fromWishlist: item.fromWishlist || origin === "wishlist",
+            snapshot: item.snapshot ?? snapshot
+          }
+        : item
+    );
+  }
+  return [
+    ...prev,
+    { productId: id, size, qty: 1, fromWishlist: origin === "wishlist", snapshot }
+  ];
+}
+
 function persistBag(next: BagItem[]) {
   localStorage.setItem("myntra-bag", JSON.stringify(next));
   return next;
 }
 
-function persistOrders(next: PlacedOrder[]) {
+let sharedSaveTimer: number | undefined;
+let pendingShared: PlacedOrder[] | null = null;
+
+function persistOrdersLocal(next: PlacedOrder[]) {
   localStorage.setItem("myntra-orders", JSON.stringify(next));
   return next;
+}
+
+function persistOrders(next: PlacedOrder[]) {
+  persistOrdersLocal(next);
+  pendingShared = next;
+  if (typeof window === "undefined") return next;
+  window.clearTimeout(sharedSaveTimer);
+  sharedSaveTimer = window.setTimeout(() => {
+    const payload = pendingShared;
+    pendingShared = null;
+    if (!payload) return;
+    void fetch("/api/orders", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ orders: payload })
+    }).catch(() => {
+      /* Vite shared store is optional if the file API is down. */
+    });
+  }, 400);
+  return next;
+}
+
+async function fetchSharedOrders(): Promise<PlacedOrder[] | null> {
+  try {
+    const response = await fetch("/api/orders");
+    if (!response.ok) return null;
+    const body = (await response.json()) as { orders?: PlacedOrder[] };
+    return Array.isArray(body.orders) ? body.orders : null;
+  } catch {
+    return null;
+  }
+}
+
+function sameOrderHistory(left: PlacedOrder[], right: PlacedOrder[]): boolean {
+  if (left.length !== right.length) return false;
+  return left.every(
+    (order, index) =>
+      order.id === right[index]?.id &&
+      order.status === right[index]?.status &&
+      order.events.length === right[index]?.events.length
+  );
 }
 
 function persistWishlist(next: string[]) {
@@ -122,6 +204,38 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  useEffect(() => {
+    function onMessage(event: MessageEvent) {
+      if (!isCoachOrigin(event.origin) || !isCoachBagMessage(event.data)) return;
+      const { productId, size, snapshot } = event.data;
+      setBag((prev) => persistBag(mergeBagLine(prev, productId, size, "wishlist", snapshot)));
+    }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function pullShared() {
+      const remote = await fetchSharedOrders();
+      if (cancelled || !remote) return;
+      setOrders((prev) => {
+        const merged = catchUpOrders(mergeOrderLists(prev, remote));
+        if (!sameOrderHistory(merged, remote)) persistOrders(merged);
+        else persistOrdersLocal(merged);
+        return sameOrderHistory(prev, merged) ? prev : merged;
+      });
+    }
+
+    void pullShared();
+    const id = window.setInterval(() => void pullShared(), 8_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, []);
+
   const value = useMemo<Store>(
     () => ({
       wishlist,
@@ -142,22 +256,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       removeFromWishlist: (id) => {
         setWishlist((prev) => persistWishlist(prev.filter((item) => item !== id)));
       },
-      addToBag: (id, size, origin = "shop") => {
-        setBag((prev) => {
-          const existing = prev.find((item) => item.productId === id && item.size === size);
-          const next = existing
-            ? prev.map((item) =>
-                item.productId === id && item.size === size
-                  ? {
-                      ...item,
-                      qty: item.qty + 1,
-                      fromWishlist: item.fromWishlist || origin === "wishlist"
-                    }
-                  : item
-              )
-            : [...prev, { productId: id, size, qty: 1, fromWishlist: origin === "wishlist" }];
-          return persistBag(next);
-        });
+      addToBag: (id, size, origin = "shop", snapshot) => {
+        setBag((prev) => persistBag(mergeBagLine(prev, id, size, origin, snapshot)));
       },
       updateQty: (id, size, qty) => {
         setBag((prev) =>

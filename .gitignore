@@ -5,3 +5,7 @@ dist/
 .DS_Store
 .vite/
 discovery-engine/
+.next/
+*.db
+Phase-1/data/storefront/orders.json
+

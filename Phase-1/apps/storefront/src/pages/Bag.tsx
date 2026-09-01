@@ -1,19 +1,53 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { formatInr } from "../data/products";
 import { PAYMENT_METHODS, type PaymentMethod } from "../lib/placedOrders";
+import { STUDIO_COACH, STUDIO_ENTRY, type CoachBagSnapshot } from "../lib/studioFlow";
 import { useStore } from "../store";
-import { STUDIO_ENTRY } from "../lib/studioFlow";
 
 export function Bag() {
-  const { bag, product, updateQty, removeFromBag, moveToWishlist, placeOrder } = useStore();
+  const { bag, product, addToBag, updateQty, removeFromBag, moveToWishlist, placeOrder } = useStore();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   const [payment, setPayment] = useState<PaymentMethod>("UPI");
-  const lines = bag.map((item) => ({ ...item, product: product(item.productId) }));
-  const rows = lines.filter((row) => row.product);
-  const stale = lines.filter((row) => !row.product);
+  const ingested = useRef(false);
 
-  const total = rows.reduce((sum, row) => sum + (row.product?.price ?? 0) * row.qty, 0);
+  useEffect(() => {
+    if (ingested.current) return;
+    const add = params.get("add");
+    if (!add) return;
+    ingested.current = true;
+    const size = params.get("size") || "M";
+    const brand = params.get("brand");
+    const name = params.get("name");
+    const price = Number(params.get("price") ?? "");
+    const image = params.get("image") ?? undefined;
+    const snapshot: CoachBagSnapshot | undefined =
+      brand && name && Number.isFinite(price)
+        ? { brand, name, image, price }
+        : undefined;
+    const already = bag.some((item) => item.productId === add && item.size === size);
+    if (!already) addToBag(add, size, "wishlist", snapshot);
+    navigate("/bag", { replace: true });
+  }, [addToBag, bag, navigate, params]);
+
+  const lines = bag.map((item) => {
+    const catalog = product(item.productId);
+    return {
+      ...item,
+      product: catalog,
+      display: {
+        brand: catalog?.brand ?? item.snapshot?.brand ?? "Saved look",
+        name: catalog?.name ?? item.snapshot?.name ?? item.productId,
+        image: catalog?.image ?? item.snapshot?.image,
+        price: catalog?.price ?? item.snapshot?.price ?? 0,
+        seller: catalog?.seller ?? "Coach shortlist"
+      }
+    };
+  });
+  const rows = lines.filter((row) => row.product || row.snapshot);
+  const stale = lines.filter((row) => !row.product && !row.snapshot);
+  const total = rows.reduce((sum, row) => sum + row.display.price * row.qty, 0);
   const fromRoom = rows.filter((row) => row.fromWishlist).length;
 
   function checkout() {
@@ -65,13 +99,13 @@ export function Bag() {
               key={`${row.productId}-${row.size}`}
               className="flex gap-4 bg-white border border-myntra-border p-3 mb-3 relative"
             >
-              <Link to={`/product/${row.productId}`}>
-                <img src={row.product?.image} alt="" className="w-28 h-36 object-cover" />
+              <Link to={row.product ? `/product/${row.productId}` : STUDIO_COACH}>
+                <img src={row.display.image} alt="" className="w-28 h-36 object-cover" />
               </Link>
               <div className="flex-1 text-sm pr-6">
-                <div className="font-bold">{row.product?.brand}</div>
-                <div className="text-myntra-muted">{row.product?.name}</div>
-                <div className="text-myntra-muted text-xs mt-1">Sold by: {row.product?.seller}</div>
+                <div className="font-bold">{row.display.brand}</div>
+                <div className="text-myntra-muted">{row.display.name}</div>
+                <div className="text-myntra-muted text-xs mt-1">Sold by: {row.display.seller}</div>
                 <div className="flex items-center gap-4 mt-3">
                   <div className="border border-myntra-border px-2 py-1 text-xs font-bold">
                     Size: {row.size}
@@ -88,7 +122,7 @@ export function Bag() {
                   </div>
                 </div>
                 <div className="mt-3">
-                  <b>{formatInr(row.product?.price ?? 0)}</b>
+                  <b>{formatInr(row.display.price)}</b>
                 </div>
                 <p className="text-xs text-myntra-muted mt-2">14 days return available</p>
                 <div className="flex flex-wrap gap-4 mt-3 pt-3 border-t border-myntra-border">
@@ -111,7 +145,7 @@ export function Bag() {
               <button
                 type="button"
                 className="absolute top-1 right-1 p-2 text-2xl text-myntra-muted leading-none hover:text-myntra-dark"
-                aria-label={`Remove ${row.product?.brand ?? "item"} size ${row.size} from bag`}
+                aria-label={`Remove ${row.display.brand} size ${row.size} from bag`}
                 onClick={() => removeFromBag(row.productId, row.size)}
               >
                 ×

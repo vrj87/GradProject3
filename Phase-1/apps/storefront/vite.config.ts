@@ -1,15 +1,77 @@
-import { copyFile, mkdir, readFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import type { IncomingMessage, ServerResponse } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
+import { mergeOrderLists, type PlacedOrder } from "./src/lib/placedOrders";
 import { publicReviewUrl } from "./src/lib/sourceUrls";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const discovery = path.join(root, "data", "discovery");
 const phase2 = path.resolve(root, "../phase-2/data");
-
+const ordersFile = path.join(root, "data", "storefront", "orders.json");
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "public");
+
+function readRequestBody(req: IncomingMessage): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    req.on("data", (chunk) => chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)));
+    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    req.on("error", reject);
+  });
+}
+
+async function loadSharedOrders(): Promise<PlacedOrder[]> {
+  try {
+    const raw = await readFile(ordersFile, "utf8");
+    const parsed = JSON.parse(raw) as unknown;
+    return Array.isArray(parsed) ? (parsed as PlacedOrder[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+async function saveSharedOrders(orders: PlacedOrder[]): Promise<PlacedOrder[]> {
+  await mkdir(path.dirname(ordersFile), { recursive: true });
+  await writeFile(ordersFile, `${JSON.stringify(orders, null, 2)}\n`, "utf8");
+  return orders;
+}
+
+function json(res: ServerResponse, body: unknown, status = 200) {
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(body));
+}
+
+async function handleSharedOrders(req: IncomingMessage, res: ServerResponse) {
+  if (req.method === "GET") {
+    json(res, { orders: await loadSharedOrders() });
+    return;
+  }
+  if (req.method === "PUT") {
+    let incoming: unknown;
+    try {
+      incoming = JSON.parse(await readRequestBody(req));
+    } catch {
+      json(res, { error: "Body must be JSON." }, 400);
+      return;
+    }
+    const list = Array.isArray(incoming)
+      ? (incoming as PlacedOrder[])
+      : Array.isArray((incoming as { orders?: unknown })?.orders)
+        ? ((incoming as { orders: PlacedOrder[] }).orders)
+        : null;
+    if (!list) {
+      json(res, { error: "Expected an orders array." }, 400);
+      return;
+    }
+    const merged = mergeOrderLists(await loadSharedOrders(), list);
+    json(res, { orders: await saveSharedOrders(merged) });
+    return;
+  }
+  json(res, { error: "Method not allowed." }, 405);
+}
 
 async function syncPublicData(): Promise<void> {
   const targets: Array<[string, string]> = [
@@ -54,6 +116,10 @@ function discoveryApi(): Plugin {
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url ?? "/", "http://localhost");
+        if (url.pathname === "/api/orders") {
+          await handleSharedOrders(req, res);
+          return;
+        }
         const staticMatch = url.pathname.match(/^\/(discovery|phase2)\/[\w.-]+\.json$/);
         if (staticMatch) {
           try {

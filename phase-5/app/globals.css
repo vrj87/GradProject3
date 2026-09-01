@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #282c3f;
+  --color-muted: #7e818c;
+  --color-accent: #ff3f6c;
+  --color-accent-soft: #fff1f4;
+  --color-surface: #ffffff;
+  --color-canvas: #f7f7fa;
+  --color-line: #e6e6ed;
+  --color-good: #0f8a5f;
+  --color-warn: #b26a00;
+  --color-stop: #c0392b;
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)];
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--color-line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-canvas)] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .label {
+    @apply text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)];
+  }
+}
