@@ -6,7 +6,6 @@ import {
   STUDIO_TABS,
   STUDIO_VIEWS,
   STUDIO_WHY,
-  coachEmbedSrc,
   flowFromView,
   hrefForFlowStep,
   isCoachBagMessage,
@@ -55,14 +54,12 @@ describe("studio MVP paths", () => {
     expect(studioSurface("coach")).toBe("coach");
     expect(flowFromView("coach")).toBe("keep");
     expect(studioView("coach")).toBe(STUDIO_COACH);
+    expect(STUDIO_COACH).toBe("/studio?view=coach");
     expect(studioCoach("user-sale-watcher")).toBe("/studio?view=coach&user=user-sale-watcher");
     expect(studioCoach(null, ["w-kurta-1", "w-kurta-2"])).toBe(
       "/studio?view=coach&pair=w-kurta-1%2Cw-kurta-2"
     );
-    expect(coachEmbedSrc("user-priya")).toBe("http://localhost:3100/mvp?embed=1&user=user-priya");
-    expect(coachEmbedSrc(null, ["w-kurta-1", "w-kurta-2"])).toBe(
-      "http://localhost:3100/mvp?embed=1&pair=w-kurta-1%2Cw-kurta-2"
-    );
+    expect(studioCoach(null, ["w-kurta-1", "w-kurta-2"])).not.toMatch(/3100|\/mvp/);
     expect(
       isCoachBagMessage({
         source: "shortlist-coach",

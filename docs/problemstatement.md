@@ -529,10 +529,10 @@ Demo instrumentation uses simulated cart/purchase flags and must be labeled as *
 
 | Deliverable | Status | Link |
 |-------------|--------|------|
-| **[Link] AI Discovery Engine** | Pending | [Test workflow URL TBD](#) |
-| **1-slider in deck** (how the engine works) | Pending | Inside PDF |
-| **[PDF] 10-slide deck** | Pending | TBD |
-| **[Link] Deployed MVP** | Pending | [Production URL TBD](#) |
+| **[Link] AI Discovery Engine** | Local + repo | [Phase-1 README](../Phase-1/README.md) · Studio [live voices](http://localhost:3000/studio?view=stories) after `npm run dev` · [GitHub](https://github.com/vrj87/GradProject3) |
+| **1-slider in deck** (how the engine works) | In PDF slide 3 | [docs/myntra-w2p-30d-deck.pdf](./myntra-w2p-30d-deck.pdf) |
+| **[PDF] 10-slide deck** | Ready | [docs/myntra-w2p-30d-deck.pdf](./myntra-w2p-30d-deck.pdf) · [copy](./slide-deck.md) |
+| **[Link] Deployed MVP** | Local Studio; public Vercel URL not published | [http://localhost:3000/studio](http://localhost:3000/studio) · [coach](http://localhost:3000/studio?view=coach) |
 | **Interview notes / survey** | Delivered — n = 9, 28–31 Aug 2026 | [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [published responses](http://localhost:3000/survey) · [notes](./research/interview-notes/README.md) |
 
 ### 6.5 Deck content map (10 slides max)
@@ -541,16 +541,16 @@ Slide titles state the **key message**, not a generic label. Slides 4–7 stay t
 
 | Slide | Title (message) | Content |
 |-------|-----------------|---------|
-| 1 | **Wishlist intent is high but 30-day conversion stays low** | Context, W2P 30d, constraint |
-| 2 | **30-day W2P decomposes into revisit, resolve, and decide** | Metric tree |
-| 3 | **AI discovery turns public voice-of-customer into ranked opportunities** | 1-slider workflow |
-| 4 | **_Fill from Phase 1 ranking_** | Findings, quotes, frequencies |
-| 5 | **_Fill from Phase 3 synthesis_** | 5–6 interviews; confirmed vs challenged |
-| 6 | **_Fill from Phase 4 problem statement_** | Segment, root cause, workarounds, evolution chain |
-| 7 | **_Fill from Phase 4→5 decision_** | Solution rationale; why non-monetary |
-| 8 | **MVP is deployed and testable** | Architecture, live link, screenshots |
-| 9 | **Success metrics and guardrails protect margin and returns** | North star → primary → leading → guardrails |
-| 10 | **Key risks and what we would do next** | Top risks, mitigations |
+| 1 | Saved items already show intent; 30-day conversion still fails without a coupon | Context, W2P 30d, constraint |
+| 2 | W2P 30d only moves if shoppers return, finish a judgement, then act | Metric tree |
+| 3 | Public shopper voice becomes ranked opportunities, not a sentiment chart | 1-slider workflow |
+| 4 | Scrape ranked fit first; sale-wait is #2 and we still will not use it | Phase 1 ranking |
+| 5 | Shoppers say price; when asked for help they want a verdict, not a coupon | Phase 3 questionnaire |
+| 6 | The stalled shortlister cannot finish a judgement inside the wishlist | Phase 4 lock |
+| 7 | Studio finishes the call with a room and a coach, never a coupon | Solution + MVP ritual |
+| 8 | One storefront to test: discovery, room, and coach | Architecture + links |
+| 9 | Success is a finished decision; a coupon tap is not a win | Metrics and kill tests |
+| 10 | Main risks are a thin segment, a still-binding price, and fake certainty | Risks and next research |
 
 ### 6.6 Deck guidelines (from the brief)
 

@@ -1,150 +1,151 @@
 # 10-slide deck copy (Myntra W2P 30d)
 
-Use these **titles as-is**. They are the key message, not a section label. Keep body text at **14pt or larger**. Do not put a fellow name on any slide. Hyperlink the live Studio and wishlist once the Vercel URL is public.
+Canonical copy for [`myntra-w2p-30d-deck.pdf`](./myntra-w2p-30d-deck.pdf). Print from [`deck/10-slides.html`](./deck/10-slides.html).
 
-Interviews are **planned, not invented**. Do not add fake respondents.
+Built to [ProjectDetails.md](./ProjectDetails.md) (Parts 1–7 + deck guidelines) and [architecture.md](./architecture.md) (phase map, contracts, metric tree, coach guardrails).
 
----
+Visual: Myntra brand kit — charcoal `#282C3F`, pink `#FF3F6C`, white, pink wash `#FFF4F6`. Outfit, sharp cards, pink header bar. Senior-PM copy unchanged.
 
-## Slide 1 — Saved items already show intent; 30-day conversion still fails without a coupon
+**Guidelines met:** no fellow name · 10 slides · body ≥ 14pt · titles are the key message · contrast on colour · colour-blind-safe (navy / ink / amber + labels, never red vs green) · artefacts hyperlinked.
 
-- Product: Myntra. Role: Growth PM.
-- North star: **% of users who buy ≥1 wishlisted item within 30 days of saving it**.
-- Constraint: **no monetary incentives** (no coupons, cashback, sale alerts, or price-drop nags as the solution).
-- Wishlist is high intent that stalls. The job is to find *why* they wait, then help them decide — not to pay them to buy.
-- **Creativity:** Fitting Room (tap the body, keep one). **Metrics:** written W2P tree. **Clarity:** fit nominated, not locked.
+Public artefacts: [GitHub](https://github.com/vrj87/GradProject3) · [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · Studio after `cd Phase-1 && npm run dev`. Public Vercel URL is not published.
 
 ---
 
-## Slide 2 — W2P 30d only moves if shoppers come back, clear the doubt, pick one, then add to bag
+## Slide 1 — Saved items already show intent. Thirty-day conversion still fails without a coupon.
 
-**W2P 30d** = users who purchase ≥1 wishlisted item in 30 days ÷ users who saved ≥1 item.
+- Product: **Myntra**. Role: Growth PM.
+- North star: **% of users who buy ≥1 wishlisted item within 30 days of saving it** (W2P 30d).
+- Constraint: **no monetary incentives** as the core lever — no coupons, cashback, sale alerts, or price-drop nags.
+- A wishlist is explicit interest that stalls. The job is to discover *why*, then help them **finish a judgement** — not to pay for the buy.
 
-| Product outcome | Definition | Why it sits on the path |
+---
+
+## Slide 2 — W2P 30d only moves if shoppers return, finish a judgement, then act
+
+**W2P 30d** = users who purchase ≥1 wishlist item in 30 days ÷ users who saved ≥1 item.
+
+| Product outcome | Definition | Role after lock |
 |---|---|---|
-| Revisit | Open the wishlist within 30 days of a save | If they never return, nothing converts |
-| Resolve | Blocking doubt (fit, style, trust) is gone | Fit is the nominated non-sale lever |
-| Decide | Among 2+ similar saves, narrow to one in 30d | A pile of kurtas is not a purchase |
-| Act | Wishlist item → bag / checkout in 30d | Last step; coupon taps do not count |
+| Revisit | Open the wishlist within 30 days of a save | Necessary. If they never return, nothing converts. |
+| Resolve | Blocking doubt (fit, quality, look) is gone | **Secondary.** Real, not the decider. |
+| Decide | Among 2+ similar saves, buy **or** deliberate drop in 30d | **Primary.** Removals count. |
+| Act | Wishlist item → bag / checkout in 30d | Last step. A coupon tap is not a win. |
 
-Price-waiting is real and is ranked. It is **set aside** because the brief forbids paying for conversion.
+Price-waiting is **ranked** so we do not pretend it is rare. It is **set aside** because the brief forbids paying for conversion. Architecture: Discovery informs ranking; an MVP may only target Resolve and Decide — never discounts.
 
 ---
 
 ## Slide 3 — Public shopper voice becomes ranked opportunities, not a sentiment chart
 
-**1-slider workflow**
+**1-slider — how the engine works** ([architecture.md](./architecture.md) Phase 1)
 
-Collect live App Store + Play Store (+ community) reviews → drop short and off-topic lines → keep save / fit / compare / wait talk → group repeating worries → **score each area** → nominate a non-sale lever → **do not lock** until interviews.
+Live sources (App Store RSS, Play Store, Reddit, YouTube, forums) → **Keep** (drop &lt;8 words / off-topic; SHA-256 dedupe) → **Group** (quote-grounded themes; ≥2 quotes; Q1–Q10 map) → **Score** → **Gate** (price-flagged rows ranked then excluded from the bet; no product lock until research).
 
 **Score** = `0.4 × impact + 0.4 × non-monetary feasibility + 0.2 × frequency`  
-high = 1, medium = 0.6, low = 0.3. Empty cells stay empty. Price-flagged rows are ranked, then excluded from the product bet.
+high = 1 · medium = 0.6 · low = 0.3. Empty cells stay empty. Sentiment-only output fails Part 1.
 
-Live surface: **/studio** — Save similar → Hang two → Keep one → See the bet (The room is the default tab; Live voices / ranking live under the same Studio).
-
----
-
-## Slide 4 — Fit-and-size doubt is the top non-sale blocker; sale-waiting is #2 and we still will not use it
-
-Latest collection (order of magnitude; refresh dates live in Studio):
-
-- **633** public reviews read → **61** about saving or waiting → **12** patterns compared.
-- **Fit and size** — rank 1, score **0.87**, ~37% of wishlist comments, high impact, high non-monetary feasibility.
-- **Waiting for a sale** — rank 2, score **0.83**, **price-flagged**. Counted so we do not pretend it is rare. Not the MVP.
-- **Choosing between saved items** — rank 3, score **0.82**. The decide-side partner to fit.
-
-Quotes on Studio and PDP are from public reviews with source links. Praise-only “perfect fit” lines are dropped.
+Test: [Phase-1 on GitHub](https://github.com/vrj87/GradProject3/tree/main/Phase-1) · [live voices](http://localhost:3000/studio?view=stories) · [Q1–Q10](http://localhost:3000/studio?view=questions) · [what to focus on](http://localhost:3000/studio?view=focus)
 
 ---
 
-## Slide 5 — Interviews are the next gate, not a finished story we made up
+## Slide 4 — Fit ranked first. Sale-wait is #2 — and we still will not use it.
 
-Who to talk to: **shoppers who save, stall on fit, and keep two or three similar looks** (S2 ∩ S4). Five or six conversations. Same eight prompts.
+**895** public reviews read → **150** about saving or waiting → **12** patterns compared. `readyForPhase2: true`.
 
-Questionnaire (open now; response sheet still pending): [Fashion Wishlist → Purchase survey](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
-
-The form is a screen, not a substitute for the 5–6 interviews. Price/sale options are on the form on purpose so we can still kill Fit Insight.
-
-What we will ask (already in Studio → What we'd ask):
-
-1. Why did you save each item?
-2. Do you still intend to buy it? What changed?
-3. What is stopping you this week even if the price stayed the same?
-4. What would need to be true to purchase without waiting for a sale?
-5. What information are you still missing?
-6. Are you considering alternatives — on Myntra or elsewhere?
-7. What did you do outside the app before deciding?
-8. How do you compare multiple wishlisted items today?
-
-**If they mostly wait for a sale, we change the problem.** We will not invent respondents to keep Fit Insight alive.
-
----
-
-## Slide 6 — Nominated problem: size and occasion stay unclear after the look is already liked
-
-- **Segment (nominated):** people who save festive / similar looks, then wait because bust, length, or size still feels uncertain, and who keep comparing two or three options.
-- **Product outcome:** raise **uncertainty resolution** and **shortlist-to-one**, so cart-add from wishlist can move W2P 30d.
-- **Root cause (working):** the page and the wishlist do not settle fit or pick a winner; they only store the like.
-- **Workaround today:** save many similar sets, read comments, order two sizes, or wait for a sale.
-- **Evolution:** business metric → revisit / resolve / decide / act → public-voice ranking → **Fit + compare nominated, price set aside** → interviews still required to lock or kill.
-
-This is a nomination, not a locked PRD.
-
----
-
-## Slide 7 — The creative bet is Studio: a fitting room, not recs plus a discount
-
-What ships in the storefront — **one MVP**, four steps:
-
-1. **Save similar** (`/wishlist`) — shortlist two or more of the same kind.
-2. **Hang two** (`/studio`, The room) — same rack, same gender. Price is off.
-3. **Keep one** — tap bust, length, or foot; **both looks show the same zone**. Size from shopper notes. The deeper % off is struck through.
-4. **See the bet** (`/studio?view=bet`) — why this room exists, scored in the open.
-
-- **Sale wait:** take the look off the rack. The room never adds a coupon.
-- **Product page:** the same body pins, then “hang it in the room”.
-- `/decide` redirects into Studio so old links still work.
-
-Why this is the bet: fit is common, it blocks the buy, and we can help without paying. Why it can still die: interviews may show a sale waitlist, not a fit waitlist.
-
----
-
-## Slide 8 — The discovery storefront is one deployable surface: shop + Studio
-
-- **Client:** Myntra-like shop → PDP body pins → **Studio** (save → hang → keep one → see the bet).
-- **Intelligence:** scrape → normalize → theme → rank (`0.4 / 0.4 / 0.2`) → Phase-2 nomination JSON.
-- **Data:** `themes.json`, `opportunity-ranking.json`, `nomination.json`, `metric-tree.json` copied into the static host so production does not depend on a local API.
-- **Deploy:** Vercel (repo root `vercel.json` builds `Phase-1/apps/storefront`). Local: `http://localhost:3000/` · Studio `/studio` (room by default) · Wishlist `/wishlist`.
-- Paste the **public URL** here after deploy. Evaluators must click it.
-
----
-
-## Slide 9 — Data & metrics: W2P is a formula; a coupon tap is not a win
-
-| Layer | Metric | Formula | Rationale |
+| Rank | Opportunity | Score | Note |
 |---|---|---|---|
-| North star | W2P 30d | Buyers of ≥1 wishlist item in 30d ÷ wishlist adders | The brief |
-| Primary | Uncertainty resolution | Doubt-cleared items ÷ items with a recorded doubt | Nominated lever |
-| Primary | Shortlist-to-one | Users who narrow 2+ similar saves to 1 ÷ users with 2+ similar saves | Decide node |
-| Leading | Wishlist reopen | Open wishlist in 30d ÷ savers | Revisit |
-| Leading | Wishlist cart-add | Items moved to bag in 30d ÷ wishlisted items | Act; no coupon |
-| Guardrail | No paid conversion | Coupon / sale-alert / price-drop click ≠ success | Constraint |
-| Guardrail | Time-to-bag | Must not worsen while resolution rises | A scary size note can delay |
+| 1 | Fit and size | 0.87 | ~37% of kept comments. Nominated. **Not locked.** |
+| 2 | Waiting for a sale | 0.83 | **Price-flagged.** Counted. Not the MVP. |
+| 3 | Choosing between saved items | 0.82 | Decide-side partner. Research kept this lever. |
 
-**Kill if:** 4 of 6 interviews would buy as soon as price drops even when size is clear; compare is used to hunt discounts; “runs small” with no size action slows bag-add.
+Hybrid extract: 3 LLM batches failed; 7 themes gap-filled. Funnel is in pipeline stats, not hidden. Ranking: [studio?view=focus](http://localhost:3000/studio?view=focus)
 
 ---
 
-## Slide 10 — Main risks are fake certainty, sale-waiting, and shipping a locked product too early
+## Slide 5 — Shoppers say price. Asked for help, they want a verdict — not a coupon.
 
-| Risk | Why it hurts | What we do |
+Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live interviews. [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [records](https://github.com/vrj87/GradProject3/tree/main/docs/research/interview-notes) · [/survey](http://localhost:3000/survey) · [synthesis](https://github.com/vrj87/GradProject3/blob/main/docs/research/synthesis.md)
+
+- Main unbought reason (Q8): price-shaped **5/9**; fit as the *main* reason **0/9**.
+- What they do (Q11): reviews **8/9** · customer photos **7/9** · in-app compare **6/9** · wait for a sale **2/9**.
+- Unlock (Q12): discount **4** vs information **5**. Help (Q13, no discount option): “is this price good?” **4/9**; pick among saves **2/9**.
+- **Load-bearing:** all four discount-seekers switched to information on Q13 — including both in-segment respondents.
+- Confidence a save is “right”: **2.89**. AI that picks winners (Q14): **2.89** — framing dropped.
+- **Caveat:** 2 of 9 match the stalled shortlister (target 5). Price was not held constant. Closed-option form — no invented quotes.
+
+---
+
+## Slide 6 — The stalled shortlister cannot finish a judgement inside the wishlist.
+
+**Locked** ([problem-definition.md](https://github.com/vrj87/GradProject3/blob/main/docs/problem-definition.md)): a wishlist captures interest but offers no way to finish a judgement — neither *which of these* nor *is it worth what it costs*. The only tool the app offers is a falling price, so intent parks on a sale that may never arrive in 30 days. **Price is the symptom of a missing judgement aid — not a demand for money.**
+
+- **Segment:** Stalled Shortlister — saves, returns, leaves without deciding. Sale-watchers are a control, not the audience.
+- **Primary outcome:** shortlist-to-decision (buy or drop). Removals count.
+- **Secondary:** uncertainty resolution (fit / quality from other shoppers).
+- **Evolution:** W2P → revisit / resolve / decide / act → scrape (fit #1) → questionnaire (decide + value confidence) → lock.
+- **Tree:** proceed, re-scoped — explicitly without an incentive.
+
+Falsify by holding price constant. If price still dominates in segment, **stop** — do not ship a coupon.
+
+---
+
+## Slide 7 — Studio finishes the call with a room and a coach — never a coupon.
+
+Why this, not recs + discount: comparison is confirmed three ways; value confidence is the top requested *help*; Q14 does not support an “AI picks winners” framing.
+
+**Shopper path (Phase 5, decision-first)**
+
+1. **Save similar** — two or more of the same kind. `/wishlist`
+2. **Hang two** — same rack, price off. `/studio?view=room`
+3. **Keep one** — tap bust, length, or foot; size from shopper notes.
+4. **Ask the coach** — fit · wear · worth as **cost-per-wear** (not a lower ticket). Rule-based first; Groq may rephrase prose only. Never discounts, EOSS, or urgency.
+
+Guardrails in code: cite evidence; confidence bands, not guarantees; sale-wait takes the look off the hanger.
+
+---
+
+## Slide 8 — One storefront to test: discovery, room, and coach
+
+| Layer | What ships |
+|---|---|
+| Client | Shop → wishlist → Studio room → coach (fit / wear / worth) |
+| API | Ingest · analyze · compare · value · events (Phase-5 contracts) |
+| Intelligence | Quote-grounded scrape → rank 0.4 / 0.4 / 0.2 → Groq (extract + optional rewrite) |
+| Data | `themes.json`, ranking, survey, problem lock; SQLite in Phase-5 |
+| Deploy | Intended host: Vercel. **Public URL not published.** Test: `cd Phase-1 && npm run dev` |
+| Metric hooks | `coach_opened` · `compare_completed` · `uncertainty_resolved` · `cart_add_simulated` — **proxies** |
+
+- Repo / discovery: [github.com/vrj87/GradProject3](https://github.com/vrj87/GradProject3)
+- [Room](http://localhost:3000/studio?view=room) · [Coach](http://localhost:3000/studio?view=coach) · [Stories](http://localhost:3000/studio?view=stories) · [Survey](http://localhost:3000/survey)
+- [Problem lock](https://github.com/vrj87/GradProject3/blob/main/docs/problem-definition.md) · [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
+
+---
+
+## Slide 9 — A finished decision is a win. A coupon tap is not.
+
+| Layer | Metric | Definition | Why this one |
+|---|---|---|---|
+| North star | W2P 30d | Buyers of ≥1 wishlist item in 30d ÷ savers | The brief |
+| Primary | Shortlist-to-decision | Bought **or** deliberately dropped in 30d ÷ saves | Decide node |
+| Secondary | Uncertainty resolution | Doubt-cleared items ÷ items with a recorded doubt | Resolve; ships with Decide |
+| Leading | Wishlist reopen | Open wishlist in 30d ÷ savers | Revisit |
+| Leading | Room / coach use | Coach opened or keep-one completed ÷ eligible shortlists | Mechanism |
+| Guardrail | No paid conversion | Coupon / sale-alert / price-drop click ≠ success | Constraint |
+| Guardrail | Returns and time-to-bag | Return rate must not rise; time-to-bag must not worsen | Honest fit can scare some buys |
+
+Demo cart/purchase flags are **proxies**. **Kill if:** follow-up talks hold price constant and price still dominates in segment.
+
+---
+
+## Slide 10 — Thin segment. Still-binding price. Fake certainty.
+
+| Risk | Why it hurts | Mitigation |
 |---|---|---|
-| App-store noise | Many reviews are delivery / support | Drop them; quotes must match review text |
-| Sale-waiting is common | Easy to “win” with coupons | Rank it, flag it, refuse it as the product |
-| Invented interviews | Looked like insight, scored as fiction | Seeds only; no fake respondents |
-| Size note delays some buys | Honest fit can scare people off | Guardrail on time-to-bag |
-| Hybrid extraction / LLM gaps | Some batches fail; themes may be thin | Show funnel counts; empty cells stay empty |
+| In-segment n = 2 | Segment claims rest on two people; both asked for a discount on Q12 | Label it. Recruit stallers. Ask Q3/Q4 with price frozen. |
+| Price is actually binding | Constraint conflict becomes terminal | Decision tree already says **stop**, not coupon. |
+| LLM invents fit / hybrid gaps | 3 extract batches failed; 7 themes gap-filled | Quotes must match text. Empty cells stay empty. Rule-based first on coach. |
+| App-store noise | Delivery / support swamp the hesitation moment | Drop ops reviews. Do not treat post-delivery fit as pre-purchase proof. |
+| Coach feels like an oracle | Q14 mean 2.89; one flat zero | Three questions, not a winner. No urgency. |
 
-**Next:** run the eight prompts with 5–6 shoppers. Confirm or kill Fit Insight. Only then lock the problem and thicken the MVP.
-
-**Links:** Studio · Wishlist compare · scrape download (on the live site) · [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · response sheet (add when live).
+**Next:** a handful of moderated stalls with price held constant. If price still wins, stop. If a verdict still wins, keep the room and the coach.

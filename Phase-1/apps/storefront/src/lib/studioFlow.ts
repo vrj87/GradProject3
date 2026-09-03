@@ -34,7 +34,7 @@ export const STUDIO_FLOW = [
 
 export type StudioFlowId = (typeof STUDIO_FLOW)[number]["id"];
 
-/** Two surfaces a reviewer actually uses, plus the Phase 5 coach on the same page. */
+/** Two surfaces a reviewer actually uses, plus the in-app coach on the same storefront. */
 export const STUDIO_TABS = [
   { id: "room", label: "The room" },
   { id: "coach", label: "The coach" },

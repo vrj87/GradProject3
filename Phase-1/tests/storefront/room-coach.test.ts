@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { PRODUCTS } from "../../apps/storefront/src/data/products";
-import { buildRoomCompare, ROOM_COACH_TABS } from "../../apps/storefront/src/lib/roomCoach";
+import { buildCoachLook, buildRoomCompare, ROOM_COACH_TABS } from "../../apps/storefront/src/lib/roomCoach";
 
 function sku(id: string) {
   const product = PRODUCTS.find((item) => item.id === id);
@@ -9,6 +9,14 @@ function sku(id: string) {
 }
 
 describe("room coach compare", () => {
+  it("answers the three coach questions on a single save", () => {
+    const look = buildCoachLook(sku("w-kurta-1"));
+    expect(look.itemId).toBe("w-kurta-1");
+    expect(look.fit.suggestedSize).toBeTruthy();
+    expect(look.wear.occasions.length).toBeGreaterThan(0);
+    expect(look.worth.costPerWearInr).toBeGreaterThan(0);
+  });
+
   it("answers the three coach questions on the hung pair", () => {
     const compare = buildRoomCompare(sku("w-kurta-1"), sku("w-kurta-2"));
     expect(compare.itemIds).toEqual(["w-kurta-1", "w-kurta-2"]);

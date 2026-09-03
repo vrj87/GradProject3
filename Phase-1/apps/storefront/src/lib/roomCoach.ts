@@ -324,6 +324,22 @@ function qualitySignals(product: Product): string[] {
   return out.slice(0, 3);
 }
 
+export function buildCoachLook(
+  product: Product,
+  zone: PinZone | null = null,
+  opts: RoomCoachOptions = {}
+): RoomCoachLook {
+  const usual = opts.usual ?? "M";
+  const between = opts.between ?? false;
+  const peers = (opts.peers ?? []).filter((item) => item.id !== product.id);
+  return {
+    itemId: product.id,
+    fit: buildFitBrief(product, zone, usual, between),
+    wear: buildWearBrief(product),
+    worth: buildWorthBrief(product, peers, opts.occasionsPerMonth)
+  };
+}
+
 export function buildWorthBrief(
   product: Product,
   peers: Product[] = [],

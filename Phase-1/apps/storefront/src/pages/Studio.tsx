@@ -21,7 +21,7 @@ const COPY = {
   },
   coach: {
     title: "Finish the call on the shortlist.",
-    body: "Will it fit, where would I wear it, and is the price worth it — answered on the same page as the room. Never a coupon."
+    body: "Will it fit, where would I wear it, and is the price worth it — on this wishlist, in this app. Never a coupon."
   },
   why: {
     title: "Name the doubt on one body. Keep one hanger.",

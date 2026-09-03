@@ -4,6 +4,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
+import { loadEnvFiles } from "../../tools/discovery-pipeline/src/load-env";
+import { coachLlmStatus, generateCoachInsights } from "./src/lib/generateCoachInsights";
 import { mergeOrderLists, type PlacedOrder } from "./src/lib/placedOrders";
 import { publicReviewUrl } from "./src/lib/sourceUrls";
 
@@ -110,14 +112,57 @@ const DOWNLOAD_ARTEFACTS: Record<string, string> = {
   normalized: "normalized-reviews.json"
 };
 
+async function handleCoachInsights(req: IncomingMessage, res: ServerResponse) {
+  if (req.method !== "POST") {
+    json(res, { error: "Method not allowed." }, 405);
+    return;
+  }
+  let incoming: unknown;
+  try {
+    incoming = JSON.parse(await readRequestBody(req));
+  } catch {
+    json(res, { error: "Body must be JSON." }, 400);
+    return;
+  }
+  const body = incoming as {
+    itemIds?: unknown;
+    peerIds?: unknown;
+    zone?: unknown;
+    usual?: unknown;
+    between?: unknown;
+  };
+  const itemIds = Array.isArray(body.itemIds) ? body.itemIds.filter((id): id is string => typeof id === "string") : [];
+  const result = await generateCoachInsights({
+    itemIds,
+    peerIds: Array.isArray(body.peerIds) ? body.peerIds.filter((id): id is string => typeof id === "string") : [],
+    zone: typeof body.zone === "string" ? (body.zone as "bust" | "waist" | "length" | "foot" | "overall") : null,
+    usual: typeof body.usual === "string" ? body.usual : "M",
+    between: body.between === true
+  });
+  if ("error" in result) {
+    json(res, result, 400);
+    return;
+  }
+  json(res, result);
+}
+
 function discoveryApi(): Plugin {
   return {
     name: "discovery-api",
     configureServer(server) {
+      loadEnvFiles();
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url ?? "/", "http://localhost");
         if (url.pathname === "/api/orders") {
           await handleSharedOrders(req, res);
+          return;
+        }
+        if (url.pathname === "/api/coach/status") {
+          json(res, coachLlmStatus());
+          return;
+        }
+        if (url.pathname === "/api/coach/insights") {
+          await handleCoachInsights(req, res);
           return;
         }
         const staticMatch = url.pathname.match(/^\/(discovery|phase2)\/[\w.-]+\.json$/);
@@ -244,5 +289,6 @@ function discoveryApi(): Plugin {
 
 export default defineConfig({
   plugins: [react(), copyArtefacts(), discoveryApi()],
+  envDir: root,
   server: { port: 3000, host: true }
 });

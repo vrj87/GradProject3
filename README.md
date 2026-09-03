@@ -26,15 +26,13 @@ npm run phase2:rank
 Open [http://localhost:3000/studio](http://localhost:3000/studio):
 
 1. **The room** — hang two similar saves, tap the body, keep one (price is off)
-2. **The bet** — why this room, scored in the open
-3. **Live voices** — public App Store / Play Store comments
-4. **Shopper stories** — ranked themes + quotes
-5. **Q1–Q10 / What to focus on / What we'd ask** — coverage, nomination, interview seeds + [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
+2. **The coach** — [http://localhost:3000/studio?view=coach](http://localhost:3000/studio?view=coach) — fit, wear, and worth on this wishlist. If `GROQ_API_KEY` is in `Phase-1/.env`, the server rephrases that read through Groq.
+3. **The bet** — why this room, scored in the open
+4. **Live voices** — public App Store / Play Store comments
+5. **Shopper stories** — ranked themes + quotes
+6. **Q1–Q10 / What to focus on / What we'd ask** — coverage, nomination, interview seeds + [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
 
-Then [http://localhost:3100/mvp](http://localhost:3100/mvp) for the Phase 5 coach (after
-`npm run phase5:setup` and `npm run phase5:dev`): finish a shortlist with fit, compare, and a
-value read that never mentions a discount. Switch to Rohit to see the coach withheld from the
-sale-watcher control.
+**10-slide PDF:** [docs/myntra-w2p-30d-deck.pdf](./docs/myntra-w2p-30d-deck.pdf) (copy in [docs/slide-deck.md](./docs/slide-deck.md)).
 
 ## Structure
 
@@ -46,7 +44,8 @@ sale-watcher control.
 | `phase-4/` | **Phase 4** problem lock, derived from Phases 1–3 artefacts + executable decision tree |
 | `phase-5/` | **Phase 5** MVP — shortlist coach on :3100 |
 | `docs/problem-definition.md` | Phase 4 prose lock — six fields, evolution chain, decision-tree outcome |
-| `docs/` | Architecture, problem statement, edge cases |
+| `docs/myntra-w2p-30d-deck.pdf` | **10-slide assignment deck** |
+| `docs/` | Architecture, problem statement, edge cases, research |
 
 ## Root scripts
 

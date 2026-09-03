@@ -51,7 +51,8 @@ Set `GROQ_API_KEY` and/or `OPENAI_API_KEY` in `.env` (see `.env.example`).
 ## Storefront
 
 - Shop: http://localhost:3000
-- Studio (room + bet): http://localhost:3000/studio
+- Studio room: http://localhost:3000/studio?view=room
+- Studio coach: http://localhost:3000/studio?view=coach
 - Live Insights: http://localhost:3000/studio?view=stories
 - Q1–Q10 coverage: http://localhost:3000/studio?view=questions
 - Opportunity ranking (Phase 2): http://localhost:3000/studio?view=focus

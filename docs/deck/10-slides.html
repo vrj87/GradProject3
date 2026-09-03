@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Myntra W2P 30d — 10-slide deck</title>
+  <style>
+    @font-face {
+      font-family: "Outfit";
+      src: url("./fonts/Outfit.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+    }
+    @page { size: 13.333in 7.5in; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #282c3f;
+      color: #282c3f;
+      font-family: Outfit, Assistant, Inter, "Segoe UI", Arial, sans-serif;
+      font-size: 14pt;
+      line-height: 1.3;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    a { color: #ff3f6c; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .slide {
+      width: 13.333in;
+      height: 7.5in;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+      overflow: hidden;
+      background: #fafbfc;
+    }
+    .slide:last-child { page-break-after: auto; }
+    .topbar {
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 0.07in;
+      background: #ff3f6c;
+      z-index: 3;
+    }
+    .circ {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .pad { position: relative; z-index: 1; padding: 0.42in 0.5in 0.55in; height: 100%; }
+    h1 {
+      font-size: 27pt;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin: 0 0 0.12in;
+      max-width: 12.1in;
+      color: #282c3f;
+    }
+    .kicker {
+      font-size: 14pt;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #ff3f6c;
+      margin: 0 0 0.08in;
+    }
+    .rule {
+      width: 0.85in;
+      height: 3px;
+      background: #ff3f6c;
+      margin: 0 0 0.14in;
+    }
+    .pill {
+      display: inline-block;
+      font-size: 14pt;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.05in 0.16in;
+      border-radius: 2px;
+      background: #fff4f6;
+      color: #ff3f6c;
+    }
+    .foot {
+      position: absolute;
+      left: 0.5in;
+      right: 0.5in;
+      bottom: 0.18in;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14pt;
+      font-weight: 600;
+      color: #7e818c;
+    }
+    .pg {
+      min-width: 0.4in;
+      height: 0.32in;
+      padding: 0 0.08in;
+      background: #ff3f6c;
+      color: #fff;
+      font-weight: 800;
+      font-size: 14pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #eaeaec;
+      border-radius: 4px;
+      padding: 0.15in 0.16in;
+    }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.12in; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.12in; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.12in; }
+    .stat {
+      font-size: 30pt;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #282c3f;
+    }
+    .label { font-weight: 800; margin: 0.05in 0; }
+    p { margin: 0 0 0.08in; }
+    .muted { color: #7e818c; }
+    .ink { background: #282c3f; color: #fff; border-color: #282c3f; }
+    .ink .stat, .ink .label { color: #fff; }
+    .pink { background: #ff3f6c; color: #fff; border-color: #ff3f6c; }
+    .pink .stat, .pink .label { color: #fff; }
+    .wash { background: #fff4f6; border-color: #fce8ec; }
+    .dash {
+      border: 2px dashed #ff3f6c;
+      background: #fff4f6;
+    }
+    .tag {
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ff3f6c;
+    }
+    .dotn {
+      width: 0.42in;
+      height: 0.42in;
+      border-radius: 50%;
+      background: #fff4f6;
+      color: #ff3f6c;
+      font-weight: 800;
+      font-size: 16pt;
+      line-height: 0.42in;
+      text-align: center;
+      margin: 0 auto 0.08in;
+      position: relative;
+      z-index: 1;
+    }
+    .steps { display: flex; gap: 0.12in; position: relative; }
+    .steps::before {
+      content: "";
+      position: absolute;
+      top: 0.2in;
+      left: 0.7in;
+      right: 0.7in;
+      height: 2px;
+      background: #fce8ec;
+      z-index: 0;
+    }
+    .steps > .card { flex: 1; text-align: center; }
+    .geo {
+      position: absolute;
+      z-index: 1;
+      box-shadow: 0 0.14in 0.32in rgba(40, 44, 63, 0.28);
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1 COVER -->
+<section class="slide" style="background:#282c3f;">
+  <div class="circ" style="width:5.8in;height:5.8in;background:#ff3f6c;right:-1.8in;top:-2in;"></div>
+  <div class="circ" style="width:1.8in;height:1.8in;background:#fff4f6;left:-0.5in;bottom:-0.4in;opacity:0.2;"></div>
+  <div class="geo" style="width:2.7in;height:3.5in;right:0.5in;top:1.1in;background:#fff;border-radius:4px;"></div>
+  <div class="geo" style="width:2.05in;height:2.55in;right:2.2in;top:2.95in;background:#ff3f6c;border-radius:4px;"></div>
+  <div class="geo" style="width:1.15in;height:1.15in;right:0.72in;bottom:0.9in;background:#fff4f6;border-radius:50%;"></div>
+  <div class="pad" style="width:8.2in;">
+    <p class="pill" style="background:#ff3f6c;color:#fff;">Myntra · Growth · W2P 30d</p>
+    <div class="rule" style="margin-top:0.28in;"></div>
+    <h1 style="font-size:34pt;color:#fff;max-width:7.8in;">Saved items already show intent. Thirty-day conversion still fails without a coupon.</h1>
+    <p style="max-width:7.4in;font-size:16pt;color:#d4d5d9;font-weight:500;">A wishlist is explicit interest that stalls. Discover why they wait — then finish the judgement. Do not pay for the buy.</p>
+    <div style="display:flex;gap:0.1in;margin-top:0.28in;flex-wrap:wrap;">
+      <span class="pill" style="background:#ff3f6c;color:#fff;">No coupons</span>
+      <span class="pill" style="background:transparent;color:#fff;border:1px solid #ff3f6c;">No sale alerts</span>
+      <span class="pill" style="background:transparent;color:#fff;border:1px solid #ff3f6c;">No price-drop nags</span>
+    </div>
+    <p style="margin-top:0.28in;color:#94969f;max-width:7.4in;"><b style="color:#fff;">North star.</b> Share of users who buy ≥1 wishlisted item within 30 days of saving it.</p>
+    <p style="position:absolute;bottom:0.4in;left:0.5in;"><a href="https://github.com/vrj87/GradProject3" style="color:#ff8aa3;">github.com/vrj87/GradProject3</a></p>
+    <p style="position:absolute;bottom:0.4in;left:6.55in;font-weight:800;color:#ff3f6c;">01 / 10</p>
+  </div>
+</section>
+
+<!-- 2 METRIC -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="circ" style="width:3.2in;height:3.2in;background:#fff4f6;right:-1in;top:-1in;"></div>
+  <div class="pad">
+    <p class="kicker">Business metric</p>
+    <div class="rule"></div>
+    <h1>W2P 30d only moves if shoppers return, finish a judgement, then act</h1>
+    <p class="muted" style="margin-bottom:0.16in;"><b>W2P 30d</b> = buyers of ≥1 wishlist item in 30 days ÷ users who saved ≥1 item.</p>
+    <div class="grid4">
+      <div class="card">
+        <div class="dotn">1</div>
+        <p class="label">Revisit</p>
+        <p>Open the wishlist within 30 days. If they never return, nothing converts.</p>
+      </div>
+      <div class="card">
+        <div class="dotn">2</div>
+        <p class="label">Resolve · secondary</p>
+        <p>Fit, quality, look. Real — and not the decider after research.</p>
+      </div>
+      <div class="card pink">
+        <div class="dotn" style="background:#fff;color:#ff3f6c;">3</div>
+        <p class="label">Decide · primary</p>
+        <p>Buy or deliberately drop among 2+ similar saves. Removals count.</p>
+      </div>
+      <div class="card">
+        <div class="dotn">4</div>
+        <p class="label">Act</p>
+        <p>Bag / checkout. A coupon tap does not count as a win.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.16in;">Price-waiting is ranked so we do not pretend it is rare. It is set aside because the brief forbids paying for conversion. An MVP may only target Resolve and Decide.</p>
+  </div>
+  <div class="foot"><span>Revisit × Resolve × Decide × Act</span><span class="pg">02</span></div>
+</section>
+
+<!-- 3 DISCOVERY -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="pad">
+    <p class="kicker">Discovery engine · 1-slider</p>
+    <div class="rule"></div>
+    <h1>Public shopper voice becomes ranked opportunities, not a sentiment chart</h1>
+    <div class="steps" style="margin-top:0.16in;">
+      <div class="card ink">
+        <div class="dotn" style="background:#ff3f6c;color:#fff;">1</div>
+        <p class="label">Collect</p>
+        <p>App Store, Play Store, Reddit, YouTube, forums — saving and waiting.</p>
+      </div>
+      <div class="card">
+        <div class="dotn">2</div>
+        <p class="label">Keep</p>
+        <p>Drop short and off-topic. SHA-256 dedupe. Keep save, fit, compare, wait.</p>
+      </div>
+      <div class="card">
+        <div class="dotn">3</div>
+        <p class="label">Group</p>
+        <p>Quote-grounded themes. ≥2 quotes. Map to Q1–Q10. No invented lines.</p>
+      </div>
+      <div class="card">
+        <div class="dotn">4</div>
+        <p class="label">Score</p>
+        <p>0.4 impact + 0.4 feasibility + 0.2 frequency. Empty stays empty.</p>
+      </div>
+      <div class="card pink">
+        <div class="dotn" style="background:#fff;color:#ff3f6c;">5</div>
+        <p class="label">Gate</p>
+        <p>Price-flagged rows are ranked, then excluded. Lock only after research.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.16in;">high = 1 · medium = 0.6 · low = 0.3 · Sentiment-only output fails Part 1. <a href="https://github.com/vrj87/GradProject3/tree/main/Phase-1">Phase-1 on GitHub</a> · <a href="http://localhost:3000/studio?view=stories">live voices</a> · <a href="http://localhost:3000/studio?view=questions">Q1–Q10</a> · <a href="http://localhost:3000/studio?view=focus">what to focus on</a></p>
+  </div>
+  <div class="foot"><span>Test in Studio after npm run dev</span><span class="pg">03</span></div>
+</section>
+
+<!-- 4 FINDINGS -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="circ" style="width:4.4in;height:4.4in;background:#fff4f6;left:-1.7in;bottom:-1.7in;"></div>
+  <div class="pad">
+    <p class="kicker">Discovery findings</p>
+    <div class="rule"></div>
+    <h1>Fit ranked first. Sale-wait is #2 — and we still will not use it.</h1>
+    <p class="muted" style="margin-bottom:0.14in;"><b>895</b> reviews read · <b>150</b> about saving or waiting · <b>12</b> patterns compared · readyForPhase2</p>
+    <div class="grid3">
+      <div class="card ink" style="min-height:2.75in;padding:0.2in;">
+        <p class="tag">Rank 01</p>
+        <p class="stat" style="color:#fff;margin:0.1in 0;font-size:40pt;">0.87</p>
+        <p class="label" style="font-size:16pt;">Fit and size</p>
+        <p>~37% of kept comments. Nominated. Not locked.</p>
+      </div>
+      <div class="card dash" style="min-height:2.75in;padding:0.2in;">
+        <p class="tag">Rank 02 · Price-flagged</p>
+        <p class="stat" style="margin:0.1in 0;font-size:40pt;">0.83</p>
+        <p class="label" style="font-size:16pt;">Waiting for a sale</p>
+        <p class="muted">Counted so we do not pretend it is rare. Not the MVP.</p>
+      </div>
+      <div class="card" style="min-height:2.75in;padding:0.2in;">
+        <p class="tag">Rank 03</p>
+        <p class="stat" style="margin:0.1in 0;font-size:40pt;">0.82</p>
+        <p class="label" style="font-size:16pt;">Choosing between saves</p>
+        <p class="muted">Decide-side partner. This is the lever research kept.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.14in;">Hybrid extract: 3 LLM batches failed; 7 themes gap-filled. Funnel is in pipeline stats. Ranking: <a href="http://localhost:3000/studio?view=focus">studio?view=focus</a></p>
+  </div>
+  <div class="foot"><span>Price-flagged is labelled — colour is not the only signal</span><span class="pg">04</span></div>
+</section>
+
+<!-- 5 RESEARCH -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="pad">
+    <p class="kicker">Primary research · n = 9</p>
+    <div class="rule"></div>
+    <h1>Shoppers say price. Asked for help, they want a verdict — not a coupon.</h1>
+    <div class="grid4" style="margin-top:0.06in;">
+      <div class="card pink" style="text-align:center;padding:0.18in 0.1in;">
+        <p class="stat">5/9</p>
+        <p>price-shaped main reason</p>
+      </div>
+      <div class="card" style="text-align:center;padding:0.18in 0.1in;">
+        <p class="stat">0/9</p>
+        <p>fit as the <i>main</i> reason</p>
+      </div>
+      <div class="card" style="text-align:center;padding:0.18in 0.1in;">
+        <p class="stat">8/9</p>
+        <p>read reviews before buying</p>
+      </div>
+      <div class="card" style="text-align:center;padding:0.18in 0.1in;">
+        <p class="stat">2/9</p>
+        <p>actually wait for a sale</p>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:0.14in;">
+      <div class="card">
+        <p class="label">Load-bearing switch</p>
+        <p>Q12: discount 4 vs information 5. Q13 (no discount option): “is this price good?” 4/9; pick among saves 2/9. All four discount-seekers switched to information — including both in-segment respondents.</p>
+      </div>
+      <div class="card wash">
+        <p class="label">Caveat, labelled</p>
+        <p>Questionnaire, not 5–6 live interviews. 2 of 9 match the stalled shortlister (target 5). Price was not held constant. Closed-option form — no invented quotes. Q14 mean 2.89 — no AI-oracle framing.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.12in;"><a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">Open the form</a> · <a href="https://github.com/vrj87/GradProject3/tree/main/docs/research/interview-notes">records</a> · <a href="http://localhost:3000/survey">/survey</a> · <a href="https://github.com/vrj87/GradProject3/blob/main/docs/research/synthesis.md">synthesis</a></p>
+  </div>
+  <div class="foot"><span>Fielded 28–31 Aug 2026</span><span class="pg">05</span></div>
+</section>
+
+<!-- 6 PROBLEM -->
+<section class="slide" style="background:#282c3f;">
+  <div class="circ" style="width:4.2in;height:4.2in;background:#ff3f6c;right:-1.4in;bottom:-1.5in;opacity:0.88;"></div>
+  <div class="pad">
+    <p class="pill" style="background:#ff3f6c;color:#fff;">Locked problem</p>
+    <p style="font-size:72pt;line-height:0.8;margin:0.1in 0 0;color:rgba(255,63,108,0.35);font-weight:800;">“</p>
+    <h1 style="font-size:30pt;margin-top:-0.42in;color:#fff;max-width:12in;">The stalled shortlister cannot finish a judgement inside the wishlist.</h1>
+    <p style="font-size:15pt;max-width:12in;color:#d4d5d9;font-weight:500;">Neither <i>which of these</i> nor <i>is it worth what it costs</i>. The only tool the app offers is a falling price. Intent parks on a sale that may never arrive in 30 days.</p>
+    <p style="font-size:17pt;margin:0.12in 0 0.16in;max-width:12in;color:#fff;font-weight:700;">Price is the symptom of a missing judgement aid — not a demand for money.</p>
+    <div class="grid3">
+      <div class="card" style="background:#3e4152;color:#fff;border:none;">
+        <p class="label" style="color:#ff8aa3;">Segment</p>
+        <p>Saves, returns, leaves without deciding. Sale-watchers are a control.</p>
+      </div>
+      <div class="card" style="background:#3e4152;color:#fff;border:none;">
+        <p class="label" style="color:#ff8aa3;">Primary outcome</p>
+        <p>Shortlist-to-decision. Buy or drop. Removals count as success.</p>
+      </div>
+      <div class="card" style="background:#3e4152;color:#fff;border:none;">
+        <p class="label" style="color:#ff8aa3;">Falsify</p>
+        <p>Hold price constant. If it still wins in segment — stop. Do not ship a coupon.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.12in;color:#94969f;">W2P → revisit / resolve / decide / act → scrape (fit #1) → questionnaire (decide + value confidence) → lock. Tree: proceed, re-scoped — without an incentive. <a href="https://github.com/vrj87/GradProject3/blob/main/docs/problem-definition.md" style="color:#ff8aa3;">docs/problem-definition.md</a></p>
+  </div>
+  <div class="foot" style="color:#94969f;"><span>Decide first · Resolve with · never an incentive</span><span class="pg">06</span></div>
+</section>
+
+<!-- 7 SOLUTION -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="pad">
+    <p class="kicker">Solution rationale · MVP</p>
+    <div class="rule"></div>
+    <h1>Studio finishes the call with a room and a coach — never a coupon</h1>
+    <p class="muted" style="margin-bottom:0.14in;">Comparison is confirmed three ways. Value confidence is the top requested help. Q14 does not support “AI picks winners” (mean 2.89).</p>
+    <div class="steps">
+      <div class="card">
+        <div class="dotn">1</div>
+        <p class="label">Save similar</p>
+        <p>Two or more of the same kind. /wishlist</p>
+      </div>
+      <div class="card">
+        <div class="dotn">2</div>
+        <p class="label">Hang two</p>
+        <p>Same rack. Price off. /studio?view=room</p>
+      </div>
+      <div class="card">
+        <div class="dotn">3</div>
+        <p class="label">Keep one</p>
+        <p>Tap bust, length, or foot. Size from shopper notes.</p>
+      </div>
+      <div class="card pink">
+        <div class="dotn" style="background:#fff;color:#ff3f6c;">4</div>
+        <p class="label">Ask the coach</p>
+        <p>Fit · wear · worth as cost-per-wear. Groq may rephrase. Never a discount.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.16in;">Guardrails: evidence ids, confidence bands, not guarantees. Forbidden in code: coupons, EOSS, urgency. Sale-wait takes the look off the hanger.</p>
+  </div>
+  <div class="foot"><span>Decision-first · fit secondary · value as wears</span><span class="pg">07</span></div>
+</section>
+
+<!-- 8 ARCHITECTURE -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="pad">
+    <p class="kicker">Architecture · test these</p>
+    <div class="rule"></div>
+    <h1>One storefront to test: discovery, room, and coach</h1>
+    <div style="display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:1.15fr 1fr;gap:0.12in;margin-top:0.08in;">
+      <a class="card ink" href="https://github.com/vrj87/GradProject3" style="text-decoration:none;grid-row:1 / span 2;padding:0.22in;">
+        <p class="pill" style="background:#ff3f6c;color:#fff;">Repo</p>
+        <p class="label" style="font-size:18pt;margin-top:0.16in;">Client</p>
+        <p style="color:#d4d5d9;">Shop → wishlist → Studio room → coach (fit / wear / worth).</p>
+        <p style="margin-top:0.16in;color:#ff8aa3;">github.com/vrj87/GradProject3</p>
+      </a>
+      <div class="card">
+        <p class="label">API</p>
+        <p>Ingest · analyze · compare · value · events.</p>
+      </div>
+      <div class="card">
+        <p class="label">Intelligence</p>
+        <p>Quote-grounded scrape → rank 0.4 / 0.4 / 0.2 → Groq.</p>
+      </div>
+      <div class="card">
+        <p class="label">Data</p>
+        <p>themes.json, ranking, survey, problem lock. SQLite in Phase-5.</p>
+      </div>
+      <div class="card wash">
+        <p class="label">Deploy · hooks</p>
+        <p>Vercel intended; URL not live. coach_opened · compare_completed — proxies.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.12in;"><a href="http://localhost:3000/studio?view=room">room</a> · <a href="http://localhost:3000/studio?view=coach">coach</a> · <a href="http://localhost:3000/studio?view=stories">stories</a> · <a href="http://localhost:3000/survey">survey</a> · <a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">form</a> · <a href="https://github.com/vrj87/GradProject3/blob/main/docs/problem-definition.md">problem lock</a></p>
+    <p>Run <b>cd Phase-1 && npm install && npm run dev</b> → localhost:3000/studio · Metric hooks are proxies.</p>
+  </div>
+  <div class="foot"><span>Client · API · Intelligence · Data · Deploy · Metric hooks</span><span class="pg">08</span></div>
+</section>
+
+<!-- 9 SUCCESS -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="circ" style="width:2.6in;height:2.6in;background:#fff4f6;right:-0.7in;top:-0.8in;"></div>
+  <div class="pad">
+    <p class="kicker">Success</p>
+    <div class="rule"></div>
+    <h1>A finished decision is a win. A coupon tap is not.</h1>
+    <div class="card ink" style="margin-bottom:0.12in;padding:0.16in 0.2in;">
+      <p class="tag">North star · W2P 30d</p>
+      <p>Buyers of ≥1 wishlist item in 30 days ÷ savers. The brief. Demo cart/purchase flags are proxies.</p>
+    </div>
+    <div class="grid2">
+      <div class="card" style="border-left:8px solid #ff3f6c;">
+        <p class="label">Primary · Decide</p>
+        <p>Shortlist-to-decision: bought or deliberately dropped in 30d ÷ saves.</p>
+      </div>
+      <div class="card" style="border-left:8px solid #282c3f;">
+        <p class="label">Secondary · Resolve</p>
+        <p>Uncertainty resolution: doubt-cleared items ÷ items with a recorded doubt.</p>
+      </div>
+      <div class="card">
+        <p class="label">Leading</p>
+        <p>Wishlist reopen. Coach opened or keep-one completed ÷ eligible shortlists.</p>
+      </div>
+      <div class="card wash">
+        <p class="label">Guardrails</p>
+        <p>Coupon clicks ≠ success. Return rate must not rise. Time-to-bag must not worsen.</p>
+      </div>
+    </div>
+    <p style="margin-top:0.12in;"><b>Kill if</b> follow-up talks hold price constant and price still dominates in segment.</p>
+  </div>
+  <div class="foot"><span>Removals count as a completed decision</span><span class="pg">09</span></div>
+</section>
+
+<!-- 10 RISKS -->
+<section class="slide">
+  <div class="topbar"></div>
+  <div class="circ" style="width:3in;height:3in;background:#fff4f6;right:-0.9in;top:-0.9in;"></div>
+  <div class="pad">
+    <p class="kicker">Risks and mitigation</p>
+    <div class="rule"></div>
+    <h1>Thin segment. Still-binding price. Fake certainty.</h1>
+    <div class="grid2" style="grid-template-columns:1.15fr 0.85fr;">
+      <div>
+        <div class="card" style="margin-bottom:0.1in;">
+          <p class="label">In-segment n = 2</p>
+          <p>Both asked for a discount on Q12. Label it. Recruit stallers. Ask Q3/Q4 with price frozen.</p>
+        </div>
+        <div class="card pink" style="margin-bottom:0.1in;">
+          <p class="label">If price is actually binding</p>
+          <p>The constraint conflict is terminal. The tree already says <b>stop</b> — not coupon.</p>
+        </div>
+        <div class="card">
+          <p class="label">LLM gaps · app-store noise · oracle framing</p>
+          <p>3 extract batches failed. Quotes must match text. Drop delivery reviews. Q14 mean 2.89 — coach asks three questions, not a winner.</p>
+        </div>
+      </div>
+      <div class="card ink" style="padding:0.24in 0.2in;">
+        <p class="pill" style="background:#ff3f6c;color:#fff;">Next</p>
+        <p class="label" style="font-size:20pt;margin-top:0.16in;">Hold price constant</p>
+        <p style="color:#d4d5d9;margin-top:0.1in;">A handful of moderated stalls. If price still wins, stop. If a verdict still wins, keep the room and the coach.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Decision tree is executable — incentiveMvpAllowed is false</span><span class="pg">10</span></div>
+</section>
+
+</body>
+</html>
