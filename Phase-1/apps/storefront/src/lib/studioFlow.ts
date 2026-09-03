@@ -1,3 +1,5 @@
+import { pairForAskCoach } from "./coachComparePair";
+
 export const STUDIO_PATH = "/studio";
 
 /** Shopper path on the slides: save → hang two → keep one → see the bet. */
@@ -34,10 +36,9 @@ export const STUDIO_FLOW = [
 
 export type StudioFlowId = (typeof STUDIO_FLOW)[number]["id"];
 
-/** Two surfaces a reviewer actually uses, plus the in-app coach on the same storefront. */
+/** Shopper MVP is one surface. Evidence stays on its own tab. */
 export const STUDIO_TABS = [
-  { id: "room", label: "The room" },
-  { id: "coach", label: "The coach" },
+  { id: "room", label: "The studio" },
   { id: "why", label: "Why this room" }
 ] as const;
 
@@ -53,8 +54,8 @@ export const EVIDENCE_SECTIONS = [
 export type EvidenceSectionId = (typeof EVIDENCE_SECTIONS)[number]["id"];
 
 export const STUDIO_VIEWS = [
-  { id: "room", label: "The room", flow: "hang" },
-  { id: "coach", label: "The coach", flow: "keep" },
+  { id: "room", label: "The studio", flow: "hang" },
+  { id: "coach", label: "The studio", flow: "keep" },
   { id: "why", label: "Why this room", flow: "bet" },
   { id: "bet", label: "The bet", flow: "bet" },
   { id: "listen", label: "Live voices", flow: "bet" },
@@ -70,9 +71,8 @@ export function isStudioView(value: string | null): value is StudioViewId {
   return STUDIO_VIEWS.some((view) => view.id === value);
 }
 
-export function studioSurface(view: string | null): "room" | "why" | "coach" {
-  if (!view || view === "room") return "room";
-  if (view === "coach") return "coach";
+export function studioSurface(view: string | null): "room" | "why" {
+  if (!view || view === "room" || view === "coach") return "room";
   return "why";
 }
 
@@ -82,7 +82,8 @@ export const STUDIO_SAVE_ID = "studio-save";
 export const STUDIO_ROOM_ID = "studio-room";
 export const STUDIO_ENTRY = "/studio?view=room";
 export const STUDIO_WHY = "/studio?view=why";
-export const STUDIO_COACH = "/studio?view=coach";
+/** Old coach-tab URL. Lands on the same room, at keep / ask-the-coach. */
+export const STUDIO_COACH = "/studio?view=room&step=keep";
 export const COACH_ORIGIN =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_COACH_URL) || "http://localhost:3100";
 
@@ -123,10 +124,25 @@ export function isCoachBagMessage(data: unknown): data is CoachBagMessage {
 }
 
 export function studioCoach(userId?: string | null, pair?: readonly string[] | null): string {
-  const params = new URLSearchParams({ view: "coach" });
+  const params = new URLSearchParams({ view: "room", step: pair && pair.length >= 2 ? "keep" : "hang" });
   if (userId) params.set("user", userId);
-  if (pair && pair.length >= 2) params.set("pair", pair.slice(0, 3).join(","));
+  if (pair && pair.length >= 2) {
+    params.set("pair", pair.slice(0, 2).join(","));
+    params.set("item", pair[0]!);
+  }
   return `${STUDIO_PATH}?${params.toString()}`;
+}
+
+/** Deep-link into the room coach with this listing vs a similar one. */
+export function studioAskCoach(
+  id: string,
+  cluster: string,
+  pool: Array<{ id: string; cluster: string; gender?: string }>,
+  current: string[] = []
+): string | null {
+  const next = pairForAskCoach(id, cluster, current, pool);
+  if (next.selected.length < 2) return null;
+  return studioCoach(null, next.selected);
 }
 
 export function coachEmbedSrc(userId?: string | null, pair?: readonly string[] | null): string {
@@ -138,7 +154,7 @@ export function coachEmbedSrc(userId?: string | null, pair?: readonly string[] |
 
 export function studioPanelId(view: StudioViewId | EvidenceSectionId): string {
   if (view === "room") return STUDIO_ROOM_ID;
-  if (view === "coach") return "studio-view-coach";
+  if (view === "coach") return STUDIO_KEEP_ID;
   if (view === "why" || view === "bet") return "studio-view-bet";
   return `studio-view-${view}`;
 }
@@ -158,9 +174,8 @@ export function studioRoom(
 }
 
 export function studioView(view: StudioViewId): string {
-  if (view === "room") return STUDIO_ENTRY;
+  if (view === "room" || view === "coach") return view === "coach" ? STUDIO_COACH : STUDIO_ENTRY;
   if (view === "why") return STUDIO_WHY;
-  if (view === "coach") return STUDIO_COACH;
   return `${STUDIO_PATH}?view=${view}`;
 }
 

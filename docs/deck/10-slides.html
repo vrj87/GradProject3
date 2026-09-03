@@ -13,7 +13,7 @@
       color: #2b1a22;
       font-family: Calibri, "Segoe UI", Arial, sans-serif;
       font-size: 14pt;
-      line-height: 1.22;
+      line-height: 1.2;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -26,21 +26,22 @@
       position: relative;
       overflow: hidden;
       background: #fdfcfa;
-      padding: 0.5in 0.36in 0.58in;
+      padding: 0.44in 0.3in 0.1in;
+      display: flex;
+      flex-direction: column;
+      gap: 0.07in;
     }
     .slide:last-child { page-break-after: auto; }
     .brand {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 0.34in;
+      flex: 0 0 0.3in;
+      margin: -0.44in -0.3in 0;
+      height: 0.3in;
       background: #282c3f;
       color: #fff;
       display: flex;
       align-items: center;
       gap: 0.1in;
-      padding: 0 0.55in 0 0.36in;
+      padding: 0 0.5in 0 0.3in;
       font-weight: 700;
       font-size: 14pt;
       letter-spacing: 0.02em;
@@ -58,45 +59,47 @@
     .slide::after {
       content: "";
       position: absolute;
-      top: 0.05in;
-      right: 0.16in;
-      width: 0.24in;
-      height: 0.24in;
+      top: 0.03in;
+      right: 0.14in;
+      width: 0.22in;
+      height: 0.22in;
       background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ff3f6c' d='M12 21s-6.7-4.35-9.33-8.1C.7 10.1.9 6.7 3.4 4.9 5.3 3.5 7.8 4 9.1 5.6L12 9l2.9-3.4C16.2 4 18.7 3.5 20.6 4.9c2.5 1.8 2.7 5.2.73 8-2.63 3.75-9.33 8.1-9.33 8.1z'/></svg>") center / contain no-repeat;
       z-index: 2;
     }
     h1 {
-      font-size: 21pt;
+      font-size: 20pt;
       font-weight: 700;
       color: #660033;
-      margin: 0 0 0.03in;
+      margin: 0.08in 0 0;
       line-height: 1.12;
-      max-width: 12.3in;
+      max-width: 12.4in;
+      flex: 0 0 auto;
     }
     .sub {
       color: #6e6a6a;
-      margin: 0 0 0.1in;
+      margin: 0;
       font-size: 14pt;
       font-style: italic;
+      flex: 0 0 auto;
     }
     .sec {
       font-weight: 700;
       color: #ff3f6c;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin: 0 0 0.05in;
+      margin: 0 0 0.04in;
     }
     .sec-m { color: #660033; }
     .sec-g { color: #2f6b45; }
-    .box, .dash, .fill-p, .fill-r, .fill-g, .fill-t, .fill-b {
+    .box, .dash, .fill-p, .fill-r, .fill-g, .fill-t, .fill-b, .dash-p, .dash-g, .dash-t {
       border-radius: 10px;
-      padding: 0.09in 0.11in;
+      padding: 0.08in 0.1in;
     }
     .box { background: #fff; border: 1.4px solid #f5c5d2; }
     .dash { border: 1.7px dashed #282c3f; background: #fff; }
-    .dash-p { border: 1.7px dashed #ff3f6c; background: #fff4f7; border-radius: 10px; padding: 0.09in 0.11in; }
-    .dash-g { border: 1.7px dashed #2f6b45; background: #eef7f1; border-radius: 10px; padding: 0.09in 0.11in; }
-    .dash-t { border: 1.7px dashed #c47a55; background: #fcf6ed; border-radius: 10px; padding: 0.09in 0.11in; }
+    .dash-p { border: 1.7px dashed #ff3f6c; background: #fff4f7; }
+    .dash-g { border: 1.7px dashed #2f6b45; background: #eef7f1; }
+    .dash-t { border: 1.7px dashed #c47a55; background: #fcf6ed; }
     .fill-p { background: #fff0f4; border: 1px solid #f5c5d2; }
     .fill-r { background: #fdecef; border: 1px solid #e8c4cf; }
     .fill-g { background: #eef7f1; border: 1px solid #b7d7c2; }
@@ -109,36 +112,47 @@
       color: #fff;
       font-weight: 700;
       text-align: left;
-      padding: 0.055in 0.1in;
+      padding: 0.045in 0.08in;
     }
-    td { padding: 0.05in 0.1in; vertical-align: top; }
+    td { padding: 0.04in 0.08in; vertical-align: top; }
     tr:nth-child(odd) td { background: #fff; }
     tr:nth-child(even) td { background: #fff0f4; }
     .risk { color: #660033; }
     .fix { color: #2f6b45; }
-    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.09in; }
-    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.1in; }
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1in; }
-    .grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.07in; }
+    .grid4, .grid3, .grid2, .grid5, .grid6 {
+      display: grid;
+      gap: 0.08in;
+      align-items: stretch;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    .grid4 { grid-template-columns: repeat(4, 1fr); }
+    .grid3 { grid-template-columns: repeat(3, 1fr); }
+    .grid2 { grid-template-columns: 1fr 1fr; }
+    .grid5 { grid-template-columns: repeat(5, 1fr); }
+    .grid6 { grid-template-columns: repeat(6, 1fr); }
     .split3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      height: 100%;
     }
     .split3 > div {
-      padding: 0 0.14in;
+      padding: 0 0.12in;
       border-right: 1px solid #e6d6c8;
     }
     .split3 > div:first-child { padding-left: 0; }
     .split3 > div:last-child { border-right: none; padding-right: 0; }
     .stat {
-      font-size: 26pt;
+      font-size: 22pt;
       font-weight: 700;
       color: #ff3f6c;
       line-height: 1;
-      margin: 0 0 0.04in;
+      margin: 0 0 0.03in;
     }
     .label { font-weight: 700; color: #660033; margin: 0 0 0.03in; }
-    p { margin: 0 0 0.05in; }
+    p { margin: 0 0 0.04in; }
+    p:last-child { margin-bottom: 0; }
     .badge {
       display: inline-block;
       background: #660033;
@@ -146,7 +160,7 @@
       font-weight: 700;
       font-size: 12pt;
       letter-spacing: 0.04em;
-      padding: 0.015in 0.07in;
+      padding: 0.01in 0.06in;
       border-radius: 3px;
       vertical-align: middle;
     }
@@ -154,14 +168,12 @@
     .badge-p { background: #ff3f6c; }
     .quote { font-style: italic; color: #ff3f6c; }
     .bar {
-      position: absolute;
-      left: 0.28in;
-      right: 0.28in;
-      bottom: 0.12in;
+      flex: 0 0 auto;
       border-radius: 8px;
-      padding: 0.07in 0.14in;
+      padding: 0.06in 0.12in;
       font-style: italic;
       font-weight: 700;
+      margin-top: auto;
     }
     .bar-p { background: #282c3f; color: #fff; }
     .bar-p a { color: #ffb3c6; }
@@ -169,8 +181,8 @@
     .bar-t { background: #fcf6ed; color: #660033; }
     .num {
       display: inline-flex;
-      width: 0.26in;
-      height: 0.26in;
+      width: 0.24in;
+      height: 0.24in;
       border-radius: 50%;
       background: #ff3f6c;
       color: #fff;
@@ -185,7 +197,7 @@
       grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
       align-items: stretch;
       gap: 0.06in;
-      margin-bottom: 0.1in;
+      flex: 0 0 auto;
     }
     .arrow {
       color: #ff3f6c;
@@ -193,13 +205,8 @@
       align-self: center;
       font-size: 16pt;
     }
-    .tiny { font-size: 14pt; }
-    .pills {
-      display: grid;
-      gap: 0.08in;
-    }
+    .pills { display: grid; gap: 0.07in; flex: 0 0 auto; }
     .pills-5 { grid-template-columns: repeat(5, 1fr); }
-    .pills-4 { grid-template-columns: repeat(4, 1fr); }
     .pill {
       text-align: center;
       background: #fff0f4;
@@ -211,21 +218,23 @@
     .pill.navy { background: #282c3f; color: #fff; border: none; }
     .pill.navy .stat { color: #fff; }
     .pill.drop { background: #fcf6ed; border-color: #ead9c2; }
-    .bars { display: flex; flex-direction: column; gap: 0.045in; }
+    .bars { display: flex; flex-direction: column; gap: 0.04in; }
     .barline {
       display: grid;
-      grid-template-columns: 1.7in 1fr 0.5in;
-      gap: 0.07in;
+      grid-template-columns: 1.75in 1fr 0.48in;
+      gap: 0.06in;
       align-items: center;
     }
     .barline .name { font-weight: 700; color: #282c3f; white-space: nowrap; }
-    .barline .track { height: 0.15in; background: #f3e6ea; border-radius: 3px; overflow: hidden; }
+    .barline .track { height: 0.14in; background: #f3e6ea; border-radius: 3px; overflow: hidden; }
     .barline .fill { height: 100%; background: #ff3f6c; border-radius: 3px; }
     .barline .fill.navy { background: #282c3f; }
     .barline .fill.flag { background: #660033; }
     .barline .fill.ok { background: #2f6b45; }
     .barline .n { font-weight: 700; color: #660033; text-align: right; white-space: nowrap; }
-    .caption { color: #6e6a6a; margin: 0 0 0.05in; }
+    .caption { color: #6e6a6a; margin: 0; }
+    .grow { flex: 1 1 auto; min-height: 0; }
+    .tight td, .tight th { padding: 0.035in 0.07in; }
   </style>
 </head>
 <body>
@@ -234,355 +243,359 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Saved items already show intent. Thirty-day conversion still fails without a coupon.</h1>
-  <p class="sub">Myntra · Growth PM · Wishlist-to-Purchase in 30 days · no monetary incentive as the core lever</p>
-  <div class="grid2" style="grid-template-columns:1.4fr 0.8fr;margin-bottom:0.12in;">
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Constraint</th><th>What it rules out</th></tr></thead>
-        <tbody>
-          <tr><td class="risk"><b>No coupons</b></td><td>A discount is not a product win</td></tr>
-          <tr><td class="risk"><b>No sale alerts</b></td><td>EOSS nags do not finish a judgement</td></tr>
-          <tr><td class="risk"><b>No price-drop nags</b></td><td>Waiting is not the 30-day strategy</td></tr>
-        </tbody>
-      </table>
+  <p class="sub">Myntra · Growth PM · north star is Wishlist-to-Purchase in 30 days · no monetary incentive as the core lever</p>
+  <div class="grid3" style="flex:0 0 auto;">
+    <div class="fill-b">
+      <p class="sec" style="color:#ffc1d0;">North star</p>
+      <p><b>W2P 30d</b> = users who buy ≥1 wishlisted item within 30 days of saving it ÷ users who saved ≥1 item.</p>
     </div>
-    <div class="fill-p">
-      <p class="sec">Why this first</p>
-      <p><b>A wishlist is explicit interest that stalls.</b> Discover why they wait — then finish the judgement. Do not pay for the buy.</p>
-      <p class="quote">North star: share of users who buy ≥1 wishlisted item within 30 days of saving it.</p>
+    <div class="fill-r">
+      <p class="sec sec-m">Constraint</p>
+      <p>No coupons, cashback, sale alerts, EOSS nags, or price-drop waits as the product. Paying for the buy is not a win.</p>
+    </div>
+    <div class="dash-p">
+      <p class="sec">The job</p>
+      <p>A wishlist is explicit interest that stalls. Discover <i>why</i>, then help them <b>finish a judgement</b> inside the list.</p>
     </div>
   </div>
-  <div class="dash" style="margin-top:0.06in;padding:0.12in 0.14in;">
-    <div class="split3">
-      <div>
-        <p class="sec sec-m">Problem statement</p>
-        <p>Intent is captured. A decision is not. The only in-app move on offer is a falling price.</p>
-      </div>
-      <div>
-        <p class="sec sec-m">Business outcome</p>
-        <p>W2P 30d rises through decision completion at full price — not through margin given away.</p>
-      </div>
-      <div>
-        <p class="sec sec-g">Product outcome</p>
-        <p>Shortlist-to-decision (buy or drop). Removals count. A coupon tap does not.</p>
-      </div>
+  <div class="grid2 grow">
+    <div class="dash">
+      <p class="label">What the shopper is missing (user value)</p>
+      <p><b>A defensible choice</b> — why this save, not the other two. <b>A defensible price</b> — whether the ask is fair for what it is. <b>Fewer open loops</b> — no YouTube detour before ordering. <b>Lower risk of being wrong</b> — fit and quality from other shoppers at the moment of doubt. Confidence is the mechanism; the felt benefit is <b>closure</b>.</p>
+    </div>
+    <div class="dash-g">
+      <p class="label" style="color:#2f6b45;">What the business gets if that is right</p>
+      <p>W2P 30d rises through <b>decision completion at full price</b>, not margin given away. Return-rate exposure falls where fit is resolved before try-and-buy. Demand can move out of sale weeks if waiting is a default caused by a missing judgement aid — not a demand for money.</p>
     </div>
   </div>
-  <div class="pills pills-5" style="margin-top:0.1in;">
-    <div class="pill navy"><p class="stat">895</p><p>reviews read</p></div>
-    <div class="pill"><p class="stat">150</p><p>kept on save/wait</p></div>
-    <div class="pill"><p class="stat">12</p><p>patterns scored</p></div>
-    <div class="pill"><p class="stat">9</p><p>questionnaire</p></div>
-    <div class="pill drop"><p class="stat">2/9</p><p>in-segment</p></div>
+  <div class="pills pills-5">
+    <div class="pill navy"><p class="stat">895</p><p>public reviews read</p></div>
+    <div class="pill"><p class="stat">150</p><p>kept on save / wait</p></div>
+    <div class="pill"><p class="stat">12</p><p>themes scored &amp; compared</p></div>
+    <div class="pill"><p class="stat">9</p><p>questionnaire answers</p></div>
+    <div class="pill drop"><p class="stat">2/9</p><p>in-segment stallers</p></div>
   </div>
-  <div class="bar bar-p">≫ A wishlist already shows intent. Next: what has to move for W2P 30d without paying for conversion. →</div>
+  <div class="bar bar-p">≫ Intent is already captured. Next: which product outcomes have to move for W2P 30d without paying for conversion. →</div>
 </section>
 
 <!-- 2 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>W2P 30d only moves if shoppers return, finish a judgement, then act</h1>
-  <p class="sub">W2P 30d = buyers of ≥1 wishlist item in 30 days ÷ users who saved ≥1 item.</p>
-  <div class="grid4" style="margin-bottom:0.1in;">
+  <p class="sub">Metric tree from the architecture: Discovery informs ranking. An MVP may only target Resolve and Decide — never a discount.</p>
+  <div class="grid4">
     <div class="box">
       <p><span class="num">1</span><b>Revisit</b></p>
-      <p>Open the wishlist within 30 days. If they never return, nothing converts.</p>
-      <p class="tiny" style="color:#6e6a6a;"><i>Necessary. Not the bet.</i></p>
+      <p><b>Definition:</b> open the wishlist within 30 days of a save.</p>
+      <p><b>Rationale:</b> if they never return, nothing converts. Necessary. Not the bet.</p>
     </div>
     <div class="box">
       <p><span class="num">2</span><b>Resolve · secondary</b></p>
-      <p>Fit, quality, look. Real — and not the decider after research.</p>
-      <p class="tiny" style="color:#ff3f6c;"><i>Ships with Decide.</i></p>
+      <p><b>Definition:</b> blocking doubt (fit, quality, look) is gone.</p>
+      <p><b>Rationale:</b> scrape ranked it #1; research keeps it real and not the decider. Ships with Decide.</p>
     </div>
     <div class="dash-p">
-      <p><span class="num">3</span><b>Decide · primary</b> <span class="badge-g badge">Chosen node</span></p>
-      <p>Buy or deliberately drop among 2+ similar saves. Removals count.</p>
+      <p><span class="num">3</span><b>Decide · primary</b> <span class="badge-g badge">Lock</span></p>
+      <p><b>Definition:</b> among ≥2 similar saves, buy <b>or</b> deliberately drop in 30 days.</p>
+      <p><b>Rationale:</b> comparison is the only lever confirmed three independent ways. Removals count as success.</p>
     </div>
     <div class="box">
       <p><span class="num">4</span><b>Act</b></p>
-      <p>Bag / checkout. A coupon tap does not count as a win.</p>
-      <p class="tiny" style="color:#6e6a6a;"><i>Last step, not the lever.</i></p>
+      <p><b>Definition:</b> wishlist item → bag / checkout in 30 days.</p>
+      <p><b>Rationale:</b> last step. A coupon tap is not this metric and is not a win.</p>
     </div>
   </div>
-  <div class="fill-t" style="margin-bottom:0.08in;">
-    <p>Price-waiting is <b>ranked</b> so we do not pretend it is rare. It is <b>set aside</b> because the brief forbids paying for conversion. An MVP may only target Resolve and Decide.</p>
-  </div>
-  <div class="grid2">
+  <div class="grid2" style="flex:0.85;">
     <div class="fill-p">
-      <p class="label">What they already do (Q11, n = 9)</p>
-      <div class="bars">
-        <div class="barline"><span class="name">Read reviews</span><div class="track"><div class="fill" style="width:89%"></div></div><span class="n">8/9</span></div>
-        <div class="barline"><span class="name">In-app compare</span><div class="track"><div class="fill navy" style="width:67%"></div></div><span class="n">6/9</span></div>
-        <div class="barline"><span class="name">Wait for a sale</span><div class="track"><div class="fill flag" style="width:22%"></div></div><span class="n">2/9</span></div>
-      </div>
+      <p class="label">Why Decide outranks Resolve in the lock</p>
+      <p>Counting respondents once per node: Decide <b>8/9</b>, Resolve <b>7/9</b>. The margin is one person — so Resolve still ships. The case for Decide-first is the unlock-versus-help evidence, not that share alone.</p>
+      <p>Sale-watchers (S3) stay a <b>control</b>, not the audience. Segment is S4-led (compare) with S2 (fit) secondary.</p>
     </div>
-    <div class="dash">
-      <p class="label">Signal for the tree</p>
-      <p>Research is the default ritual. Waiting is the minority act. Rank sale-wait; do not build it. Target Resolve and Decide.</p>
+    <div class="fill-t">
+      <p class="label">Price-waiting is ranked — then set aside</p>
+      <p>The scrape put sale-wait at rank <b>2 / 0.83</b> and sale-waitlist at rank <b>12 / 0.39</b>, both price-flagged. They are counted so we do not pretend waiting is rare. They are excluded from the MVP because the brief forbids paying for conversion.</p>
     </div>
   </div>
-  <div class="bar bar-l">Revisit × Resolve × Decide × Act — Discovery informs ranking; the MVP never targets a discount.</div>
+  <div class="bar bar-l">W2P 30d ← Revisit × Resolve × Decide → Act. Discovery ranks; the product only builds the non-monetary nodes.</div>
 </section>
 
 <!-- 3 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Public shopper voice becomes ranked opportunities, not a sentiment chart</h1>
-  <p class="sub">Discovery engine · 1-slider. Sentiment-only output fails Part 1.</p>
-  <div class="fill-p" style="margin-bottom:0.1in;">
-    <p><b>Why this engine:</b> live public voice, quote-grounded themes, scored without paying for conversion. Empty cells stay empty. No invented lines.</p>
-  </div>
-  <div class="grid5" style="margin-bottom:0.1in;">
+  <p class="sub">Part 1 — 1-slider. Quote-grounded themes, scored, compared. Sentiment-only output fails the brief. Empty cells stay empty.</p>
+  <div class="grid5" style="flex:0.72;">
     <div class="fill-b">
       <p class="label" style="color:#fff;">1 Collect</p>
-      <p>App Store, Play Store, Reddit, YouTube, forums — saving and waiting.</p>
+      <p>App Store RSS, Play Store, Reddit, YouTube, forums, Myntra reviews — saving, fit, compare, wait.</p>
     </div>
     <div class="dash">
       <p class="label">2 Keep</p>
-      <p>Drop short 503 · off-topic 239 · dupes 3. Keep save, fit, compare, wait.</p>
+      <p>Drop &lt;8 words, off-topic, SHA-256 dupes. Keyword gate: wishlist, size, return, sale, compare, occasion.</p>
     </div>
     <div class="dash">
       <p class="label">3 Group</p>
-      <p>Quote-grounded themes. ≥2 quotes. Map to Q1–Q10. No invented lines.</p>
+      <p>≥2 quotes per theme, map to Q1–Q10, tag metric node (revisit / resolve / decide / act). No invented lines.</p>
     </div>
     <div class="dash">
       <p class="label">4 Score</p>
-      <p>0.4 impact + 0.4 feasibility + 0.2 frequency. Empty stays empty.</p>
+      <p>0.4 × impact + 0.4 × non-monetary feasibility + 0.2 × frequency. high = 1 · medium = 0.6 · low = 0.3.</p>
     </div>
     <div class="box" style="background:#660033;color:#fff;border:none;">
       <p class="label" style="color:#fff;">5 Gate</p>
-      <p>Price-flagged rows ranked, then excluded. Lock only after research.</p>
+      <p>Price-flagged rows ranked, then excluded from the bet. No product lock until primary research.</p>
     </div>
   </div>
-  <div class="grid2" style="margin-bottom:0.08in;">
+  <div class="grid2 grow">
     <div class="fill-t">
-      <p class="label">Funnel (labelled counts)</p>
+      <p class="label">Funnel (pipeline-stats — labelled, not hidden)</p>
       <div class="bars">
         <div class="barline"><span class="name">Read</span><div class="track"><div class="fill navy" style="width:100%"></div></div><span class="n">895</span></div>
         <div class="barline"><span class="name">Too short</span><div class="track"><div class="fill flag" style="width:56%"></div></div><span class="n">503</span></div>
         <div class="barline"><span class="name">Off-topic</span><div class="track"><div class="fill flag" style="width:27%"></div></div><span class="n">239</span></div>
+        <div class="barline"><span class="name">Dupes</span><div class="track"><div class="fill flag" style="width:1%"></div></div><span class="n">3</span></div>
         <div class="barline"><span class="name">Kept</span><div class="track"><div class="fill ok" style="width:17%"></div></div><span class="n">150</span></div>
       </div>
     </div>
-    <div class="fill-p">
-      <p class="label">Sources in the 895</p>
-      <p>App Store <b>568</b> · Play Store <b>303</b> · Reddit 10 · YouTube 3 · forum 3 · Myntra review 2 · other 6. Hybrid extract: 3 LLM batches failed; 7 themes gap-filled.</p>
-      <p>high = 1 · medium = 0.6 · low = 0.3 · <a href="http://localhost:3000/studio?view=stories">live voices</a> · <a href="http://localhost:3000/studio?view=focus">focus</a></p>
+    <div class="dash">
+      <p class="label">How a reviewer tests this (and what we will not hide)</p>
+      <p>Sources in the 895: App Store <b>568</b> · Play Store <b>303</b> · Reddit 10 · YouTube 3 · forum 3 · Myntra review 2 · other 6. Method: <b>hybrid</b> — 3 LLM batches failed, 7 themes gap-filled. <b>readyForPhase2: true</b> with 12 validated themes, 0 rejected, Q1–Q10 covered.</p>
+      <p>Validation: every quote must resolve to a review id; &lt;2 quotes rejects the theme; high confidence needs ≥2 sources. Test after <b>npm run dev</b>: <a href="http://localhost:3000/studio?view=stories">live voices</a> · <a href="http://localhost:3000/studio?view=questions">Q1–Q10</a> · <a href="http://localhost:3000/studio?view=focus">what to focus on</a></p>
     </div>
   </div>
-  <div class="bar bar-p">≫ Test the workflow in Studio after npm run dev. Next: what the scrape actually ranked. →</div>
+  <div class="bar bar-p">≫ Engine output is a comparable ranking, not a mood. Next: what the scrape actually ranked — including the price rows we will not build. →</div>
 </section>
 
 <!-- 4 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Fit ranked first. Sale-wait is #2 — and we still will not use it.</h1>
-  <p class="sub">895 reviews read · 150 about saving or waiting · 12 patterns compared · readyForPhase2</p>
-  <div class="grid3" style="margin-bottom:0.1in;">
+  <p class="sub">895 → 150 → 12 compared. Phase 2 nominated FitSizeAnxiety → resolve. That is a nomination, not the lock.</p>
+  <div class="grid3" style="flex:0.55;">
     <div class="fill-b">
       <p class="sec" style="color:#ffc1d0;">Rank 01 · Nominated</p>
-      <p class="stat" style="color:#fff;font-size:32pt;">0.87</p>
-      <p class="label" style="color:#fff;font-size:16pt;">Fit and size</p>
-      <p>~37% of kept comments. Nominated. <b>Not locked.</b></p>
+      <p class="stat" style="color:#fff;">0.87</p>
+      <p><b>Fit and size</b> · resolve · ~37% of kept comments. High impact, high feasibility. <b>Not locked.</b></p>
     </div>
-    <div class="dash fill-r">
-      <p class="sec">Rank 02 · <span class="badge">Price-flagged</span></p>
-      <p class="stat" style="color:#660033;font-size:32pt;">0.83</p>
-      <p class="label" style="font-size:16pt;">Waiting for a sale</p>
-      <p>Counted. <b>Not the MVP.</b></p>
+    <div class="fill-r">
+      <p class="sec sec-m">Rank 02 · <span class="badge">Price-flagged</span></p>
+      <p class="stat" style="color:#660033;">0.83</p>
+      <p><b>Waiting for a sale</b> · decide node, but monetary. Counted so waiting is not hidden. <b>Not the MVP.</b></p>
     </div>
     <div class="dash-p">
       <p class="sec">Rank 03 · <span class="badge-g badge">Research kept</span></p>
-      <p class="stat" style="font-size:32pt;">0.82</p>
-      <p class="label" style="font-size:16pt;">Choosing between saves</p>
-      <p>Decide-side partner. Primary after lock.</p>
+      <p class="stat">0.82</p>
+      <p><b>Choosing between saves</b> · decide. Decide-side partner. Becomes primary after the lock.</p>
     </div>
   </div>
-  <div class="grid2">
-    <div>
-      <p class="label">Score bars · 0.4 impact + 0.4 feasibility + 0.2 frequency</p>
-      <div class="bars">
-        <div class="barline"><span class="name">1 Fit / size</span><div class="track"><div class="fill navy" style="width:100%"></div></div><span class="n">0.87</span></div>
-        <div class="barline"><span class="name">2 Sale-wait</span><div class="track"><div class="fill flag" style="width:95%"></div></div><span class="n">0.83</span></div>
-        <div class="barline"><span class="name">3 Compare saves</span><div class="track"><div class="fill" style="width:94%"></div></div><span class="n">0.82</span></div>
-        <div class="barline"><span class="name">4 Style doubt</span><div class="track"><div class="fill" style="width:94%"></div></div><span class="n">0.82</span></div>
-        <div class="barline"><span class="name">7 Return fear</span><div class="track"><div class="fill ok" style="width:82%"></div></div><span class="n">0.72</span></div>
-        <div class="barline"><span class="name">12 Sale-waitlist</span><div class="track"><div class="fill flag" style="width:45%"></div></div><span class="n">0.39</span></div>
-      </div>
+  <div class="grid2 grow">
+    <div class="tbl">
+      <table class="tight">
+        <thead><tr><th>#</th><th>Opportunity</th><th>Score</th><th>Node</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Fit / size</td><td>0.87</td><td>Resolve</td><td>Nominated</td></tr>
+          <tr><td>2</td><td>Sale-wait</td><td>0.83</td><td>Decide</td><td class="risk">Price-flagged</td></tr>
+          <tr><td>3</td><td>Compare saves</td><td>0.82</td><td>Decide</td><td>Kept</td></tr>
+          <tr><td>4</td><td>Style doubt</td><td>0.82</td><td>Decide</td><td></td></tr>
+          <tr><td>5</td><td>Compare difficulty</td><td>0.82</td><td>Decide</td><td></td></tr>
+          <tr><td>6</td><td>Occasion / styling</td><td>0.82</td><td>Resolve</td><td></td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="dash-t">
-      <p class="label">What the scrape also said</p>
-      <p>Ranks 4–6 sit at 0.82 (style, compare-difficulty, occasion). Return fear is 0.72 at ~38% of kept comments — resolve-side, not the lock. Two price-flagged rows (#2 and #12). Ranking: <a href="http://localhost:3000/studio?view=focus">studio?view=focus</a></p>
+    <div class="tbl">
+      <table class="tight">
+        <thead><tr><th>#</th><th>Opportunity</th><th>Score</th><th>Node</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>7</td><td>Return fear</td><td>0.72</td><td>Resolve</td><td>~38% of kept comments</td></tr>
+          <tr><td>8</td><td>Wishlist decay</td><td>0.65</td><td>Revisit</td><td>Confirmed later</td></tr>
+          <tr><td>9</td><td>Review trust gap</td><td>0.65</td><td>Resolve</td><td>Confirmed later</td></tr>
+          <tr><td>10</td><td>Bookmark vs intent</td><td>0.49</td><td>Revisit</td><td></td></tr>
+          <tr><td>11</td><td>Social validation</td><td>0.49</td><td>Resolve</td><td></td></tr>
+          <tr><td>12</td><td>Sale-waitlist</td><td>0.39</td><td>Revisit</td><td class="risk">Price-flagged</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="bar bar-t">Price-flagged is labelled — colour is not the only signal. Next: what shoppers said when asked. →</div>
+  <div class="bar bar-t">Two price-flagged rows (#2 and #12) are labelled — colour is not the only signal. Ranking: <a href="http://localhost:3000/studio?view=focus">studio?view=focus</a>. Next: what shoppers said when asked. →</div>
 </section>
 
 <!-- 5 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Shoppers say price. Asked for help, they want a verdict — not a coupon.</h1>
-  <p class="sub">Primary research · questionnaire n = 9 · 28–31 Aug 2026 — not 5–6 live interviews</p>
-  <div class="grid4" style="margin-bottom:0.09in;">
-    <div class="fill-r" style="text-align:center;"><p class="stat" style="color:#660033;">5/9</p><p>price-shaped main reason</p></div>
-    <div class="fill-p" style="text-align:center;"><p class="stat">0/9</p><p>fit as the <i>main</i> reason</p></div>
-    <div class="fill-g" style="text-align:center;"><p class="stat" style="color:#2f6b45;">8/9</p><p>read reviews before buying</p></div>
-    <div class="fill-t" style="text-align:center;"><p class="stat" style="color:#660033;">2/9</p><p>actually wait for a sale</p></div>
+  <p class="sub">Part 3 · structured questionnaire n = 9 · 28–31 Aug 2026 — not 5–6 live interviews. Closed options, so counts not sentences. No invented quotes.</p>
+  <div class="grid2" style="flex:0 0 auto; grid-template-columns:1.15fr 0.85fr;">
+    <div class="tbl">
+      <table class="tight">
+        <thead><tr><th>Who answered</th><th>Count</th></tr></thead>
+        <tbody>
+          <tr><td>Myntra among platforms (Q1)</td><td>7/9</td></tr>
+          <tr><td>Uses a wishlist (Q3)</td><td>6/9</td></tr>
+          <tr><td>Holds only 1–5 saves (Q4)</td><td>6/9 — clutter challenged</td></tr>
+          <tr><td>Has an unbought save (Q6)</td><td>9/9</td></tr>
+          <tr><td>Strict stalled shortlister (target 5)</td><td class="risk">2/9 — R03, R07</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fill-p">
+      <p class="label">Load-bearing switch</p>
+      <p>Q12 unlock: discount <b>4</b> vs information <b>5</b>. Q13 has <b>no discount option</b>. All four discount-seekers (R01, R03, R05, R07) asked for information — three for “is this price good?”, R05 for compare. Both in-segment stallers are in that four.</p>
+    </div>
   </div>
-  <div class="grid2" style="margin-bottom:0.08in;">
+  <div class="grid2 grow">
     <div>
-      <p class="label">Before they buy a save (Q11)</p>
+      <p class="label">What they do before buying a save (Q11) — behaviour, not slogan</p>
       <div class="bars">
-        <div class="barline"><span class="name">Reviews</span><div class="track"><div class="fill" style="width:89%"></div></div><span class="n">8/9</span></div>
+        <div class="barline"><span class="name">Read reviews</span><div class="track"><div class="fill" style="width:89%"></div></div><span class="n">8/9</span></div>
         <div class="barline"><span class="name">Customer photos</span><div class="track"><div class="fill" style="width:78%"></div></div><span class="n">7/9</span></div>
         <div class="barline"><span class="name">In-app compare</span><div class="track"><div class="fill navy" style="width:67%"></div></div><span class="n">6/9</span></div>
-        <div class="barline"><span class="name">Fit reviews</span><div class="track"><div class="fill navy" style="width:56%"></div></div><span class="n">5/9</span></div>
+        <div class="barline"><span class="name">Size / fit reviews</span><div class="track"><div class="fill navy" style="width:56%"></div></div><span class="n">5/9</span></div>
         <div class="barline"><span class="name">Wait for a sale</span><div class="track"><div class="fill flag" style="width:22%"></div></div><span class="n">2/9</span></div>
       </div>
+      <p class="caption" style="margin-top:0.05in;">Q8 main unbought reason: price-shaped 5/9 · fit as the <i>main</i> reason 0/9. Q9 confidence mean 2.89. Q14 “AI picks winners” mean 2.89 — framing dropped.</p>
     </div>
     <div>
-      <p class="label">Help requested (Q13 — no discount option)</p>
+      <p class="label">Help requested (Q13) vs how discovery fared</p>
       <div class="bars">
         <div class="barline"><span class="name">Price good?</span><div class="track"><div class="fill" style="width:44%"></div></div><span class="n">4/9</span></div>
-        <div class="barline"><span class="name">Best of saves</span><div class="track"><div class="fill navy" style="width:22%"></div></div><span class="n">2/9</span></div>
+        <div class="barline"><span class="name">Best of my saves</span><div class="track"><div class="fill navy" style="width:22%"></div></div><span class="n">2/9</span></div>
         <div class="barline"><span class="name">Alternatives</span><div class="track"><div class="fill navy" style="width:11%"></div></div><span class="n">1/9</span></div>
         <div class="barline"><span class="name">Quality / reviews</span><div class="track"><div class="fill ok" style="width:22%"></div></div><span class="n">2/9</span></div>
       </div>
-      <p class="caption" style="margin-top:0.06in;">Q12: information 5 vs discount 4. Q10 top uncertainty: price/value 7/9. Q14 mean 2.89.</p>
+      <p style="margin-top:0.06in;"><b>Confirmed:</b> decay, low confidence, comparison (save 4/9 · Q11 6/9 · help 3/9), review-reliance. <b>Challenged:</b> fit as #1; clutter; sale-wait as a fringe. <b>New:</b> “is this price fair?” — unbuilt, non-monetary. Price was never held constant.</p>
     </div>
   </div>
-  <div class="grid2">
-    <div class="dash">
-      <p class="label">Load-bearing switch</p>
-      <p>Q12: discount 4 vs information 5. Q13: “is this price good?” 4/9; pick among saves 2/9. <b>All four discount-seekers switched to information</b> — including both in-segment respondents.</p>
-    </div>
-    <div class="dash-t">
-      <p class="label">Caveat, labelled</p>
-      <p>2 of 9 match the stalled shortlister (target 5). Price was not held constant. Closed-option form — no invented quotes. Myntra 7/9.</p>
-    </div>
-  </div>
-  <p style="margin-top:0.07in;"><a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">Open the form</a> · <a href="http://localhost:3000/survey">/survey</a></p>
-  <div class="bar bar-l">Problem proven in behaviour, not in a coupon request. Next: lock the problem. →</div>
+  <div class="bar bar-l"><a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">Open the form</a> · <a href="http://localhost:3000/survey">/survey</a> · Problem proven in behaviour, not in a coupon request. Next: lock the problem. →</div>
 </section>
 
 <!-- 6 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>The stalled shortlister cannot finish a judgement inside the wishlist.</h1>
-  <p class="sub">Locked problem · stalled shortlister · no monetary incentive</p>
-  <div class="fill-p" style="margin-bottom:0.1in;">
-    <p>Neither <i>which of these</i> nor <i>is it worth what it costs</i>. The only tool the app offers is a falling price. Intent parks on a sale that may never arrive in 30 days.</p>
+  <p class="sub">Part 4 lock · generated from artefacts, not typed by hand · incentiveMvpAllowed = false</p>
+  <div class="fill-p" style="flex:0 0 auto;">
+    <p>A wishlist captures interest but offers no way to finish a judgement — neither <i>which of these is right for me</i> nor <i>is this worth what it costs</i>. The only decision tool the app offers is a falling price, so intent parks on a sale that may never arrive in 30 days.</p>
     <p class="quote">Price is the symptom of a missing judgement aid — not a demand for money.</p>
   </div>
-  <div class="grid4" style="margin-bottom:0.1in;">
+  <div class="grid4" style="flex:0.9;">
     <div class="dash">
-      <p class="label">1. Segment</p>
-      <p>Saves, returns, leaves without deciding. Sale-watchers are a control, not the audience.</p>
+      <p class="label">Segment</p>
+      <p><b>Stalled Shortlister.</b> Saves, returns, leaves without deciding. Eligibility: ≥2 saves in 30 days, ≤1 purchased, ≥2 of the same kind. Floors lowered from 3 because 6/9 hold only 1–5 saves. Sale-watchers are a control, not the audience. In-segment n = 2 — labelled.</p>
     </div>
     <div class="dash-p">
-      <p class="label" style="color:#ff3f6c;">2. Primary</p>
-      <p>Shortlist-to-decision. Buy or drop. Removals count as success.</p>
+      <p class="label" style="color:#ff3f6c;">Primary · Decide</p>
+      <p>Shortlist-to-decision rate: bought <b>or</b> deliberately dropped in 30 days. Removals are a success, not a leak. A metric that only rewards purchases would push pressure tactics — the same failure as a discount.</p>
     </div>
     <div class="dash">
-      <p class="label">3. Secondary</p>
-      <p>Uncertainty resolution — fit / quality from other shoppers. Ships with Decide.</p>
+      <p class="label">Secondary · Resolve</p>
+      <p>Uncertainty resolution: fit / quality from other shoppers at the moment of doubt. Must ship with Decide. Return fear was 38% of kept comments — resolve-side, not the lock.</p>
     </div>
     <div class="dash fill-r">
-      <p class="label">4. Falsify</p>
-      <p>Hold price constant. If it still wins in segment — <b>stop. Do not ship a coupon.</b></p>
+      <p class="label">Required · still unbuilt</p>
+      <p><b>Value confidence:</b> “is this a fair price, and should I decide now?” using non-monetary signals only. Largest evidenced gap. Forbidden: coupons, price-drop alerts, EOSS, urgency.</p>
     </div>
   </div>
-  <div class="fill-t" style="margin-bottom:0.08in;">
-    <p>W2P → revisit / resolve / decide / act → scrape (fit #1) → questionnaire (decide + value confidence) → lock. Tree: proceed, re-scoped — without an incentive.</p>
-  </div>
-  <div class="grid2">
+  <div class="grid2" style="flex:0.75;">
     <div class="dash-g">
-      <p class="label" style="color:#2f6b45;">Confirmed in the 9</p>
-      <p>9/9 have an unbought save. Compare shows up three ways (save 4/9 · Q11 6/9 · help 3/9). Reviews 8/9. Confidence mean 2.89.</p>
+      <p class="label" style="color:#2f6b45;">Decision tree — proceed, re-scoped, no incentive</p>
+      <p><b>Price-dominant</b> fired in its non-terminal form: 2/2 in-segment named a discount, price never held constant, but all four discount-seekers still research or compare. <b>Fork</b> also fired: Decide outranks Resolve, so Phase 5 is decision-first. Clean “proceed as specified” did <b>not</b> fire.</p>
     </div>
-    <div class="dash fill-r">
-      <p class="label">Challenged in the 9</p>
-      <p>Clutter: 6/9 hold only 1–5 saves. Fit as #1 barrier: 0/9 name it as the main unbought reason. Sale-wait is widespread in Q7 (6/9) but only 2/9 act on it.</p>
+    <div class="dash-t">
+      <p class="label">How to falsify this lock</p>
+      <p>Hold price constant (brief Q3/Q4 as written). If price still dominates in segment — <b>stop. Do not ship a coupon.</b> Also falsified if stallers name fit as the unlock more often than comparison, or if a fair-price explanation is ignored while discounts still convert.</p>
     </div>
   </div>
-  <div class="bar bar-p">≫ Decide first · Resolve second · never an incentive. Next: the room and the coach. →</div>
+  <div class="bar bar-p">≫ Decide first · Resolve second · value confidence required · never an incentive. Next: the room and the coach. →</div>
 </section>
 
 <!-- 7 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
-  <h1>Studio finishes the call with a room and a coach — never a coupon</h1>
-  <p class="sub">Four solutions on the shopper path. Recs + discount rejected. Q14 does not support “AI picks winners” (mean 2.89).</p>
-  <div class="grid3" style="margin-bottom:0.1in;">
+  <h1>One Studio tab finishes the call — hang, name the doubt, ask the coach</h1>
+  <p class="sub">Part 5 · decision-first. Room and coach are one shopper path. Q14 mean 2.89 drops “AI picks winners”. Worth is cost-per-wear — a proxy, not a market-price oracle.</p>
+  <div class="grid3" style="flex:0.55;">
     <div class="dash-t">
       <p><span class="badge">Rejected</span></p>
       <p class="label">Recs + discount</p>
-      <p>Paying for the buy is forbidden. A recommendation feed plus a coupon is not a judgement aid.</p>
+      <p>Paying for the buy is forbidden. A feed plus a coupon is not a judgement aid and trains EOSS waiting.</p>
     </div>
     <div class="dash-t">
       <p><span class="badge">Rejected</span></p>
       <p class="label">Sale alerts / EOSS nags</p>
-      <p>Price-drop waiting is ranked #2 so we do not hide it — and still will not ship it.</p>
+      <p>Price-drop waiting is rank 2 so we do not hide it — and still will not ship it. Sale-watchers get no coach entry.</p>
     </div>
     <div class="dash-t">
       <p><span class="badge">Rejected</span></p>
       <p class="label">AI that picks winners</p>
-      <p>Q14 mean 2.89. The coach asks three questions. It does not name a winner.</p>
+      <p>Q14 mean 2.89, one flat zero. The coach asks three questions. It does not name a winner or add urgency.</p>
     </div>
   </div>
-  <div class="dash-g">
-    <p><span class="badge-g badge">Chosen</span> <b>Studio room + coach</b> — decision-first, fit secondary, worth as cost-per-wear.</p>
-    <div class="grid4" style="margin-top:0.08in;">
+  <div class="dash-g grow">
+    <p><span class="badge-g badge">Chosen</span> <b>The studio</b> — one tab on the Phase-1 storefront. Pick two of the same kind, hang them, name the doubt, then fit · wear · worth. Why this room stays a separate evidence tab.</p>
+    <div class="grid4" style="margin-top:0.08in; flex:1;">
       <div>
         <p><span class="num">1</span><b>Save similar</b></p>
-        <p>Two or more of the same kind. /wishlist</p>
+        <p>Two or more of the same kind. Matches the segment contract. <b>/wishlist</b></p>
       </div>
       <div>
-        <p><span class="num">2</span><b>Hang two</b></p>
-        <p>Same rack. Price off. /studio?view=room</p>
+        <p><span class="num">2</span><b>Pick two &amp; hang</b></p>
+        <p>Same kind, same gender, price off. One Studio tab — not a second coach screen. <b>/studio</b></p>
       </div>
       <div>
-        <p><span class="num">3</span><b>Keep one</b></p>
-        <p>Tap bust, length, or foot. Size from shopper notes.</p>
+        <p><span class="num">3</span><b>Name the doubt</b></p>
+        <p>Tap bust, length, or foot on the body. Size from shopper notes — confidence bands, not a guarantee.</p>
       </div>
       <div>
         <p><span class="num">4</span><b>Ask the coach</b></p>
-        <p>Fit · wear · worth. Groq may rephrase. Never a discount.</p>
+        <p>Still on that pair, same tab. <b>Fit</b> · <b>wear</b> · <b>worth</b> as cost per wear. Then keep one to bag. Never a discount.</p>
       </div>
     </div>
-    <p style="margin-top:0.06in;"><b>Why this:</b> comparison is confirmed three ways. Value confidence is the top requested help. Guardrails: evidence ids, confidence bands, not guarantees. Forbidden in code: coupons, EOSS, urgency.</p>
+    <p style="margin-top:0.07in;"><b>Honest gap:</b> value confidence (“is this a fair price?”) is the top requested help and is <b>not</b> a market-price verdict in this build. Cost-per-wear is the non-monetary stand-in. Guardrails in code: cite evidence ids; &lt;3 reviews → low band; sale-wait takes the look off the hanger; coupons / EOSS / urgency rejected.</p>
   </div>
-  <div class="bar bar-l">Decision-first · fit secondary · value as wears. Next: one storefront to test. →</div>
+  <div class="bar bar-l">Decision-first · fit secondary · worth as wears. Next: one storefront a reviewer can actually run. →</div>
 </section>
 
 <!-- 8 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
-  <h1>One storefront to test: discovery, room, and coach</h1>
-  <p class="sub">Working React storefront. Production: Netlify. Run locally after npm run dev.</p>
+  <h1>One storefront to test: discovery and one Studio path</h1>
+  <p class="sub">Reviewer app is the Phase-1 Vite storefront on :3000 (Netlify in production). Phase-5 Next.js on :3100 is not the demo URL.</p>
   <div class="flow">
-    <div class="dash" style="text-align:center;"><p class="label">Shop</p><p>Catalogue</p></div>
+    <div class="dash" style="text-align:center;"><p class="label">Shop</p><p>Catalogue · save similar</p></div>
     <div class="arrow">→</div>
-    <div class="dash" style="text-align:center;"><p class="label">Wishlist</p><p>Save similar</p></div>
+    <div class="dash" style="text-align:center;"><p class="label">Wishlist</p><p>Shortlist of the same kind</p></div>
     <div class="arrow">→</div>
-    <div class="dash-p" style="text-align:center;"><p class="label" style="color:#ff3f6c;">Studio room</p><p>Hang two · keep one</p></div>
+    <div class="dash-p" style="text-align:center;"><p class="label" style="color:#ff3f6c;">The studio</p><p>Pick two · hang · doubt · coach</p></div>
     <div class="arrow">→</div>
-    <div class="dash-g" style="text-align:center;"><p class="label" style="color:#2f6b45;">Coach</p><p>Fit · wear · worth</p></div>
+    <div class="dash-g" style="text-align:center;"><p class="label" style="color:#2f6b45;">Why this room</p><p>Evidence · not the shopper path</p></div>
   </div>
-  <div class="tbl" style="margin-bottom:0.08in;">
-    <table>
-      <thead><tr><th>Layer</th><th>What ships</th></tr></thead>
-      <tbody>
-        <tr><td class="risk"><b>Client</b></td><td>Shop → wishlist → Studio room → coach (fit / wear / worth)</td></tr>
-        <tr><td class="risk"><b>API</b></td><td>Ingest · analyze · compare · value · events</td></tr>
-        <tr><td class="risk"><b>Intelligence</b></td><td>Quote-grounded scrape → rank 0.4 / 0.4 / 0.2 → Groq</td></tr>
-        <tr><td class="risk"><b>Data</b></td><td>themes.json, ranking, survey, problem lock. SQLite in Phase-5</td></tr>
-        <tr><td class="risk"><b>Deploy</b></td><td>Netlify (netlify.toml). Test: cd Phase-1 && npm run dev</td></tr>
-        <tr><td class="risk"><b>Metric hooks</b></td><td>coach_opened · compare_completed · cart_add_simulated — proxies. Worth tile = cost-per-wear, not a lower ticket.</td></tr>
-      </tbody>
-    </table>
+  <div class="grid3 grow">
+    <div class="fill-b">
+      <p class="sec" style="color:#ffc1d0;">Client</p>
+      <p>Shop → wishlist → <b>The studio</b> (pick, hang, doubt, coach). Why this room is evidence. Discovery: stories, Q1–Q10, focus, survey.</p>
+    </div>
+    <div class="dash">
+      <p class="label">API</p>
+      <p>Ingest · analyze · compare · value · events. Coach: <b>POST /api/coach/insights</b> + status. Discount copy is rejected at the schema.</p>
+    </div>
+    <div class="dash-p">
+      <p class="label">Intelligence</p>
+      <p>Quote-grounded scrape → rank 0.4 / 0.4 / 0.2. Coach: rule-based first; Groq rephrases prose; OpenAI fallback. RAG from <b>themes.json</b>.</p>
+    </div>
+    <div class="dash">
+      <p class="label">Data</p>
+      <p><b>themes.json</b>, ranking, survey, problem lock. SQLite + Prisma in Phase-5 for sessions and events. No Myntra production DB.</p>
+    </div>
+    <div class="dash-g">
+      <p class="label" style="color:#2f6b45;">Deploy</p>
+      <p><b>Netlify</b> from <b>netlify.toml</b> (Node 20). Local: <b>cd Phase-1 && npm install && npm run dev</b> → localhost:3000/studio. Set GROQ_API_KEY in site env to rephrase.</p>
+    </div>
+    <div class="dash-t">
+      <p class="label">Metric hooks (proxies)</p>
+      <p><b>coach_opened</b> · <b>compare_completed</b> · <b>uncertainty_resolved</b> · <b>cart_add_simulated</b> · <b>item_removed</b>. Worth tile = cost-per-wear, not a lower ticket.</p>
+    </div>
   </div>
-  <p><a href="http://localhost:3000/studio?view=room">room</a> · <a href="http://localhost:3000/studio?view=coach">coach</a> · <a href="http://localhost:3000/studio?view=stories">stories</a> · <a href="http://localhost:3000/survey">survey</a> · <a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">form</a></p>
+  <p><a href="http://localhost:3000/studio?view=room">studio</a> · <a href="http://localhost:3000/studio?view=room&step=keep">coach on the pair</a> · <a href="http://localhost:3000/studio?view=stories">stories</a> · <a href="http://localhost:3000/studio?view=focus">ranking</a> · <a href="http://localhost:3000/survey">survey</a> · <a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">form</a></p>
   <div class="bar bar-p">≫ Live storefront after <b>cd Phase-1 && npm install && npm run dev</b> → localhost:3000/studio →</div>
 </section>
 
@@ -590,68 +603,119 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>A finished decision is a win. A coupon tap is not.</h1>
-  <p class="sub">One north star, two product outcomes, leading indicators, guardrails. Demo flags are proxies.</p>
-  <div class="box" style="border-color:#ff3f6c;margin-bottom:0.1in;">
-    <div class="grid2" style="grid-template-columns:0.7fr 1.3fr;align-items:center;">
-      <div>
-        <p class="sec">North star · W2P 30d</p>
-        <p class="stat">Buyers ÷ savers</p>
-      </div>
-      <div>
-        <p>Buyers of ≥1 wishlist item in 30 days ÷ savers. The brief. Demo cart/purchase flags are <b>proxies</b>.</p>
-        <p class="quote">A coupon tap is not this metric.</p>
-      </div>
+  <p class="sub">Part 6 · every metric has a definition and a rationale. Demo cart / purchase flags are proxies — labelled as such.</p>
+  <div class="tbl grow">
+    <table class="tight">
+      <thead><tr><th>Layer</th><th>Metric</th><th>Definition</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>North star</b></td>
+          <td>W2P 30d</td>
+          <td>Buyers of ≥1 wishlist item in 30 days ÷ savers</td>
+          <td>The brief. A coupon tap is not this number.</td>
+        </tr>
+        <tr>
+          <td><b>Primary</b></td>
+          <td>Shortlist-to-decision</td>
+          <td>Bought <b>or</b> deliberately dropped in 30d ÷ saves</td>
+          <td>Decide node. Removals close the loop without pressure.</td>
+        </tr>
+        <tr>
+          <td><b>Secondary</b></td>
+          <td>Uncertainty resolution</td>
+          <td>Doubt-cleared items ÷ items with a recorded doubt</td>
+          <td>Resolve. Ships with Decide; fit is real, not the unlock.</td>
+        </tr>
+        <tr>
+          <td><b>Leading</b></td>
+          <td>Wishlist reopen</td>
+          <td>Open wishlist in 30d ÷ savers</td>
+          <td>Revisit. If they never return, W2P cannot move.</td>
+        </tr>
+        <tr>
+          <td><b>Leading</b></td>
+          <td>Room / coach use</td>
+          <td>Coach opened or keep-one completed ÷ eligible shortlists</td>
+          <td>Mechanism. <b>compare_completed</b> / compare starts.</td>
+        </tr>
+        <tr>
+          <td><b>Guardrail</b></td>
+          <td>No paid conversion</td>
+          <td>Coupon / sale-alert / price-drop click ≠ success</td>
+          <td>Constraint. Incentive MVP is typed false.</td>
+        </tr>
+        <tr>
+          <td><b>Guardrail</b></td>
+          <td>Returns and time-to-bag</td>
+          <td>Return rate must not rise; time-to-bag must not worsen</td>
+          <td>Honest fit can scare some buys. Overconfident size advice is a failure.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid3" style="flex:0 0 auto;">
+    <div class="fill-t">
+      <p class="label">Experiment sketch</p>
+      <p><b>Control:</b> standard wishlist (no coach). <b>Treatment:</b> locked intervention on eligible segment items. <b>MDE:</b> set after a baseline proxy exists — do not invent +X pp. <b>Duration:</b> 30-day window + 1 week buffer.</p>
+    </div>
+    <div class="fill-p">
+      <p class="label">Proxies in the demo</p>
+      <p>coach_opened · compare_completed · uncertainty_resolved · cart_add_simulated · item_removed. <b>These are proxies.</b> Do not report them as live W2P. Label "simulated" on the dashboard and deck.</p>
+    </div>
+    <div class="fill-r">
+      <p class="label">Kill test</p>
+      <p>Follow-up talks hold price constant and price still dominates in segment → the tree says <b>stop</b>, not a quieter coupon. Removals count as a completed decision. Session abandonment is a guardrail — nudge fatigue measured separately.</p>
     </div>
   </div>
-  <div class="grid2" style="margin-bottom:0.08in;">
-    <div class="dash">
-      <p class="label">Primary · Decide</p>
-      <p>Shortlist-to-decision: bought or deliberately dropped in 30d ÷ saves.</p>
-    </div>
-    <div class="dash-p">
-      <p class="label" style="color:#ff3f6c;">Secondary · Resolve</p>
-      <p>Uncertainty resolution: doubt-cleared items ÷ items with a recorded doubt.</p>
-    </div>
-    <div class="dash">
-      <p class="label">Leading</p>
-      <p>Wishlist reopen. Coach opened or keep-one completed ÷ eligible shortlists.</p>
-    </div>
-    <div class="dash-t">
-      <p class="label">Guardrails</p>
-      <p>Coupon clicks ≠ success. Return rate must not rise. Time-to-bag must not worsen.</p>
-    </div>
-  </div>
-  <p><b>Kill if</b> follow-up talks hold price constant and price still dominates in segment. Removals count as a completed decision. Demo flags: coach_opened · compare_completed · cart_add_simulated — proxies only.</p>
-  <div class="bar bar-l">We now know what success looks like. Next: what could go wrong and how we handle it. →</div>
+  <div class="bar bar-l">We now know what success looks like. Next: what could go wrong, and the stop rule already written. →</div>
 </section>
 
 <!-- 10 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Thin segment. Still-binding price. Fake certainty.</h1>
-  <p class="sub">Failure modes and risk mitigations · decision tree is executable · incentiveMvpAllowed is false</p>
-  <div class="grid2" style="grid-template-columns:1.28fr 0.72fr;">
-    <div class="tbl">
-      <table>
-        <thead><tr><th>What could go wrong</th><th>How it’s handled</th></tr></thead>
-        <tbody>
-          <tr><td class="risk"><b>In-segment n = 2</b> — both asked for a discount on Q12</td><td class="fix">Label it. Recruit stallers. Ask Q3/Q4 with price frozen.</td></tr>
-          <tr><td class="risk"><b>Price is actually binding</b> — constraint conflict becomes terminal</td><td class="fix">The tree already says <b>stop</b>, not coupon.</td></tr>
-          <tr><td class="risk"><b>LLM / hybrid gaps</b> — 3 extract batches failed</td><td class="fix">Quotes must match text. Empty cells stay empty. Rule-based first on coach.</td></tr>
-          <tr><td class="risk"><b>App-store noise</b> — delivery swamp the hesitation moment</td><td class="fix">Drop ops reviews. Do not treat post-delivery fit as pre-purchase proof.</td></tr>
-          <tr><td class="risk"><b>Oracle framing</b> — Q14 mean 2.89</td><td class="fix">Coach asks three questions, not a winner. No urgency.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <p class="sec sec-m" style="text-align:center;">Guardrails</p>
-      <div class="dash fill-r" style="margin-bottom:0.07in;">
-        <p><span class="badge-p badge">Critical</span></p>
-        <p>If price still dominates with price held constant — stop.</p>
-      </div>
-      <div class="dash-t" style="margin-bottom:0.07in;"><p><b>n = 2:</b> do not over-claim the segment until stallers are recruited.</p></div>
-      <div class="dash-t"><p><b>Next:</b> a handful of moderated stalls. If a verdict still wins, keep the room and the coach.</p></div>
-    </div>
+  <p class="sub">Part 7 · solution-specific risks. The decision tree is executable. incentiveMvpAllowed is false, so no branch can enable a coupon.</p>
+  <div class="tbl grow">
+    <table class="tight">
+      <thead><tr><th>Risk</th><th>Why it hurts this solution</th><th>Mitigation already in the lock / build</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="risk"><b>In-segment n = 2</b></td>
+          <td>Segment claims rest on R03 and R07. Both asked for a discount on Q12. Target was 5 stallers.</td>
+          <td class="fix">Label every segment claim. Recruit stallers. Do not generalise 2/2.</td>
+        </tr>
+        <tr>
+          <td class="risk"><b>Price is actually binding</b></td>
+          <td>If price still wins when held constant, the constraint conflict is terminal. The root cause is wrong.</td>
+          <td class="fix">Ask brief Q3/Q4 with price frozen. Tree already says <b>stop</b>, not coupon.</td>
+        </tr>
+        <tr>
+          <td class="risk"><b>Value confidence is missing</b></td>
+          <td>Top requested help (4/9 on Q13). Cost-per-wear is a proxy, not “is this price fair?”</td>
+          <td class="fix">Name the gap. Next build is a non-monetary verdict, not a discount banner.</td>
+        </tr>
+        <tr>
+          <td class="risk"><b>LLM / hybrid gaps</b></td>
+          <td>3 extract batches failed; 7 themes gap-filled. Coach prose can invent fit.</td>
+          <td class="fix">Quotes must match text. Empty cells stay empty. Rule-based first; Groq rephrases only.</td>
+        </tr>
+        <tr>
+          <td class="risk"><b>App-store noise</b></td>
+          <td>Public corpus is strongest on post-delivery disappointment, weakest on hesitation.</td>
+          <td class="fix">Drop ops reviews. Do not treat post-delivery fit as pre-purchase proof. Questionnaire carries the lock.</td>
+        </tr>
+        <tr>
+          <td class="risk"><b>Oracle framing / returns</b></td>
+          <td>Q14 mean 2.89. Overconfident size advice can raise returns.</td>
+          <td class="fix">Three questions, not a winner. Confidence bands. No urgency. Return rate is a guardrail.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid3" style="flex:0 0 auto;">
+    <div class="dash fill-r"><p><span class="badge-p badge">Stop rule</span> If price still dominates with price held constant — stop.</p></div>
+    <div class="dash-t"><p><b>n = 2:</b> do not over-claim the segment until more stallers are recruited.</p></div>
+    <div class="dash-g"><p><b>Next:</b> a handful of moderated stalls with price frozen. If a verdict still wins, keep the room and the coach.</p></div>
   </div>
   <div class="bar bar-t">Studio does not buy conversion. If price is the cause, we stop — we do not ship a coupon.</div>
 </section>

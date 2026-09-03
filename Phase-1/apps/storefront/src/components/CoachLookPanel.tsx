@@ -30,7 +30,8 @@ export function CoachLookPanel({
   between,
   onBag,
   onDrop,
-  onClose
+  onClose,
+  peerHeading = "AGAINST YOUR OTHER SAVES"
 }: {
   product: Product;
   peers: Product[];
@@ -39,6 +40,7 @@ export function CoachLookPanel({
   onBag: (id: string, size: string) => void;
   onDrop: (id: string) => void;
   onClose: () => void;
+  peerHeading?: string;
 }) {
   const [tab, setTab] = useState<RoomCoachTab>("fit");
   const [wearsInput, setWearsInput] = useState("");
@@ -120,7 +122,7 @@ export function CoachLookPanel({
             <WearColumn look={look} />
           </CoachQuestion>
           <CoachQuestion id="coach-worth" title="Is it worth it">
-            <WorthColumn look={look} peerHeading="AGAINST YOUR OTHER SAVES" />
+            <WorthColumn look={look} peerHeading={peerHeading} />
             <WorthEstimateForm
               value={wearsInput}
               error={wearError}

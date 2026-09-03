@@ -436,8 +436,8 @@ on a shortlist (primary), fit/quality doubt resolution (secondary), and **value 
 fit-first.  
 **Lives in:** `phase-5/` — same folder convention as `phase-2/` and `phase-4/`. The tree below
 used `apps/mvp`; the implementation is the sibling folder. Phase 1's storefront stays
-on :3000; this MVP runs on :3100 and is also the Studio tab **The coach**
-(`/studio?view=coach` embeds `/mvp?embed=1`).  
+on :3000; this MVP runs on :3100. The reviewer demo is the Phase-1 Studio on :3000
+(`/studio` — pick a pair, hang, name the doubt, ask the coach). `/studio?view=coach` redirects into that same room.  
 **Out of scope:** Real Myntra OAuth, push, payments, coupons.
 
 ### Phase 5 stack (this phase only)
@@ -489,7 +489,7 @@ CoachEvent added in 5c/5d); seed personas.
 | `user-decided` | Conversion control | Recent cart-add from wishlist |
 
 **Pages:** `/` → `/mvp`; `/playground`; `/dashboard`. `/demo/user/[id]` redirects to `/mvp?user=`.
-Studio on :3000 hosts the same room at `/studio?view=coach` (`embed=1` hides Phase 5 chrome).
+Studio on :3000 hosts the room and coach as one path at `/studio` (`/studio?view=coach` aliases into it).
 
 **APIs introduced:** `GET /api/products`, `GET/POST /api/wishlist`, `DELETE /api/wishlist/:id`, `GET /api/health`, `GET /api/problem-definition`, `GET /api/discovery` (reads Phase 1 JSON), `GET /api/discovery/status`, `GET /api/research/questions`.
 
@@ -636,7 +636,7 @@ flowchart TB
 | Discovery pipeline | Local / Actions; `data/discovery/` committed or fetched at build |
 | Collect UI | Local :3001 |
 
-**Deliverable URLs:** Netlify site `/studio`, `/studio?view=coach`, `/survey`.  
+**Deliverable URLs:** Netlify site `/studio`, `/studio?view=room&step=keep`, `/survey`.  
 **Env added:** `GROQ_API_KEY` (Netlify site env), optional `OPENAI_API_KEY`, `GROQ_MODEL`.  
 **Exit 5e:** Public `/studio` and `/api/coach/status` respond.
 

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { AskCoachLink } from "./AskCoachLink";
 import { ProductImage } from "./ProductImage";
 import { formatInr, formatRatingCount, type Product } from "../data/products";
 import { useStore } from "../store";
@@ -48,6 +49,10 @@ export function ProductCard({ product }: { product: Product }) {
           <b>{formatInr(product.price)}</b>
         </div>
       </Link>
+      <AskCoachLink
+        product={product}
+        className="block px-1 pt-1.5 pb-1 text-[11px] font-bold tracking-wide text-myntra-pink"
+      />
     </article>
   );
 }

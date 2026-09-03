@@ -81,17 +81,17 @@ const PHOTO: Record<string, string> = {
   "w-sneaker-9": "1555447405-057915b40299",
   "w-sneaker-10": "1681717055630-c62333c22fec",
 
-  // Women heels
-  "w-heel-1": "1615555896813-401d84a0d737",
-  "w-heel-2": "1543163521-1bf539c55dd2",
-  "w-heel-3": "1617627143750-d86bc21e42bb",
-  "w-heel-4": "1717835735088-4c821959bdaa",
-  "w-heel-5": "1756483492198-8ca91227489b",
-  "w-heel-6": "1756483510859-c0ab4c45782c",
-  "w-heel-7": "1621184455862-c163dfb30e0f",
-  "w-heel-8": "1774438462884-4961ce3e1683",
-  "w-heel-9": "1770359993283-a2c2f386584e",
-  "w-heel-10": "1729347917808-e3e35a462fec",
+  // Women heels — footwear only (no sarees, kurtas, or menswear)
+  "w-heel-1": "1673960508121-3407ffa4bb15", // nude block-heel sandals
+  "w-heel-2": "1543693353-d019fc56cc88", // nude kitten / strappy sandals
+  "w-heel-3": "1585488434451-7ee645d0574b", // beige block-heel mules
+  "w-heel-4": "1613772036673-3cbb93d8ef57", // nude block sandals on foot
+  "w-heel-5": "1535043934128-cf0b28d52f95", // beige kitten / court pumps
+  "w-heel-6": "1524553879936-2ff074ae5816", // gold strappy / party heels
+  "w-heel-7": "1554062097-69c634085c6d", // tan block-heel sandals
+  "w-heel-8": "1562273138-f46be4ebdf33", // wedge / platform sandals
+  "w-heel-9": "1618274158630-bc47a614b3a5", // black comfort / kitten heels
+  "w-heel-10": "1562687848-c1664eff566d", // nude pencil stilettos
 
   "w-bag-1": "1584917865442-de89df76afd3",
   "w-bag-2": "1590874103328-eac38a683ce7",
@@ -120,7 +120,7 @@ const PHOTO: Record<string, string> = {
   // Kids
   "k-set-1": "1622218286192-95f6a20083c7",
   "k-set-2": "1622290291468-a28f7a7dc6a8",
-  "k-ethnic-1": "1741992556912-3b2d62461e75",
+  "k-ethnic-1": "1744807560937-cb7ebeb0ff7d",
   "k-lehenga-1": "1560506840-ec148e82a604",
   "k-dress-1": "1611708314849-8bb91fe0fa56",
   "k-shoe-1": "1514989940723-e8e51635b782",
@@ -129,7 +129,7 @@ const PHOTO: Record<string, string> = {
   // Home & beauty (keep catalog IDs, still unique vs apparel)
   "h-bed-1": "1542728929-2b5d9a0c8d48",
   "h-bed-2": "1633865082308-b858e086c1f6",
-  "h-cushion-1": "1555041469-a586c61ea9bc",
+  "h-cushion-1": "1585408871775-e0a972f25ec3",
   "h-lamp-1": "1507473885765-e6ed057f782c",
   "h-dinner-1": "1694830470405-55b9f605085f",
   "h-pan-1": "1556911220-bff31c812dba",

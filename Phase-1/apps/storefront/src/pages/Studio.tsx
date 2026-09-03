@@ -1,12 +1,10 @@
+import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { StudioCoach } from "../components/StudioCoach";
 import { StudioFlow } from "../components/StudioFlow";
 import { WhyStudio } from "../components/WhyStudio";
 import {
-  STUDIO_KEEP_ID,
   STUDIO_TABS,
   STUDIO_WHY,
-  activateFlowStep,
   activateStudioView,
   flowFromView,
   isStudioView,
@@ -16,16 +14,12 @@ import { Decide } from "./Decide";
 
 const COPY = {
   room: {
-    title: "Name the doubt on one body. Keep one hanger.",
-    body: "Two similar saves share a silhouette. Tap bust, length, or foot — then keep the look you would wear. Size comes from shopper notes. Never a coupon."
-  },
-  coach: {
-    title: "Finish the call on the shortlist.",
-    body: "Will it fit, where would I wear it, and is the price worth it — on this wishlist, in this app. Never a coupon."
+    title: "Hang two. Name the doubt. Ask the coach.",
+    body: "Pick two of the same kind, hang them on one body, tap the doubt, then finish on fit, wear, and worth. Never a coupon."
   },
   why: {
-    title: "Name the doubt on one body. Keep one hanger.",
-    body: "Two similar saves share a silhouette. Tap bust, length, or foot — then keep the look you would wear. Size comes from shopper notes. Never a coupon."
+    title: "Why this room — scored in the open.",
+    body: "The scrape, the questionnaire, and the lock. Sale-waiting is ranked and set aside. No coupon in the bet."
   }
 } as const;
 
@@ -36,6 +30,16 @@ export function Studio() {
   const surface = studioSurface(view);
   const flow = flowFromView(view, params.get("step"));
   const copy = COPY[surface];
+
+  useEffect(() => {
+    if (rawView !== "coach") return;
+    setParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("view", "room");
+      if (!next.get("step")) next.set("step", "keep");
+      return next;
+    }, { replace: true });
+  }, [rawView, setParams]);
 
   function openTab(id: (typeof STUDIO_TABS)[number]["id"]) {
     if (id === "room") {
@@ -50,20 +54,6 @@ export function Studio() {
         return next;
       });
       activateStudioView("room");
-      return;
-    }
-    if (id === "coach") {
-      if (surface === "coach") {
-        activateStudioView("coach");
-        return;
-      }
-      setParams((prev) => {
-        const next = new URLSearchParams(prev);
-        next.set("view", "coach");
-        next.delete("step");
-        return next;
-      });
-      activateStudioView("coach");
       return;
     }
     if (surface === "why") {
@@ -108,28 +98,10 @@ export function Studio() {
         </div>
       </div>
       {surface === "room" && <Decide />}
-      {surface === "coach" && <StudioCoach />}
       {surface === "why" && <WhyStudio section={view} />}
       {surface === "room" && (
-        <div className="bg-[#1a1216] text-center pb-8 flex flex-col gap-2">
-          <button
-            type="button"
-            className="text-[12px] font-bold text-myntra-pink"
-            onClick={() => {
-              activateFlowStep("keep");
-              document.getElementById(STUDIO_KEEP_ID)?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-              });
-            }}
-          >
-            ASK THE COACH ON THE PAIR ABOVE →
-          </button>
-          <Link
-            to={STUDIO_WHY}
-            onClick={() => activateFlowStep("bet")}
-            className="text-[12px] font-bold text-myntra-pink"
-          >
+        <div className="bg-[#1a1216] text-center pb-8">
+          <Link to={STUDIO_WHY} className="text-[12px] font-bold text-myntra-pink">
             WHY THIS ROOM · SEE THE BET →
           </Link>
         </div>

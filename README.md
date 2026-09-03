@@ -25,12 +25,11 @@ npm run phase2:rank
 
 Open [http://localhost:3000/studio](http://localhost:3000/studio):
 
-1. **The room** — hang two similar saves, tap the body, keep one (price is off)
-2. **The coach** — [http://localhost:3000/studio?view=coach](http://localhost:3000/studio?view=coach) — fit, wear, and worth on this wishlist. If `GROQ_API_KEY` is in `Phase-1/.env`, the server rephrases that read through Groq.
-3. **The bet** — why this room, scored in the open
-4. **Live voices** — public App Store / Play Store comments
-5. **Shopper stories** — ranked themes + quotes
-6. **Q1–Q10 / What to focus on / What we'd ask** — coverage, nomination, interview seeds + [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
+1. **The studio** — [http://localhost:3000/studio](http://localhost:3000/studio) — pick two similar saves, hang them, tap the doubt, ask the coach (fit / wear / worth). Price is off. If `GROQ_API_KEY` is in `Phase-1/.env`, the server rephrases coach prose through Groq.
+2. **The bet** — why this room, scored in the open
+3. **Live voices** — public App Store / Play Store comments
+4. **Shopper stories** — ranked themes + quotes
+5. **Q1–Q10 / What to focus on / What we'd ask** — coverage, nomination, interview seeds + [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
 
 **10-slide PDF:** [docs/myntra-w2p-30d-deck.pdf](./docs/myntra-w2p-30d-deck.pdf) (copy in [docs/slide-deck.md](./docs/slide-deck.md)).
 
@@ -41,7 +40,7 @@ The public storefront is the Phase-1 Vite app. Config lives in [`netlify.toml`](
 1. In [Netlify](https://app.netlify.com), **Add new site → Import an existing project** and pick this GitHub repo.
 2. Build settings are already in `netlify.toml` (command, publish dir, Node 20, redirects). Do not override them unless you know you need to.
 3. **Site configuration → Environment variables** — add `GROQ_API_KEY` (and optionally `OPENAI_API_KEY`, `GROQ_MODEL`). Same names as `Phase-1/.env`. Do not commit keys.
-4. Deploy. Studio is `/studio`, coach is `/studio?view=coach`, survey is `/survey`.
+4. Deploy. Studio is `/studio`, survey is `/survey`. `/studio?view=coach` still opens the same room.
 
 Local demo is unchanged: `cd Phase-1 && npm install && npm run dev` → http://localhost:3000/studio
 

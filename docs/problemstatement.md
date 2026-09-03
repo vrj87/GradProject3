@@ -532,7 +532,7 @@ Demo instrumentation uses simulated cart/purchase flags and must be labeled as *
 | **[Link] AI Discovery Engine** | Local + repo | [Phase-1 README](../Phase-1/README.md) · Studio [live voices](http://localhost:3000/studio?view=stories) after `npm run dev` · [GitHub](https://github.com/vrj87/GradProject3) |
 | **1-slider in deck** (how the engine works) | In PDF slide 3 | [docs/myntra-w2p-30d-deck.pdf](./myntra-w2p-30d-deck.pdf) |
 | **[PDF] 10-slide deck** | Ready | [docs/myntra-w2p-30d-deck.pdf](./myntra-w2p-30d-deck.pdf) · [copy](./slide-deck.md) |
-| **[Link] Deployed MVP** | Local Studio; production on Netlify | [http://localhost:3000/studio](http://localhost:3000/studio) · [coach](http://localhost:3000/studio?view=coach) |
+| **[Link] Deployed MVP** | Local Studio; production on Netlify | [http://localhost:3000/studio](http://localhost:3000/studio) · [coach on the pair](http://localhost:3000/studio?view=room&step=keep) |
 | **Interview notes / survey** | Delivered — n = 9, 28–31 Aug 2026 | [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [published responses](http://localhost:3000/survey) · [notes](./research/interview-notes/README.md) |
 
 ### 6.5 Deck content map (10 slides max)
@@ -547,8 +547,8 @@ Slide titles state the **key message**, not a generic label. Slides 4–7 stay t
 | 4 | Scrape ranked fit first; sale-wait is #2 and we still will not use it | Phase 1 ranking |
 | 5 | Shoppers say price; when asked for help they want a verdict, not a coupon | Phase 3 questionnaire |
 | 6 | The stalled shortlister cannot finish a judgement inside the wishlist | Phase 4 lock |
-| 7 | Studio finishes the call with a room and a coach, never a coupon | Solution + MVP ritual |
-| 8 | One storefront to test: discovery, room, and coach | Architecture + links |
+| 7 | One Studio tab finishes the call — hang, name the doubt, ask the coach | Solution + MVP ritual |
+| 8 | One storefront to test: discovery and one Studio path | Architecture + links |
 | 9 | Success is a finished decision; a coupon tap is not a win | Metrics and kill tests |
 | 10 | Main risks are a thin segment, a still-binding price, and fake certainty | Risks and next research |
 

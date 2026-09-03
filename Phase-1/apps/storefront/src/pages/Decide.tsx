@@ -4,6 +4,8 @@ import { DoubtBody } from "../components/DoubtBody";
 import { FittingLook } from "../components/FittingLook";
 import { ProductImage } from "../components/ProductImage";
 import { RoomCoachCompare } from "../components/RoomCoachCompare";
+import { StudioPairPicker } from "../components/StudioPairPicker";
+import { pairForAskCoach, parseStudioPair, toggleCoachCompareSelection } from "../lib/coachComparePair";
 import { PRODUCTS, type Product } from "../data/products";
 import {
   CLUSTER_LABEL,
@@ -123,6 +125,8 @@ export function Decide() {
   const [droppingId, setDroppingId] = useState<string | null>(null);
   const [keptId, setKeptId] = useState<string | null>(null);
   const [coachOpen, setCoachOpen] = useState(false);
+  const [picked, setPicked] = useState<string[]>(() => parseStudioPair(params.get("pair")));
+  const [pickStatus, setPickStatus] = useState<string | null>(null);
 
   const active =
     groups.find((group) => group.id === pileKey) ??
@@ -157,28 +161,42 @@ export function Decide() {
     });
   }
 
+  const pairKey = parseStudioPair(params.get("pair")).join(",");
+
   useEffect(() => {
-    setRack(hangOnRack(hanging, focusId));
+    const pairLooks = parseStudioPair(pairKey || null)
+      .map((id) => PRODUCTS.find((item) => item.id === id))
+      .filter((item): item is Product => Boolean(item) && item.gender === roomGender);
+    if (pairLooks.length >= 2) {
+      setRack(pairLooks);
+      setPicked(pairLooks.map((item) => item.id));
+    } else {
+      setRack(hangOnRack(hanging, focusId));
+    }
     setOut([]);
     setZone(null);
     setDroppingId(null);
     setKeptId(null);
     setBagged(false);
+    setMoved("");
     setCoachOpen(false);
-    // pile / occasion / deep-link only — do not reset the rack after a bag.
+    // URL pair is the hang source. Do not re-run on pileKey or a newer pick is overwritten.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pileKey, night, focusId, roomGender]);
+  }, [pairKey, roomGender, focusId, night]);
 
   useEffect(() => {
     if (keepStep) {
-      const timer = window.setTimeout(scrollToKeepStep, 80);
+      const timer = window.setTimeout(() => {
+        if (parseStudioPair(pairKey || null).length >= 2) setCoachOpen(true);
+        scrollToKeepStep();
+      }, 80);
       return () => window.clearTimeout(timer);
     }
     if (hangStep) {
       const timer = window.setTimeout(scrollToHangStep, 80);
       return () => window.clearTimeout(timer);
     }
-  }, [keepStep, hangStep, hanging.length]);
+  }, [keepStep, hangStep, hanging.length, pairKey]);
 
   const displayRack = (
     rack.length === 0 && out.length === 0 && !moved ? hangOnRack(hanging, focusId) : rack
@@ -232,11 +250,15 @@ export function Decide() {
       setOut((list) => list.filter((item) => item.id !== id));
       setKeptId(null);
       if (!champion || champion.id === id) {
-        setRack(hangOnRack(hanging, id));
+        const next = hangOnRack(hanging, id);
+        setRack(next);
+        setPicked(next.slice(0, 2).map((item) => item.id));
         setZone(null);
         return;
       }
-      setRack([champion, incoming, ...hanging.filter((item) => item.id !== champion.id && item.id !== id)]);
+      const next = [champion, incoming, ...hanging.filter((item) => item.id !== champion.id && item.id !== id)];
+      setRack(next);
+      setPicked([champion.id, incoming.id]);
       setZone(null);
     });
   }
@@ -272,7 +294,9 @@ export function Decide() {
     if (droppingId) return;
     withViewTransition(() => {
       tapPulse();
-      setRack(hangSlot(hanging, displayRack, slot, id));
+      const next = hangSlot(hanging, displayRack, slot, id);
+      setRack(next);
+      setPicked(next.slice(0, 2).map((item) => item.id));
       setOut((list) => list.filter((item) => item.id !== id));
       setKeptId(null);
       setZone(null);
@@ -322,10 +346,100 @@ export function Decide() {
     setMoved("The rest of this rack is clear.");
   }
 
-  function choosePile(id: string) {
-    setPileKey(id);
+  function writePair(ids: string[], step: "hang" | "keep" = "hang") {
     setParams((prev) => {
       const next = new URLSearchParams(prev);
+      next.set("view", "room");
+      next.set("step", step);
+      if (ids.length >= 2) {
+        next.set("pair", ids.slice(0, 2).join(","));
+        next.set("item", ids[0]!);
+        const look = PRODUCTS.find((item) => item.id === ids[0]);
+        if (look) next.set("pile", `${look.gender}::${look.cluster}`);
+      } else {
+        next.delete("pair");
+      }
+      return next;
+    });
+  }
+
+  function hangPairNow(ids: string[], step: "hang" | "keep" = "hang") {
+    const looks = ids
+      .slice(0, 2)
+      .map((id) => PRODUCTS.find((item) => item.id === id))
+      .filter((item): item is Product => Boolean(item));
+    if (looks.length < 2) return;
+    setPicked(looks.map((item) => item.id));
+    setRack(looks);
+    setOut([]);
+    setZone(null);
+    setDroppingId(null);
+    setKeptId(null);
+    setBagged(false);
+    setMoved("");
+    writePair(
+      looks.map((item) => item.id),
+      step
+    );
+  }
+
+  function togglePick(id: string, cluster: string) {
+    const next = toggleCoachCompareSelection(id, cluster, picked, items);
+    setPickStatus(next.reason ?? null);
+    if (next.selected.length >= 2) {
+      hangPairNow(next.selected, "hang");
+      window.setTimeout(scrollToKeepStep, 80);
+      return;
+    }
+    setPicked(next.selected);
+  }
+
+  function hangPickedPair() {
+    if (picked.length < 2) return;
+    hangPairNow(picked, "hang");
+    window.setTimeout(scrollToKeepStep, 80);
+  }
+
+  function openCoachOnPair(ids: string[]) {
+    if (ids.length < 2) return;
+    hangPairNow(ids, "keep");
+    setCoachOpen(true);
+    window.setTimeout(() => {
+      scrollToKeepStep();
+      document.getElementById("studio-room-coach")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+  }
+
+  function comparePickedPair() {
+    openCoachOnPair(picked);
+  }
+
+  function askCoachOnListing(id: string, cluster: string) {
+    const next = pairForAskCoach(id, cluster, picked, items);
+    if (next.reason || next.selected.length < 2) {
+      setPickStatus(next.reason ?? "The coach needs two looks of the same kind.");
+      return;
+    }
+    setPickStatus(null);
+    openCoachOnPair(next.selected);
+  }
+
+  function clearPick() {
+    setPicked([]);
+    setPickStatus(null);
+    setParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("pair");
+      return next;
+    });
+  }
+
+  function choosePile(id: string) {
+    setPileKey(id);
+    setPicked([]);
+    setParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("pair");
       next.set("pile", id);
       next.delete("item");
       if (!next.get("view")) next.set("view", "room");
@@ -335,7 +449,7 @@ export function Decide() {
 
   return (
     <div id={STUDIO_ROOM_ID} className="bg-[#1a1216] min-h-[60vh] text-white">
-      <div className="max-w-[1100px] mx-auto px-4 py-6 md:py-8">
+      <div className="max-w-6xl mx-auto px-4 py-6 md:py-8">
         <div className="bg-myntra-pink text-white p-4 md:p-5">
           <p className="text-[11px] font-bold tracking-[0.22em]">
             DO THIS NOW · STEP {coach.n}
@@ -343,6 +457,17 @@ export function Decide() {
           <p className="font-bold text-lg md:text-xl mt-1">{coach.title}</p>
           <p className="text-sm text-white/90 mt-1 max-w-2xl">{coach.detail}</p>
         </div>
+
+        <StudioPairPicker
+          saved={items}
+          selected={picked}
+          status={pickStatus}
+          onToggle={togglePick}
+          onHang={hangPickedPair}
+          onCompare={comparePickedPair}
+          onAsk={askCoachOnListing}
+          onClear={clearPick}
+        />
 
         {bagCount > 0 && (
           <div className="bg-white/10 border border-white/20 px-4 py-3 mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -454,6 +579,7 @@ export function Decide() {
                   </div>
                   <div className="md:col-start-1 md:row-start-1">
                     <FittingLook
+                      key={left.id}
                       product={left}
                       zone={zone}
                       onZone={chooseZone}
@@ -466,6 +592,7 @@ export function Decide() {
                   </div>
                   <div className="md:col-start-3 md:row-start-1">
                     <FittingLook
+                      key={right.id}
                       product={right}
                       zone={zone}
                       onZone={chooseZone}
@@ -503,6 +630,7 @@ export function Decide() {
                 </div>
                 {coachOpen && (
                   <RoomCoachCompare
+                    key={`${left.id}-${right.id}`}
                     left={left}
                     right={right}
                     zone={zone}

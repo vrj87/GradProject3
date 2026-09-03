@@ -360,7 +360,7 @@ export function buildWorthBrief(
 
   let peerNote =
     other.length === 0
-      ? "Nothing else is on this rack to sit it against, so cost per wear is the only reference."
+      ? "This look is scored on its own, so cost per wear is the only reference."
       : `Against ${other.map((item) => item.brand).join(" and ")} on this rack, this is ${formatInr(perWear)} a wear${
           peerPerWear ? ` vs ${formatInr(peerPerWear)} for the other hanger` : ""
         }.`;

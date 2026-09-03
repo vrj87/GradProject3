@@ -11,6 +11,7 @@ import {
   formatRatingCount,
   similarProducts
 } from "../data/products";
+import { AskCoachLink } from "../components/AskCoachLink";
 import { useStore } from "../store";
 import { studioRoom } from "../lib/studioFlow";
 
@@ -103,6 +104,10 @@ export function ProductPage() {
           </div>
 
           <ProductShopperFit product={product} />
+          <AskCoachLink
+            product={product}
+            className="md:hidden mt-4 block text-center bg-myntra-pink text-white font-bold py-3 text-[13px] tracking-wide"
+          />
 
           <div className="hidden md:flex gap-3 mt-6">
             <button
@@ -123,6 +128,10 @@ export function ProductPage() {
               {saved ? "WISHLISTED" : "WISHLIST"}
             </button>
           </div>
+          <AskCoachLink
+            product={product}
+            className="hidden md:block mt-3 text-center bg-myntra-pink text-white font-bold py-3.5 text-[14px] tracking-wide"
+          />
           {saved && (
             <Link
               to={studioRoom(product.id, "hang")}

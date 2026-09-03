@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { StudioFlow } from "../components/StudioFlow";
 import { addedDaysAgo } from "../data/demoWishlist";
@@ -14,6 +14,7 @@ import {
   type RankRow
 } from "../lib/wishlistBlockers";
 import { publicReviewUrl, reviewLinkLabel } from "../lib/sourceUrls";
+import { CoachLookPanel } from "../components/CoachLookPanel";
 import { STUDIO_SAVE_ID, studioRoom } from "../lib/studioFlow";
 import { useStore } from "../store";
 
@@ -21,10 +22,12 @@ export function Wishlist() {
   const { wishlist, addToBag, removeFromWishlist } = useStore();
   const items = PRODUCTS.filter((item) => wishlist.includes(item.id));
   const [picking, setPicking] = useState<Product | null>(null);
+  const [coachItem, setCoachItem] = useState<Product | null>(null);
   const [size, setSize] = useState("");
   const [toast, setToast] = useState("");
   const [compareOn, setCompareOn] = useState(false);
   const [compare, setCompare] = useState<string[]>([]);
+  const [usual] = useState(() => localStorage.getItem("myntra-usual-size") || "M");
 
   const crowded = items.filter((item) => item.cluster === "kurta-set").length >= 3;
   const compared = useMemo(
@@ -60,6 +63,7 @@ export function Wishlist() {
     removeFromWishlist(id);
     setCompare((prev) => prev.filter((item) => item !== id));
     if (picking?.id === id) setPicking(null);
+    if (coachItem?.id === id) setCoachItem(null);
     flash(`${name} removed from wishlist`);
   }
 
@@ -84,8 +88,23 @@ export function Wishlist() {
     addToBag(picking.id, size, "wishlist");
     removeFromWishlist(picking.id);
     setCompare((prev) => prev.filter((item) => item !== picking.id));
+    if (coachItem?.id === picking.id) setCoachItem(null);
     flash("Item added to bag");
     setPicking(null);
+  }
+
+  function openCoach(product: Product) {
+    setCoachItem((current) => (current?.id === product.id ? null : product));
+  }
+
+  function coachBag(id: string, bagSize: string) {
+    const product = items.find((item) => item.id === id);
+    addToBag(id, bagSize, "wishlist");
+    removeFromWishlist(id);
+    setCompare((prev) => prev.filter((item) => item !== id));
+    if (picking?.id === id) setPicking(null);
+    setCoachItem(null);
+    flash(product ? `${product.brand} moved to bag` : "Item added to bag");
   }
 
   return (
@@ -164,7 +183,8 @@ export function Wishlist() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 mt-4 border-l border-t border-myntra-border">
             {items.map((product) => (
-              <article key={product.id} className="border-r border-b border-myntra-border bg-white">
+              <Fragment key={product.id}>
+              <article className={`border-r border-b border-myntra-border bg-white ${coachItem?.id === product.id ? "ring-2 ring-inset ring-myntra-pink" : ""}`}>
                 <div className="relative">
                   <Link to={`/product/${product.id}`} className="block">
                     <div className="aspect-[3/4] overflow-hidden bg-myntra-bg">
@@ -216,6 +236,18 @@ export function Wishlist() {
                     );
                   })()}
                 </div>
+                <button
+                  type="button"
+                  aria-expanded={coachItem?.id === product.id}
+                  className={`block w-full py-3 text-center text-[12px] font-bold tracking-wide ${
+                    coachItem?.id === product.id
+                      ? "bg-[#e11d48] text-white"
+                      : "bg-myntra-pink text-white hover:bg-[#e11d48]"
+                  }`}
+                  onClick={() => openCoach(product)}
+                >
+                  ASK THE COACH
+                </button>
                 <div className="grid grid-cols-2 border-t border-myntra-border">
                   <Link
                     to={studioRoom(product.id, "hang")}
@@ -232,6 +264,21 @@ export function Wishlist() {
                   </button>
                 </div>
               </article>
+              {coachItem?.id === product.id ? (
+                <div className="col-span-2 md:col-span-4 border-r border-b border-myntra-border bg-white">
+                  <CoachLookPanel
+                    product={product}
+                    peers={[]}
+                    usual={usual}
+                    between={false}
+                    peerHeading="THIS SAVE ALONE"
+                    onBag={coachBag}
+                    onDrop={(id) => remove(id, product.brand)}
+                    onClose={() => setCoachItem(null)}
+                  />
+                </div>
+              ) : null}
+              </Fragment>
             ))}
           </div>
         )}

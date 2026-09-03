@@ -11,6 +11,7 @@ import {
   isCoachBagMessage,
   isCoachOrigin,
   isStudioView,
+  studioAskCoach,
   studioCoach,
   studioRoom,
   studioSurface,
@@ -50,15 +51,21 @@ describe("studio MVP paths", () => {
     expect(studioView("room")).toBe(STUDIO_ENTRY);
     expect(STUDIO_FLOW.map((step) => step.id)).toEqual(["save", "hang", "keep", "bet"]);
     expect(STUDIO_VIEWS[0]?.id).toBe("room");
-    expect(STUDIO_TABS.map((tab) => tab.id)).toEqual(["room", "coach", "why"]);
-    expect(studioSurface("coach")).toBe("coach");
+    expect(STUDIO_TABS.map((tab) => tab.id)).toEqual(["room", "why"]);
+    expect(studioSurface("coach")).toBe("room");
     expect(flowFromView("coach")).toBe("keep");
     expect(studioView("coach")).toBe(STUDIO_COACH);
-    expect(STUDIO_COACH).toBe("/studio?view=coach");
-    expect(studioCoach("user-sale-watcher")).toBe("/studio?view=coach&user=user-sale-watcher");
+    expect(STUDIO_COACH).toBe("/studio?view=room&step=keep");
+    expect(studioCoach("user-sale-watcher")).toBe("/studio?view=room&step=hang&user=user-sale-watcher");
     expect(studioCoach(null, ["w-kurta-1", "w-kurta-2"])).toBe(
-      "/studio?view=coach&pair=w-kurta-1%2Cw-kurta-2"
+      "/studio?view=room&step=keep&pair=w-kurta-1%2Cw-kurta-2&item=w-kurta-1"
     );
+    expect(
+      studioAskCoach("w-kurta-1", "kurta-set", [
+        { id: "w-kurta-1", cluster: "kurta-set" },
+        { id: "w-kurta-2", cluster: "kurta-set" }
+      ])
+    ).toBe("/studio?view=room&step=keep&pair=w-kurta-1%2Cw-kurta-2&item=w-kurta-1");
     expect(studioCoach(null, ["w-kurta-1", "w-kurta-2"])).not.toMatch(/3100|\/mvp/);
     expect(
       isCoachBagMessage({
