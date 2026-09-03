@@ -19,6 +19,7 @@
     "phase5:test": "npm test --prefix phase-5",
     "backend:setup": "npm run backend:setup --prefix phase-5",
     "dev": "npm run dev --prefix Phase-1",
+    "build:web": "npm install --prefix Phase-1 && npm run build --workspace=@myntra/storefront --prefix Phase-1",
     "test": "npm test --prefix Phase-1 && npm test --prefix phase-2 && npm test --prefix phase-4 && npm test --prefix phase-5"
   }
 }

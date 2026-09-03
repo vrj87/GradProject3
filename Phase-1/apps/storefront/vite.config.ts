@@ -5,7 +5,8 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 import { loadEnvFiles } from "../../tools/discovery-pipeline/src/load-env";
-import { coachLlmStatus, generateCoachInsights } from "./src/lib/generateCoachInsights";
+import { runCoachInsights } from "./src/lib/coachHttp";
+import { coachLlmStatus } from "./src/lib/generateCoachInsights";
 import { mergeOrderLists, type PlacedOrder } from "./src/lib/placedOrders";
 import { publicReviewUrl } from "./src/lib/sourceUrls";
 
@@ -124,21 +125,7 @@ async function handleCoachInsights(req: IncomingMessage, res: ServerResponse) {
     json(res, { error: "Body must be JSON." }, 400);
     return;
   }
-  const body = incoming as {
-    itemIds?: unknown;
-    peerIds?: unknown;
-    zone?: unknown;
-    usual?: unknown;
-    between?: unknown;
-  };
-  const itemIds = Array.isArray(body.itemIds) ? body.itemIds.filter((id): id is string => typeof id === "string") : [];
-  const result = await generateCoachInsights({
-    itemIds,
-    peerIds: Array.isArray(body.peerIds) ? body.peerIds.filter((id): id is string => typeof id === "string") : [],
-    zone: typeof body.zone === "string" ? (body.zone as "bust" | "waist" | "length" | "foot" | "overall") : null,
-    usual: typeof body.usual === "string" ? body.usual : "M",
-    between: body.between === true
-  });
+  const result = await runCoachInsights(incoming);
   if ("error" in result) {
     json(res, result, 400);
     return;

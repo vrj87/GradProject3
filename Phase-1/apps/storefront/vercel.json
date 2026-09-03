@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/((?!discovery/|phase2/|assets/).*)", "destination": "/index.html" }
-  ]
-}

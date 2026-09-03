@@ -434,7 +434,7 @@ a discount, n = 2, and price was never held constant). Decide outranks Resolve, 
 decision-completion-first, with **value confidence** as the new non-monetary surface. Full working
 in [problem-definition.md](./problem-definition.md) §7.
 
-Architecture and edge cases **do not** lock coach APIs, Prisma coach tables, or Vercel topology until this tree says proceed.
+Architecture and edge cases **do not** lock coach APIs, Prisma coach tables, or Netlify topology until this tree says proceed.
 
 ---
 
@@ -468,7 +468,7 @@ Triggers (if built): wishlist open; item age 3 / 7 / 14 days without cart add (c
 | n8n + simple UI | Matches brief stack examples | Weaker UX |
 | Figma-only | Realistic frames | **Fails “deployed and testable”** |
 
-**Recommendation if Phase 4 confirms:** standalone Next.js on Vercel; paste Myntra URL or use a mock catalog. Details in [architecture.md](./architecture.md) Phase 5a–5f.
+**Recommendation if Phase 4 confirms:** standalone Vite storefront on Netlify; paste Myntra URL or use a mock catalog. Details in [architecture.md](./architecture.md) Phase 5a–5f.
 
 ### 5.3 Explicitly out of scope (all Phase 5 variants)
 
@@ -532,7 +532,7 @@ Demo instrumentation uses simulated cart/purchase flags and must be labeled as *
 | **[Link] AI Discovery Engine** | Local + repo | [Phase-1 README](../Phase-1/README.md) · Studio [live voices](http://localhost:3000/studio?view=stories) after `npm run dev` · [GitHub](https://github.com/vrj87/GradProject3) |
 | **1-slider in deck** (how the engine works) | In PDF slide 3 | [docs/myntra-w2p-30d-deck.pdf](./myntra-w2p-30d-deck.pdf) |
 | **[PDF] 10-slide deck** | Ready | [docs/myntra-w2p-30d-deck.pdf](./myntra-w2p-30d-deck.pdf) · [copy](./slide-deck.md) |
-| **[Link] Deployed MVP** | Local Studio; public Vercel URL not published | [http://localhost:3000/studio](http://localhost:3000/studio) · [coach](http://localhost:3000/studio?view=coach) |
+| **[Link] Deployed MVP** | Local Studio; production on Netlify | [http://localhost:3000/studio](http://localhost:3000/studio) · [coach](http://localhost:3000/studio?view=coach) |
 | **Interview notes / survey** | Delivered — n = 9, 28–31 Aug 2026 | [Questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [published responses](http://localhost:3000/survey) · [notes](./research/interview-notes/README.md) |
 
 ### 6.5 Deck content map (10 slides max)

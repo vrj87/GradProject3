@@ -185,4 +185,17 @@ describe("storefront coach LLM", () => {
     ).toBe("Groq LPU · openai/gpt-oss-20b");
     expect(coachBannerCopy({ generating: true }).title).toMatch(/groq lpu/i);
   });
+
+  it("parses the coach POST body the Netlify function also uses", async () => {
+    const { parseCoachInsightsBody } = await import("../../apps/storefront/src/lib/coachHttp");
+    const parsed = parseCoachInsightsBody({
+      itemIds: ["w-kurta-1", 3, "w-kurta-2"],
+      zone: "bust",
+      usual: "M",
+      between: true
+    });
+    expect(parsed.itemIds).toEqual(["w-kurta-1", "w-kurta-2"]);
+    expect(parsed.zone).toBe("bust");
+    expect(parsed.between).toBe(true);
+  });
 });

@@ -6,7 +6,7 @@
 > **North-star metric:** Wishlist-to-Purchase within 30 days (W2P 30d)  
 > **Constraint:** No monetary incentives as the core solution lever
 
-**Stance:** This is a **build spec by phase**. Phase 1 is a testable discovery workflow (assignment Part 1). Coach APIs, Prisma coach tables, and Vercel topology are specified only in **Phase 5**, and only if [problemstatement.md](./problemstatement.md) Phase 4’s decision tree still points at non-monetary Resolve/Decide. If that tree forks, rewrite Phase 5 before implementing it.
+**Stance:** This is a **build spec by phase**. Phase 1 is a testable discovery workflow (assignment Part 1). Coach APIs, Prisma coach tables, and Netlify topology are specified only in **Phase 5**, and only if [problemstatement.md](./problemstatement.md) Phase 4’s decision tree still points at non-monetary Resolve/Decide. If that tree forks, rewrite Phase 5 before implementing it.
 
 Each phase below uses: **goal · depends on · build this phase · architecture · contracts introduced · out of scope · exit criteria**.
 
@@ -95,7 +95,7 @@ Myntra production systems (real wishlist DB, push, checkout) are **out of scope*
 
 **Goal:** A reviewer-testable pipeline that identifies, quantifies, and **compares** opportunity areas for W2P 30d.  
 **Depends on:** Phase 0.  
-**Out of scope:** Next.js coach app, Prisma wishlist, Vercel MVP, interview quotes counted as discovery frequency.  
+**Out of scope:** Next.js coach app, Prisma wishlist, a second hosted MVP besides the Netlify storefront, interview quotes counted as discovery frequency.  
 **Exit criteria:** `data/discovery/pipeline-stats.json` → `readyForPhase2: true`. Reviewer can run `npm run discovery:refresh` and open the artefact files.
 
 ### Phase 1 stack (this phase only)
@@ -450,7 +450,7 @@ on :3000; this MVP runs on :3100 and is also the Studio tab **The coach**
 | **Database** | SQLite + Prisma 6 | Zero-infra demo |
 | **LLM** | Groq primary; OpenAI fallback; rule-based last | Structured output |
 | **Product ingest** | Public URL parse + demo catalog + collect | No official API |
-| **Deploy** | Vercel | Assignment “deployed and testable” |
+| **Deploy** | Netlify | Assignment public URL — Phase-1 Vite storefront |
 | **Testing** | Vitest `tests/mvp/` | Segment, schemas, guardrails |
 
 ### Cumulative tree after Phase 5
@@ -597,7 +597,7 @@ Label W2P in the demo as a **proxy**. Page: `/dashboard`.
 
 ---
 
-### 5e — n8n + Vercel
+### 5e — n8n + Netlify
 
 **Build:** Optional workflows; public deploy.
 
@@ -612,32 +612,33 @@ Webhook auth: `x-webhook-secret: <N8N_WEBHOOK_SECRET>`.
 
 ```mermaid
 flowchart TB
-  subgraph vercel [Vercel]
-    NextApp[Next.js MVP]
-    SQLite[(SQLite bundled)]
+  subgraph netlify [Netlify]
+    Storefront[Phase-1 Vite storefront]
+    Fns[Coach functions]
   end
   subgraph external [External]
     Groq[Groq API]
     OpenAI[OpenAI fallback]
     n8n[n8n optional]
   end
-  User[Reviewer] --> NextApp
-  NextApp --> SQLite
-  NextApp --> Groq
-  NextApp --> OpenAI
-  n8n --> NextApp
+  User[Reviewer] --> Storefront
+  Storefront --> Fns
+  Fns --> Groq
+  Fns --> OpenAI
+  n8n --> Storefront
 ```
 
 | Service | Host |
 |---------|------|
-| Next.js MVP | **Vercel** — assignment public URL |
+| Next.js MVP | Optional :3100 — not the reviewer URL |
+| Phase-1 storefront | **Netlify** — assignment public URL (`netlify.toml`) |
 | SQLite | Bundled; `prisma db push` + seed in deploy |
 | Discovery pipeline | Local / Actions; `data/discovery/` committed or fetched at build |
 | Collect UI | Local :3001 |
 
-**Deliverable URLs (placeholders):** Discovery `[TBD]/playground` + `[TBD]/api/discovery`; MVP `[TBD]/mvp`.  
-**Env added:** `N8N_WEBHOOK_SECRET`, `NEXT_PUBLIC_COLLECT_URL`.  
-**Exit 5e:** Public `/mvp` and `/api/health` respond.
+**Deliverable URLs:** Netlify site `/studio`, `/studio?view=coach`, `/survey`.  
+**Env added:** `GROQ_API_KEY` (Netlify site env), optional `OPENAI_API_KEY`, `GROQ_MODEL`.  
+**Exit 5e:** Public `/studio` and `/api/coach/status` respond.
 
 ---
 
@@ -681,7 +682,7 @@ Store `generationMeta` `{ provider, model, latencyMs, evidenceIds }` on every `C
 | **Return rate** | Manual in deck; not simulated in v1 |
 | **Removal rate** | `item_removed` / coach-exposed items |
 
-**Deck slide (architecture):** Client (wishlist → coach → compare) · API (ingest, analyze, compare, events) · Intelligence (Groq + discovery RAG + review synthesis) · Data (SQLite + `themes.json`) · Deploy (Vercel) · Metric hooks (funnel → W2P proxies).
+**Deck slide (architecture):** Client (wishlist → coach → compare) · API (ingest, analyze, compare, events) · Intelligence (Groq + discovery RAG + review synthesis) · Data (SQLite + `themes.json`) · Deploy (Netlify) · Metric hooks (funnel → W2P proxies).
 
 **Exit criteria:** Public discovery link + public MVP link + 10-slide PDF per [problemstatement.md](./problemstatement.md) Phase 6.
 
@@ -786,7 +787,7 @@ Webhook routes require `x-webhook-secret`.
 | LLM invents fit claims | Structured output + required `evidenceReviewIds` |
 | Discovery themes too generic | Ranking rubric + min quotes + Q1–Q10 map |
 | Compare overload | Max 3 items; same category |
-| SQLite on Vercel | Acceptable for demo; document Postgres/Turso path |
+| SQLite on serverless | Phase-5 demo only; storefront does not need it on Netlify |
 | Sale-watcher dominates | Separate seed; do not merge into P1 |
 | Coach feels like spam | In-app only; cap prompts; watch `item_removed` |
 

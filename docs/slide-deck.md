@@ -4,11 +4,11 @@ Canonical copy for [`myntra-w2p-30d-deck.pdf`](./myntra-w2p-30d-deck.pdf). Print
 
 Built to [ProjectDetails.md](./ProjectDetails.md) (Parts 1–7 + deck guidelines) and [architecture.md](./architecture.md) (phase map, contracts, metric tree, coach guardrails).
 
-Visual: Myntra brand kit — charcoal `#282C3F`, pink `#FF3F6C`, white, pink wash `#FFF4F6`. Outfit, sharp cards, pink header bar. Senior-PM copy unchanged.
+Visual: NextLeap 16:9 template with Myntra chrome — navy rail `#282C3F`, pink `#FF3F6C`, maroon titles, dashed cards. Body ≥ 14pt. Senior-PM copy unchanged.
 
-**Guidelines met:** no fellow name · 10 slides · body ≥ 14pt · titles are the key message · contrast on colour · colour-blind-safe (navy / ink / amber + labels, never red vs green) · artefacts hyperlinked.
+**Guidelines met:** no fellow name · 10 slides · body ≥ 14pt · titles are the key message · contrast on colour · colour-blind-safe (labels and column headers, not colour alone) · artefacts hyperlinked.
 
-Public artefacts: [GitHub](https://github.com/vrj87/GradProject3) · [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · Studio after `cd Phase-1 && npm run dev`. Public Vercel URL is not published.
+Public artefacts: [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · Studio after `cd Phase-1 && npm run dev`, or the Netlify production URL.
 
 ---
 
@@ -45,7 +45,7 @@ Live sources (App Store RSS, Play Store, Reddit, YouTube, forums) → **Keep** (
 **Score** = `0.4 × impact + 0.4 × non-monetary feasibility + 0.2 × frequency`  
 high = 1 · medium = 0.6 · low = 0.3. Empty cells stay empty. Sentiment-only output fails Part 1.
 
-Test: [Phase-1 on GitHub](https://github.com/vrj87/GradProject3/tree/main/Phase-1) · [live voices](http://localhost:3000/studio?view=stories) · [Q1–Q10](http://localhost:3000/studio?view=questions) · [what to focus on](http://localhost:3000/studio?view=focus)
+Test: Studio after `npm run dev` · [live voices](http://localhost:3000/studio?view=stories) · [Q1–Q10](http://localhost:3000/studio?view=questions) · [what to focus on](http://localhost:3000/studio?view=focus)
 
 ---
 
@@ -65,7 +65,7 @@ Hybrid extract: 3 LLM batches failed; 7 themes gap-filled. Funnel is in pipeline
 
 ## Slide 5 — Shoppers say price. Asked for help, they want a verdict — not a coupon.
 
-Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live interviews. [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [records](https://github.com/vrj87/GradProject3/tree/main/docs/research/interview-notes) · [/survey](http://localhost:3000/survey) · [synthesis](https://github.com/vrj87/GradProject3/blob/main/docs/research/synthesis.md)
+Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live interviews. [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [/survey](http://localhost:3000/survey)
 
 - Main unbought reason (Q8): price-shaped **5/9**; fit as the *main* reason **0/9**.
 - What they do (Q11): reviews **8/9** · customer photos **7/9** · in-app compare **6/9** · wait for a sale **2/9**.
@@ -78,7 +78,7 @@ Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live intervi
 
 ## Slide 6 — The stalled shortlister cannot finish a judgement inside the wishlist.
 
-**Locked** ([problem-definition.md](https://github.com/vrj87/GradProject3/blob/main/docs/problem-definition.md)): a wishlist captures interest but offers no way to finish a judgement — neither *which of these* nor *is it worth what it costs*. The only tool the app offers is a falling price, so intent parks on a sale that may never arrive in 30 days. **Price is the symptom of a missing judgement aid — not a demand for money.**
+**Locked** (stalled shortlister): a wishlist captures interest but offers no way to finish a judgement — neither *which of these* nor *is it worth what it costs*. The only tool the app offers is a falling price, so intent parks on a sale that may never arrive in 30 days. **Price is the symptom of a missing judgement aid — not a demand for money.**
 
 - **Segment:** Stalled Shortlister — saves, returns, leaves without deciding. Sale-watchers are a control, not the audience.
 - **Primary outcome:** shortlist-to-decision (buy or drop). Removals count.
@@ -113,12 +113,11 @@ Guardrails in code: cite evidence; confidence bands, not guarantees; sale-wait t
 | API | Ingest · analyze · compare · value · events (Phase-5 contracts) |
 | Intelligence | Quote-grounded scrape → rank 0.4 / 0.4 / 0.2 → Groq (extract + optional rewrite) |
 | Data | `themes.json`, ranking, survey, problem lock; SQLite in Phase-5 |
-| Deploy | Intended host: Vercel. **Public URL not published.** Test: `cd Phase-1 && npm run dev` |
+| Deploy | Intended host: **Netlify** (`netlify.toml`). Test: `cd Phase-1 && npm run dev` |
 | Metric hooks | `coach_opened` · `compare_completed` · `uncertainty_resolved` · `cart_add_simulated` — **proxies** |
 
-- Repo / discovery: [github.com/vrj87/GradProject3](https://github.com/vrj87/GradProject3)
 - [Room](http://localhost:3000/studio?view=room) · [Coach](http://localhost:3000/studio?view=coach) · [Stories](http://localhost:3000/studio?view=stories) · [Survey](http://localhost:3000/survey)
-- [Problem lock](https://github.com/vrj87/GradProject3/blob/main/docs/problem-definition.md) · [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
+- [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
 
 ---
 

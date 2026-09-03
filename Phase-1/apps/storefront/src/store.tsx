@@ -127,7 +127,7 @@ function persistOrders(next: PlacedOrder[]) {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ orders: payload })
     }).catch(() => {
-      /* Vite shared store is optional if the file API is down. */
+      /* Netlify / Vite shared store is optional if the file API is down. */
     });
   }, 400);
   return next;

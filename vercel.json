@@ -1,8 +1,0 @@
-{
-  "installCommand": "npm install --prefix Phase-1/apps/storefront",
-  "buildCommand": "npm run build --prefix Phase-1/apps/storefront",
-  "outputDirectory": "Phase-1/apps/storefront/dist",
-  "rewrites": [
-    { "source": "/((?!discovery/|phase2/|assets/).*)", "destination": "/index.html" }
-  ]
-}

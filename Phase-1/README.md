@@ -56,3 +56,7 @@ Set `GROQ_API_KEY` and/or `OPENAI_API_KEY` in `.env` (see `.env.example`).
 - Live Insights: http://localhost:3000/studio?view=stories
 - Q1–Q10 coverage: http://localhost:3000/studio?view=questions
 - Opportunity ranking (Phase 2): http://localhost:3000/studio?view=focus
+
+## Production
+
+Deployed on **Netlify** from the repo root (`netlify.toml` publishes `Phase-1/apps/storefront/dist`). Set `GROQ_API_KEY` in the Netlify site env so `/api/coach/insights` can rephrase; without it the coach stays rule-based.

@@ -1,6 +1,6 @@
 # Reprint the 10-slide PDF
 
-Myntra brand template (pink `#FF3F6C` + charcoal `#282C3F`). Widescreen 13.333 × 7.5 in. Body ≥ 14pt. Font: `docs/deck/fonts/Outfit.ttf`.
+NextLeap 16:9 template with Myntra chrome (navy `#282C3F`, pink `#FF3F6C`). Body ≥ 14pt. System Calibri.
 
 ```powershell
 $edge = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"

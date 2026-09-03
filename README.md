@@ -34,6 +34,17 @@ Open [http://localhost:3000/studio](http://localhost:3000/studio):
 
 **10-slide PDF:** [docs/myntra-w2p-30d-deck.pdf](./docs/myntra-w2p-30d-deck.pdf) (copy in [docs/slide-deck.md](./docs/slide-deck.md)).
 
+## Production (Netlify)
+
+The public storefront is the Phase-1 Vite app. Config lives in [`netlify.toml`](./netlify.toml).
+
+1. In [Netlify](https://app.netlify.com), **Add new site → Import an existing project** and pick this GitHub repo.
+2. Build settings are already in `netlify.toml` (command, publish dir, Node 20, redirects). Do not override them unless you know you need to.
+3. **Site configuration → Environment variables** — add `GROQ_API_KEY` (and optionally `OPENAI_API_KEY`, `GROQ_MODEL`). Same names as `Phase-1/.env`. Do not commit keys.
+4. Deploy. Studio is `/studio`, coach is `/studio?view=coach`, survey is `/survey`.
+
+Local demo is unchanged: `cd Phase-1 && npm install && npm run dev` → http://localhost:3000/studio
+
 ## Structure
 
 | Path | Description |

@@ -253,7 +253,10 @@ export async function rewriteCoachWithLlm(input: {
   const { url, apiKey, model, provider } = config;
 
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), input.timeoutMs ?? 20_000);
+  const timer = setTimeout(
+    () => controller.abort(),
+    input.timeoutMs ?? (env.NETLIFY ? 8_000 : 20_000)
+  );
   const fetchImpl = input.fetchImpl ?? fetch;
   const messages = [
     { role: "system", content: COACH_SYSTEM_PROMPT },

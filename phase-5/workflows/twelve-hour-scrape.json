@@ -11,7 +11,7 @@
       "type": "n8n-nodes-base.executeCommand",
       "parameters": {
         "command": "npm run phase1:refresh",
-        "note": "Runs locally or on Actions. A Vercel function cannot write Phase-1/data/discovery."
+        "note": "Runs locally or on Actions. A Netlify function cannot write Phase-1/data/discovery."
       }
     },
     {

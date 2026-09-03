@@ -1,0 +1,35 @@
+[build]
+  command = "npm install --prefix Phase-1 && npm run build --workspace=@myntra/storefront --prefix Phase-1"
+  publish = "Phase-1/apps/storefront/dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Coach APIs (Vite middleware locally; Netlify Functions in production)
+[[redirects]]
+  from = "/api/coach/insights"
+  to = "/.netlify/functions/coach-insights"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/coach/status"
+  to = "/.netlify/functions/coach-status"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/orders"
+  to = "/.netlify/functions/orders"
+  status = 200
+  force = true
+
+# SPA routes (/studio, /wishlist, /survey, …). Existing files in publish/ win first.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -47,7 +47,7 @@ Phase 1 storefront stays on :3000. The coach also lives as a Studio tab:
 | **5b** | 16 SKU catalog; URL ingest allowlisted to `myntra.com`; blocked fetch falls back to catalog. |
 | **5c** | `lib/segment.ts` from the Phase 4 contract; fit / style / compare / **value**; Groq → OpenAI → rule-based. |
 | **5d** | Events + `/dashboard`. A drop counts as a completed decision. |
-| **5e** | Webhook routes behind `x-webhook-secret`. n8n JSON in `workflows/`. Deploy is Vercel when you want a public URL. |
+| **5e** | Webhook routes behind `x-webhook-secret`. n8n JSON in `workflows/`. Assignment public URL is the Phase-1 storefront on Netlify. |
 | **5f** | Vitest under `tests/mvp/unit/` — segment, ingest allowlist, schemas, discount guardrail, funnel. |
 
 ## The segment gate

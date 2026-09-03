@@ -437,7 +437,7 @@ Target: **S2 ∩ S4** — ≥3 recent saves, ≤1 purchase, ≥3 items in one ca
 
 | ID | Edge case | Expected behavior | Severity |
 |----|-----------|-------------------|---------|
-| V-01 | Vercel deploy without seed | Demo users 404; seed post-deploy | P0 |
+| V-01 | Netlify deploy without public artefacts in `dist` | Discovery/survey JSON 404; copy artefacts at build | P0 |
 | V-02 | n8n points at wrong URL | Document env checklist | P0 |
 | V-03 | Deck has fellow name | Submission fail | P0 |
 | V-04 | Deck &gt;10 slides or font &lt;14 | Guideline fail | P0 |
