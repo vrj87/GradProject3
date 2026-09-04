@@ -234,6 +234,25 @@
     .barline .n { font-weight: 700; color: #660033; text-align: right; white-space: nowrap; }
     .caption { color: #6e6a6a; margin: 0; }
     .grow { flex: 1 1 auto; min-height: 0; }
+    .fit-row { flex: 0 0 auto !important; min-height: auto !important; }
+    .chosen-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.08in;
+      overflow: hidden;
+    }
+    .chosen-block .grid4 {
+      flex: 0 0 auto;
+      min-height: 0;
+      gap: 0.16in;
+    }
+    .step-h {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.05in;
+    }
+    .step-h .num { flex: 0 0 auto; margin-right: 0; }
     .tight td, .tight th { padding: 0.035in 0.07in; }
   </style>
 </head>
@@ -323,7 +342,7 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Public shopper voice becomes ranked opportunities, not a sentiment chart</h1>
-  <p class="sub">Part 1 — 1-slider. Quote-grounded themes, scored, compared. Sentiment-only output fails the brief. Empty cells stay empty.</p>
+  <p class="sub">1-slider. Quote-grounded themes, scored, compared. Sentiment-only output fails the brief. Empty cells stay empty.</p>
   <div class="grid5" style="flex:0.72;">
     <div class="fill-b">
       <p class="label" style="color:#fff;">1 Collect</p>
@@ -359,8 +378,8 @@
     </div>
     <div class="dash">
       <p class="label">How a reviewer tests this (and what we will not hide)</p>
-      <p>Sources in the 895: App Store <b>568</b> · Play Store <b>303</b> · Reddit 10 · YouTube 3 · forum 3 · Myntra review 2 · other 6. Method: <b>hybrid</b> — 3 LLM batches failed, 7 themes gap-filled. <b>readyForPhase2: true</b> with 12 validated themes, 0 rejected, Q1–Q10 covered.</p>
-      <p>Validation: every quote must resolve to a review id; &lt;2 quotes rejects the theme; high confidence needs ≥2 sources. Test after <b>npm run dev</b>: <a href="http://localhost:3000/studio?view=stories">live voices</a> · <a href="http://localhost:3000/studio?view=questions">Q1–Q10</a> · <a href="http://localhost:3000/studio?view=focus">what to focus on</a></p>
+      <p>Sources in the 895: App Store <b>568</b> · Play Store <b>303</b> · Reddit 10 · YouTube 3 · forum 3 · Myntra review 2 · other 6. Method: <b>hybrid</b> — 3 LLM batches failed, 7 themes gap-filled. <b>12 validated themes</b>, 0 rejected, Q1–Q10 covered.</p>
+      <p>Validation: every quote must resolve to a review id; &lt;2 quotes rejects the theme; high confidence needs ≥2 sources. Test on production: <a href="https://w2p-30days.netlify.app/studio?view=stories">live voices</a> · <a href="https://w2p-30days.netlify.app/studio?view=questions">Q1–Q10</a> · <a href="https://w2p-30days.netlify.app/studio?view=focus">what to focus on</a></p>
     </div>
   </div>
   <div class="bar bar-p">≫ Engine output is a comparable ranking, not a mood. Next: what the scrape actually ranked — including the price rows we will not build. →</div>
@@ -370,7 +389,7 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Fit ranked first. Sale-wait is #2 — and we still will not use it.</h1>
-  <p class="sub">895 → 150 → 12 compared. Phase 2 nominated FitSizeAnxiety → resolve. That is a nomination, not the lock.</p>
+  <p class="sub">895 → 150 → 12 compared. Ranking nominated fit / size anxiety → resolve. That is a nomination, not the lock.</p>
   <div class="grid3" style="flex:0.55;">
     <div class="fill-b">
       <p class="sec" style="color:#ffc1d0;">Rank 01 · Nominated</p>
@@ -416,14 +435,14 @@
       </table>
     </div>
   </div>
-  <div class="bar bar-t">Two price-flagged rows (#2 and #12) are labelled — colour is not the only signal. Ranking: <a href="http://localhost:3000/studio?view=focus">studio?view=focus</a>. Next: what shoppers said when asked. →</div>
+  <div class="bar bar-t">Two price-flagged rows (#2 and #12) are labelled — colour is not the only signal. Ranking: <a href="https://w2p-30days.netlify.app/studio?view=focus">studio?view=focus</a>. Next: what shoppers said when asked. →</div>
 </section>
 
 <!-- 5 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Shoppers say price. Asked for help, they want a verdict — not a coupon.</h1>
-  <p class="sub">Part 3 · structured questionnaire n = 9 · 28–31 Aug 2026 — not 5–6 live interviews. Closed options, so counts not sentences. No invented quotes.</p>
+  <p class="sub">Structured questionnaire n = 9 · 28–31 Aug 2026 — not 5–6 live interviews. Closed options, so counts not sentences. No invented quotes.</p>
   <div class="grid2" style="flex:0 0 auto; grid-template-columns:1.15fr 0.85fr;">
     <div class="tbl">
       <table class="tight">
@@ -465,14 +484,14 @@
       <p style="margin-top:0.06in;"><b>Confirmed:</b> decay, low confidence, comparison (save 4/9 · Q11 6/9 · help 3/9), review-reliance. <b>Challenged:</b> fit as #1; clutter; sale-wait as a fringe. <b>New:</b> “is this price fair?” — unbuilt, non-monetary. Price was never held constant.</p>
     </div>
   </div>
-  <div class="bar bar-l"><a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">Open the form</a> · <a href="http://localhost:3000/survey">/survey</a> · Problem proven in behaviour, not in a coupon request. Next: lock the problem. →</div>
+  <div class="bar bar-l"><a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">Open the form</a> · <a href="https://w2p-30days.netlify.app/survey">/survey</a> · Problem proven in behaviour, not in a coupon request. Next: lock the problem. →</div>
 </section>
 
 <!-- 6 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>The stalled shortlister cannot finish a judgement inside the wishlist.</h1>
-  <p class="sub">Part 4 lock · generated from artefacts, not typed by hand · incentiveMvpAllowed = false</p>
+  <p class="sub">Lock generated from artefacts, not typed by hand · incentive Allowed is false</p>
   <div class="fill-p" style="flex:0 0 auto;">
     <p>A wishlist captures interest but offers no way to finish a judgement — neither <i>which of these is right for me</i> nor <i>is this worth what it costs</i>. The only decision tool the app offers is a falling price, so intent parks on a sale that may never arrive in 30 days.</p>
     <p class="quote">Price is the symptom of a missing judgement aid — not a demand for money.</p>
@@ -498,7 +517,7 @@
   <div class="grid2" style="flex:0.75;">
     <div class="dash-g">
       <p class="label" style="color:#2f6b45;">Decision tree — proceed, re-scoped, no incentive</p>
-      <p><b>Price-dominant</b> fired in its non-terminal form: 2/2 in-segment named a discount, price never held constant, but all four discount-seekers still research or compare. <b>Fork</b> also fired: Decide outranks Resolve, so Phase 5 is decision-first. Clean “proceed as specified” did <b>not</b> fire.</p>
+      <p><b>Price-dominant</b> fired in its non-terminal form: 2/2 in-segment named a discount, price never held constant, but all four discount-seekers still research or compare. <b>Fork</b> also fired: Decide outranks Resolve, so the build is decision-first. Clean “proceed as specified” did <b>not</b> fire.</p>
     </div>
     <div class="dash-t">
       <p class="label">How to falsify this lock</p>
@@ -512,8 +531,8 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>One Studio tab finishes the call — hang, name the doubt, ask the coach</h1>
-  <p class="sub">Part 5 · decision-first. Room and coach are one shopper path. Q14 mean 2.89 drops “AI picks winners”. Worth is cost-per-wear — a proxy, not a market-price oracle.</p>
-  <div class="grid3" style="flex:0.55;">
+  <p class="sub">Decision-first. Room and coach are one shopper path. Q14 mean 2.89 drops “AI picks winners”. Worth is cost-per-wear — a proxy, not a market-price oracle.</p>
+  <div class="grid3 fit-row">
     <div class="dash-t">
       <p><span class="badge">Rejected</span></p>
       <p class="label">Recs + discount</p>
@@ -530,27 +549,27 @@
       <p>Q14 mean 2.89, one flat zero. The coach asks three questions. It does not name a winner or add urgency.</p>
     </div>
   </div>
-  <div class="dash-g grow">
-    <p><span class="badge-g badge">Chosen</span> <b>The studio</b> — one tab on the Phase-1 storefront. Pick two of the same kind, hang them, name the doubt, then fit · wear · worth. Why this room stays a separate evidence tab.</p>
-    <div class="grid4" style="margin-top:0.08in; flex:1;">
+  <div class="dash-g grow chosen-block">
+    <p><span class="badge-g badge">Chosen</span> <b>The studio</b> — one tab on the live storefront. Pick two of the same kind, hang them, name the doubt, then fit · wear · worth. Why this room stays a separate evidence tab.</p>
+    <div class="grid4">
       <div>
-        <p><span class="num">1</span><b>Save similar</b></p>
-        <p>Two or more of the same kind. Matches the segment contract. <b>/wishlist</b></p>
+        <p class="step-h"><span class="num">1</span><b>Save similar</b></p>
+        <p>Two or more of the same kind. Matches the segment contract. <a href="https://w2p-30days.netlify.app/wishlist">/wishlist</a></p>
       </div>
       <div>
-        <p><span class="num">2</span><b>Pick two &amp; hang</b></p>
-        <p>Same kind, same gender, price off. One Studio tab — not a second coach screen. <b>/studio</b></p>
+        <p class="step-h"><span class="num">2</span><b>Pick two &amp; hang</b></p>
+        <p>Same kind, same gender, price off. One Studio tab — not a second coach screen. <a href="https://w2p-30days.netlify.app/studio">/studio</a></p>
       </div>
       <div>
-        <p><span class="num">3</span><b>Name the doubt</b></p>
+        <p class="step-h"><span class="num">3</span><b>Name the doubt</b></p>
         <p>Tap bust, length, or foot on the body. Size from shopper notes — confidence bands, not a guarantee.</p>
       </div>
       <div>
-        <p><span class="num">4</span><b>Ask the coach</b></p>
+        <p class="step-h"><span class="num">4</span><b>Ask the coach</b></p>
         <p>Still on that pair, same tab. <b>Fit</b> · <b>wear</b> · <b>worth</b> as cost per wear. Then keep one to bag. Never a discount.</p>
       </div>
     </div>
-    <p style="margin-top:0.07in;"><b>Honest gap:</b> value confidence (“is this a fair price?”) is the top requested help and is <b>not</b> a market-price verdict in this build. Cost-per-wear is the non-monetary stand-in. Guardrails in code: cite evidence ids; &lt;3 reviews → low band; sale-wait takes the look off the hanger; coupons / EOSS / urgency rejected.</p>
+    <p><b>Honest gap:</b> value confidence (“is this a fair price?”) is the top requested help and is <b>not</b> a market-price verdict in this build. Cost-per-wear is the non-monetary stand-in. Guardrails: evidence ids; &lt;3 reviews → low band; sale-wait takes the look off the hanger; coupons / EOSS / urgency rejected.</p>
   </div>
   <div class="bar bar-l">Decision-first · fit secondary · worth as wears. Next: one storefront a reviewer can actually run. →</div>
 </section>
@@ -559,7 +578,7 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>One storefront to test: discovery and one Studio path</h1>
-  <p class="sub">Reviewer app is the Phase-1 Vite storefront on :3000 (Netlify in production). Phase-5 Next.js on :3100 is not the demo URL.</p>
+  <p class="sub">Live demo: <a href="https://w2p-30days.netlify.app/">w2p-30days.netlify.app</a> — shop, wishlist, studio, and evidence on one storefront.</p>
   <div class="flow">
     <div class="dash" style="text-align:center;"><p class="label">Shop</p><p>Catalogue · save similar</p></div>
     <div class="arrow">→</div>
@@ -576,34 +595,34 @@
     </div>
     <div class="dash">
       <p class="label">API</p>
-      <p>Ingest · analyze · compare · value · events. Coach: <b>POST /api/coach/insights</b> + status. Discount copy is rejected at the schema.</p>
+      <p>Ingest · analyze · compare · value · events. <b>Coach Insights</b>. Discount copy is rejected at the schema.</p>
     </div>
     <div class="dash-p">
       <p class="label">Intelligence</p>
-      <p>Quote-grounded scrape → rank 0.4 / 0.4 / 0.2. Coach: rule-based first; Groq rephrases prose; OpenAI fallback. RAG from <b>themes.json</b>.</p>
+      <p>Quote-grounded scrape → rank 0.4 / 0.4 / 0.2. Coach: rule-based first. RAG from <b>themes.json</b>.</p>
     </div>
     <div class="dash">
       <p class="label">Data</p>
-      <p><b>themes.json</b>, ranking, survey, problem lock. SQLite + Prisma in Phase-5 for sessions and events. No Myntra production DB.</p>
+      <p><b>themes.json</b>, ranking, survey, problem lock. No Myntra production database.</p>
     </div>
     <div class="dash-g">
       <p class="label" style="color:#2f6b45;">Deploy</p>
-      <p><b>Netlify</b> from <b>netlify.toml</b> (Node 20). Local: <b>cd Phase-1 && npm install && npm run dev</b> → localhost:3000/studio. Set GROQ_API_KEY in site env to rephrase.</p>
+      <p><b>Netlify.</b> Live studio: <a href="https://w2p-30days.netlify.app/studio">w2p-30days.netlify.app/studio</a>.</p>
     </div>
     <div class="dash-t">
-      <p class="label">Metric hooks (proxies)</p>
-      <p><b>coach_opened</b> · <b>compare_completed</b> · <b>uncertainty_resolved</b> · <b>cart_add_simulated</b> · <b>item_removed</b>. Worth tile = cost-per-wear, not a lower ticket.</p>
+      <p class="label">Worth</p>
+      <p>Cost per wear on the pair — not a lower ticket, not a coupon.</p>
     </div>
   </div>
-  <p><a href="http://localhost:3000/studio?view=room">studio</a> · <a href="http://localhost:3000/studio?view=room&step=keep">coach on the pair</a> · <a href="http://localhost:3000/studio?view=stories">stories</a> · <a href="http://localhost:3000/studio?view=focus">ranking</a> · <a href="http://localhost:3000/survey">survey</a> · <a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">form</a></p>
-  <div class="bar bar-p">≫ Live storefront after <b>cd Phase-1 && npm install && npm run dev</b> → localhost:3000/studio →</div>
+  <p><a href="https://w2p-30days.netlify.app/studio?view=room">studio</a> · <a href="https://w2p-30days.netlify.app/studio?view=room&step=keep">coach on the pair</a> · <a href="https://w2p-30days.netlify.app/studio?view=stories">stories</a> · <a href="https://w2p-30days.netlify.app/studio?view=focus">ranking</a> · <a href="https://w2p-30days.netlify.app/survey">survey</a> · <a href="https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform">form</a></p>
+  <div class="bar bar-p">≫ Live storefront: <a href="https://w2p-30days.netlify.app/studio">https://w2p-30days.netlify.app/studio</a> →</div>
 </section>
 
 <!-- 9 -->
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>A finished decision is a win. A coupon tap is not.</h1>
-  <p class="sub">Part 6 · every metric has a definition and a rationale. Demo cart / purchase flags are proxies — labelled as such.</p>
+  <p class="sub">Every metric has a definition and a rationale. Demo cart / purchase flags are proxies — labelled as such.</p>
   <div class="tbl grow">
     <table class="tight">
       <thead><tr><th>Layer</th><th>Metric</th><th>Definition</th><th>Rationale</th></tr></thead>
@@ -636,7 +655,7 @@
           <td><b>Leading</b></td>
           <td>Room / coach use</td>
           <td>Coach opened or keep-one completed ÷ eligible shortlists</td>
-          <td>Mechanism. <b>compare_completed</b> / compare starts.</td>
+          <td>Mechanism. Compare completed ÷ compare starts.</td>
         </tr>
         <tr>
           <td><b>Guardrail</b></td>
@@ -659,8 +678,8 @@
       <p><b>Control:</b> standard wishlist (no coach). <b>Treatment:</b> locked intervention on eligible segment items. <b>MDE:</b> set after a baseline proxy exists — do not invent +X pp. <b>Duration:</b> 30-day window + 1 week buffer.</p>
     </div>
     <div class="fill-p">
-      <p class="label">Proxies in the demo</p>
-      <p>coach_opened · compare_completed · uncertainty_resolved · cart_add_simulated · item_removed. <b>These are proxies.</b> Do not report them as live W2P. Label "simulated" on the dashboard and deck.</p>
+      <p class="label">Demo flags</p>
+      <p>Cart and purchase in the demo are labelled simulated. Do not report them as live W2P.</p>
     </div>
     <div class="fill-r">
       <p class="label">Kill test</p>
@@ -674,7 +693,7 @@
 <section class="slide">
   <div class="brand"><span class="logo">Myntra</span> Growth · Wishlist · W2P 30d <span class="chip">No coupon</span></div>
   <h1>Thin segment. Still-binding price. Fake certainty.</h1>
-  <p class="sub">Part 7 · solution-specific risks. The decision tree is executable. incentiveMvpAllowed is false, so no branch can enable a coupon.</p>
+  <p class="sub">Solution-specific risks. The decision tree is executable. incentive Allowed is false, so no branch can enable a coupon.</p>
   <div class="tbl grow">
     <table class="tight">
       <thead><tr><th>Risk</th><th>Why it hurts this solution</th><th>Mitigation already in the lock / build</th></tr></thead>

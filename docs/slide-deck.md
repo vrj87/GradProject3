@@ -8,7 +8,7 @@ Visual: NextLeap 16:9 template with Myntra chrome — navy rail `#282C3F`, pink 
 
 **Guidelines met:** no fellow name · 10 slides · body ≥ 14pt · titles are the key message · contrast on colour · colour-blind-safe (labels and column headers, not colour alone) · artefacts hyperlinked.
 
-Public artefacts: [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · Studio after `cd Phase-1 && npm run dev`, or the Netlify production URL. No GitHub URL on the slides.
+Public artefacts: [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · live Studio [https://w2p-30days.netlify.app/studio](https://w2p-30days.netlify.app/studio). No GitHub URL on the slides.
 
 ---
 
@@ -26,7 +26,7 @@ Public artefacts: [questionnaire](https://docs.google.com/forms/d/e/1FAIpQLScmH7
 
 ## Slide 2 — W2P 30d only moves if shoppers return, finish a judgement, then act
 
-Each node has a **definition** and a **rationale** (Part 6).
+Each node has a **definition** and a **rationale**.
 
 | Node | Definition | Rationale after lock |
 |---|---|---|
@@ -41,19 +41,19 @@ Decide **8/9** vs Resolve **7/9** — margin of one person, so both ship. S3 sal
 
 ## Slide 3 — Public shopper voice becomes ranked opportunities, not a sentiment chart
 
-**1-slider** ([architecture.md](./architecture.md) Phase 1)
+**1-slider** ([architecture.md](./architecture.md))
 
 Collect (App/Play/Reddit/YouTube/forums) → Keep (drop &lt;8 words / off-topic / SHA-256 dupes; keyword gate) → Group (≥2 quotes; Q1–Q10; metric node) → Score (`0.4 × impact + 0.4 × non-monetary feasibility + 0.2 × frequency`; high = 1 · medium = 0.6 · low = 0.3) → Gate (price-flagged rows ranked then excluded; no lock until research).
 
-Funnel: 895 read · 503 too short · 239 off-topic · 3 dupes · **150** kept. Sources: App Store 568 · Play Store 303 · Reddit 10 · YouTube 3 · forum 3 · Myntra review 2 · other 6. Hybrid extract: 3 LLM batches failed; 7 themes gap-filled. `readyForPhase2: true`. Empty cells stay empty. Sentiment-only fails Part 1.
+Funnel: 895 read · 503 too short · 239 off-topic · 3 dupes · **150** kept. Sources: App Store 568 · Play Store 303 · Reddit 10 · YouTube 3 · forum 3 · Myntra review 2 · other 6. Hybrid extract: 3 LLM batches failed; 7 themes gap-filled. 12 validated themes. Empty cells stay empty. Sentiment-only fails the brief.
 
-Test: Studio after `npm run dev` · [live voices](http://localhost:3000/studio?view=stories) · [Q1–Q10](http://localhost:3000/studio?view=questions) · [what to focus on](http://localhost:3000/studio?view=focus)
+Test: [live voices](https://w2p-30days.netlify.app/studio?view=stories) · [Q1–Q10](https://w2p-30days.netlify.app/studio?view=questions) · [what to focus on](https://w2p-30days.netlify.app/studio?view=focus)
 
 ---
 
 ## Slide 4 — Fit ranked first. Sale-wait is #2 — and we still will not use it.
 
-**895** → **150** → **12** compared. Phase 2 nominated FitSizeAnxiety → resolve. **Not locked.**
+**895** → **150** → **12** compared. Ranking nominated fit / size anxiety → resolve. **Not locked.**
 
 | Rank | Opportunity | Score | Node | Note |
 |---|---|---|---|---|
@@ -65,13 +65,13 @@ Test: Studio after `npm run dev` · [live voices](http://localhost:3000/studio?v
 | 8–11 | Decay · review trust · bookmark · social | 0.65–0.49 | Revisit / Resolve | Confirmed or moderate later. |
 | 12 | Sale-waitlist | 0.39 | Revisit | **Price-flagged.** |
 
-Ranking: [studio?view=focus](http://localhost:3000/studio?view=focus)
+Ranking: [studio?view=focus](https://w2p-30days.netlify.app/studio?view=focus)
 
 ---
 
 ## Slide 5 — Shoppers say price. Asked for help, they want a verdict — not a coupon.
 
-Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live interviews. [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [/survey](http://localhost:3000/survey)
+Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live interviews. [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform) · [/survey](https://w2p-30days.netlify.app/survey)
 
 - Who: Myntra 7/9 · uses wishlist 6/9 · holds 1–5 saves 6/9 · unbought save 9/9 · strict staller **2/9** (R03, R07; target 5).
 - Q8: price-shaped **5/9**; fit as the *main* reason **0/9**. Q9 confidence mean **2.89**. Q14 AI-winners mean **2.89** — framing dropped.
@@ -84,7 +84,7 @@ Structured questionnaire, **n = 9**, 28–31 Aug 2026 — not 5–6 live intervi
 
 ## Slide 6 — The stalled shortlister cannot finish a judgement inside the wishlist.
 
-**Locked root cause:** a wishlist captures interest but offers no way to finish a judgement — neither *which of these* nor *is it worth what it costs*. The only tool the app offers is a falling price. **Price is the symptom of a missing judgement aid — not a demand for money.** `incentiveMvpAllowed` is false.
+**Locked root cause:** a wishlist captures interest but offers no way to finish a judgement — neither *which of these* nor *is it worth what it costs*. The only tool the app offers is a falling price. **Price is the symptom of a missing judgement aid — not a demand for money.** incentive Allowed is false.
 
 - **Segment:** Stalled Shortlister. ≥2 saves in 30d, ≤1 purchased, ≥2 of the same kind (floors lowered from 3 because 6/9 hold 1–5). Sale-watchers are a control. In-segment n = 2 — labelled.
 - **Primary:** shortlist-to-decision (buy or drop). Removals count.
@@ -101,8 +101,8 @@ Rejected: recs + discount · sale alerts / EOSS · AI that picks winners (Q14).
 
 **Chosen path (one shopper tab)**
 
-1. **Save similar** — two or more of the same kind. `/wishlist`
-2. **Pick two & hang** — same kind, same gender, price off. One Studio tab. `/studio`
+1. **Save similar** — two or more of the same kind. [/wishlist](https://w2p-30days.netlify.app/wishlist)
+2. **Pick two & hang** — same kind, same gender, price off. One Studio tab. [/studio](https://w2p-30days.netlify.app/studio)
 3. **Name the doubt** — tap bust, length, or foot. Size from shopper notes; bands, not guarantees.
 4. **Ask the coach** — fit · wear · **worth as cost-per-wear**, still on that pair, same tab. Then keep one to bag.
 
@@ -112,20 +112,20 @@ Why this room stays a separate evidence tab. **Honest gap:** “is this a fair p
 
 ## Slide 8 — One storefront to test: discovery and one Studio path
 
-Reviewer app = Phase-1 Vite on **:3000** (Netlify). Phase-5 Next.js on :3100 is not the demo URL.
+Live demo: **[w2p-30days.netlify.app](https://w2p-30days.netlify.app/)** — shop, wishlist, studio, and evidence on one storefront.
 
 Shop → wishlist → **The studio** (pick two · hang · doubt · coach) → Why this room (evidence).
 
 | Layer | What ships |
 |---|---|
 | Client | Shop → wishlist → The studio (one tab) + Why this room + discovery tabs |
-| API | Ingest · analyze · compare · value · events. `POST /api/coach/insights` |
-| Intelligence | Quote-grounded scrape → rank 0.4 / 0.4 / 0.2 → rule-based first, Groq rephrase, RAG from `themes.json` |
-| Data | `themes.json`, ranking, survey, problem lock; SQLite in Phase-5 |
-| Deploy | **Netlify** (`netlify.toml`). Test: `cd Phase-1 && npm run dev` |
-| Metric hooks | `coach_opened` · `compare_completed` · `uncertainty_resolved` · `cart_add_simulated` · `item_removed` — **proxies** |
+| API | Ingest · analyze · compare · value · events. Coach Insights |
+| Intelligence | Quote-grounded scrape → rank 0.4 / 0.4 / 0.2 → rule-based first, RAG from `themes.json` |
+| Data | `themes.json`, ranking, survey, problem lock |
+| Deploy | **Netlify:** [w2p-30days.netlify.app](https://w2p-30days.netlify.app/) |
+| Worth | Cost per wear on the pair — not a lower ticket, not a coupon |
 
-- [Studio](http://localhost:3000/studio?view=room) · [Coach step](http://localhost:3000/studio?view=room&step=keep) · [Stories](http://localhost:3000/studio?view=stories) · [Ranking](http://localhost:3000/studio?view=focus) · [Survey](http://localhost:3000/survey)
+- [Studio](https://w2p-30days.netlify.app/studio?view=room) · [Coach step](https://w2p-30days.netlify.app/studio?view=room&step=keep) · [Stories](https://w2p-30days.netlify.app/studio?view=stories) · [Ranking](https://w2p-30days.netlify.app/studio?view=focus) · [Survey](https://w2p-30days.netlify.app/survey)
 - [Form](https://docs.google.com/forms/d/e/1FAIpQLScmH7Z4FoFH7Y4XzsaMIR2prioWoh6AuHQVxfptRc3qmEzMZQ/viewform)
 
 ---
@@ -138,7 +138,7 @@ Shop → wishlist → **The studio** (pick two · hang · doubt · coach) → Wh
 | Primary | Shortlist-to-decision | Bought **or** deliberately dropped in 30d ÷ saves | Decide node |
 | Secondary | Uncertainty resolution | Doubt-cleared items ÷ items with a recorded doubt | Resolve; ships with Decide |
 | Leading | Wishlist reopen | Open wishlist in 30d ÷ savers | Revisit |
-| Leading | Room / coach use | Coach opened or keep-one completed ÷ eligible shortlists | Mechanism |
+| Leading | Room / coach use | Coach opened or keep-one completed ÷ eligible shortlists | Mechanism. Compare completed ÷ compare starts. |
 | Guardrail | No paid conversion | Coupon / sale-alert / price-drop click ≠ success | Constraint |
 | Guardrail | Returns and time-to-bag | Return rate must not rise; time-to-bag must not worsen | Honest fit can scare some buys |
 
